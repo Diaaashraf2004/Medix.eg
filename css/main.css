@@ -2691,6 +2691,7 @@ html[dir="rtl"] .cart-sidebar.open {
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  gap: 40px;
 }
 html[dir="rtl"] .carousel-slide-inner {
   flex-direction: row-reverse;
@@ -2698,6 +2699,7 @@ html[dir="rtl"] .carousel-slide-inner {
 .carousel-content {
   flex: 1.25;
   text-align: start;
+  min-width: 0;
 }
 .carousel-content h1 {
   font-family: var(--font-heading);
@@ -2722,6 +2724,7 @@ html[dir="rtl"] .carousel-content h1 {
   align-items: center;
   height: 80%;
   width: 100%;
+  min-width: 0;
 }
 .carousel-slide-img {
   max-width: 100%;
