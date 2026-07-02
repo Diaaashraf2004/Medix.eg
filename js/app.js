@@ -1520,8 +1520,10 @@ function renderOrderSuccessPage(orderNumber) {
         <div class="success-page">
           <span class="success-icon"><i class="ph ph-check-circle"></i></span>
           <h1 class="success-title">${t('checkout.success')}</h1>
-          <p style="color:var(--text-secondary);margin-bottom:24px;">${t('checkout.successMessage')}</p>
-          <div class="success-order-number">${orderNumber || ''}</div>
+          <p style="color:var(--text-secondary);margin-bottom:24px;">${getLang() === 'ar' ? 'سنتواصل معك قريباً لتأكيد التفاصيل. يمكنك متابعة طلبك من خلال الكود الظاهر بالأسفل أو باستخدام رقم هاتفك المسجل.' : "We'll contact you soon. You can track your order using the code below or your registered phone number."}</p>
+          <div class="success-order-number" onclick="navigator.clipboard.writeText('${orderNumber}').then(()=>showToast('${getLang() === 'ar' ? 'تم النسخ بنجاح!' : 'Copied successfully!'}', 'success'))" title="${getLang() === 'ar' ? 'اضغط للنسخ' : 'Click to copy'}">
+            ${orderNumber || ''} <i class="ph ph-copy" style="font-size: 1.2rem; margin-inline-start: 8px;"></i>
+          </div>
           <div class="mt-4 flex-center gap-2" style="flex-wrap:wrap;">
             <a href="#/track/${orderNumber || ''}" class="btn btn-primary" id="btn-track-success">${t('checkout.trackOrder')}</a>
             <a href="#/" class="btn btn-secondary" id="btn-home-success">${t('checkout.backToHome')}</a>
@@ -1537,9 +1539,36 @@ function renderOrderTrackingPage(orderNumber = '') {
   let orderHtml = '';
 
   if (orderNumber) {
-    const order = Store.getOrderByNumber(orderNumber);
-    if (order) {
-      orderHtml = renderOrderDetails(order);
+    const orders = Store.getOrders();
+    const query = orderNumber.trim().toUpperCase();
+    
+    let foundOrders = orders.filter(o => o.orderNumber.toUpperCase() === query);
+    if (foundOrders.length === 0) {
+      foundOrders = orders.filter(o => o.customerPhone && o.customerPhone.replace(/\s+/g, '') === query.replace(/\s+/g, ''));
+    }
+
+    if (foundOrders.length > 0) {
+      // Sort by date descending (newest first)
+      foundOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+      const newestOrder = foundOrders[0];
+      const previousOrders = foundOrders.slice(1);
+      
+      orderHtml = renderOrderDetails(newestOrder);
+      
+      if (previousOrders.length > 0) {
+        const previousOrdersHtml = previousOrders.map(o => renderOrderDetails(o)).join('<div style="margin:40px 0;border-top:1px dashed var(--border);"></div>');
+        const prevText = getLang() === 'ar' ? 'الطلبات السابقة' : 'Previous Orders';
+        orderHtml += `
+          <div class="text-center mt-5">
+            <button class="btn btn-secondary" id="btn-show-previous" onclick="document.getElementById('previous-orders-list').style.display='block'; this.style.display='none';"><i class="ph ph-clock-counter-clockwise"></i> ${prevText} (${previousOrders.length})</button>
+          </div>
+          <div id="previous-orders-list" style="display:none; margin-top:40px; padding-top:40px; border-top:2px solid var(--border);">
+            <h3 class="text-center mb-4">${prevText}</h3>
+            ${previousOrdersHtml}
+          </div>
+        `;
+      }
     } else {
       orderHtml = `
         <div class="empty-state">
@@ -1556,9 +1585,9 @@ function renderOrderTrackingPage(orderNumber = '') {
       <div class="container">
         <h1 class="text-center mb-4">${t('track.title')}</h1>
         <div class="track-search" id="track-search">
-          <p class="text-center mb-3" style="color:var(--text-secondary);">${t('track.enterOrder')}</p>
+          <p class="text-center mb-3" style="color:var(--text-secondary);">${getLang() === 'ar' ? 'أدخل رقم الطلب أو رقم الهاتف المسجل' : 'Enter order number or phone number'}</p>
           <div class="track-search-form">
-            <input type="text" class="form-input" id="track-input" placeholder="${t('track.placeholder')}" value="${escapeHtml(orderNumber)}">
+            <input type="text" class="form-input" id="track-input" placeholder="${getLang() === 'ar' ? 'مثال: LR-78432 أو 010...' : 'e.g. LR-78432 or 010...'}" value="${escapeHtml(orderNumber)}">
             <button class="btn btn-primary" data-action="track-order" id="btn-track-search">${t('track.search')}</button>
           </div>
         </div>

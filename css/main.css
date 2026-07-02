@@ -2194,10 +2194,22 @@ html[dir="rtl"] .products-sort .form-select {
   color: var(--accent);
   font-weight: 700;
   margin: 16px 0;
-  padding: 16px;
+  padding: 16px 24px;
   background: var(--accent-light);
   border-radius: var(--radius-md);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: all;
+  transition: opacity 0.2s ease;
+}
+.success-order-number:hover {
+  opacity: 0.85;
+}
+.success-order-number::selection {
+  background: var(--accent);
+  color: #fff;
 }
 
 @keyframes bounce {
