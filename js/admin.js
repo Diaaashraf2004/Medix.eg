@@ -793,6 +793,34 @@ function openProductModal(product = null) {
         <input type="checkbox" id="prod-show-scarcity" ${product?.showScarcityBadge !== false ? 'checked' : ''} style="width:20px; height:20px; cursor:pointer;">
         <label for="prod-show-scarcity" style="cursor:pointer; font-weight:bold;">${currentLang === 'ar' ? 'تفعيل شارة الاستعجال (سارع بالشراء! متبقي X فقط)' : 'Enable Scarcity Badge'}</label>
       </div>
+      
+      <!-- Notes -->
+      <div class="form-group full-width">
+        <label for="prod-note-ar">${currentLang === 'ar' ? 'ملاحظة المنتج (عربي) - اختياري' : 'Product Note (Ar) - Optional'}</label>
+        <input type="text" id="prod-note-ar" value="${product?.note_ar || ''}" placeholder="${currentLang === 'ar' ? 'مثال: يغسل بماء بارد فقط' : 'e.g. Wash with cold water only'}">
+      </div>
+      <div class="form-group full-width">
+        <label for="prod-note-en">${currentLang === 'ar' ? 'ملاحظة المنتج (إنجليزي) - اختياري' : 'Product Note (En) - Optional'}</label>
+        <input type="text" id="prod-note-en" value="${product?.note_en || ''}" placeholder="${currentLang === 'ar' ? 'مثال: Wash with cold water only' : 'e.g. Wash with cold water only'}">
+      </div>
+      
+      <!-- Sizes -->
+      <div class="form-group full-width">
+        <label for="prod-sizes">${currentLang === 'ar' ? 'المقاسات المتاحة (افصل بينها بفاصلة)' : 'Available Sizes (comma separated)'}</label>
+        <input type="text" id="prod-sizes" value="${(product?.sizes || []).join(', ')}" placeholder="S, M, L, XL, 2XL">
+      </div>
+
+      <!-- Colors -->
+      <div class="form-group full-width">
+        <label style="display:flex; justify-content:space-between; align-items:center;">
+          ${currentLang === 'ar' ? 'الألوان المتاحة' : 'Available Colors'}
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-add-color" style="padding: 4px 12px;"><i class="ph ph-plus"></i> ${currentLang === 'ar' ? 'إضافة لون' : 'Add Color'}</button>
+        </label>
+        <div id="colors-container" style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
+          <!-- Colors will be injected here -->
+        </div>
+      </div>
+
       <div class="form-group full-width">
         <label>${t('admin.images')}</label>
         <div class="file-upload-wrapper" style="margin-bottom:8px; display:flex; align-items:center; gap:12px;">
@@ -843,6 +871,38 @@ function openProductModal(product = null) {
   `;
 
   openModal(title, body, footer);
+
+  // Colors Logic
+  const colorsContainer = document.getElementById('colors-container');
+  let currentColors = product?.colors ? JSON.parse(JSON.stringify(product.colors)) : [];
+
+  function renderColors() {
+    colorsContainer.innerHTML = currentColors.map((color, idx) => `
+      <div class="color-row" style="display:flex; gap:10px; align-items:center; background:var(--bg-input); padding:10px; border-radius:8px; border:1px solid var(--border); flex-wrap: wrap;">
+        <input type="text" placeholder="${currentLang === 'ar' ? 'اسم اللون (عربي)' : 'Color Name (Ar)'}" value="${color.name_ar || ''}" onchange="updateColor(${idx}, 'name_ar', this.value)" style="flex:1; min-width:120px;">
+        <input type="text" placeholder="${currentLang === 'ar' ? 'اسم اللون (إنجليزي)' : 'Color Name (En)'}" value="${color.name_en || ''}" onchange="updateColor(${idx}, 'name_en', this.value)" style="flex:1; min-width:120px;">
+        <input type="color" value="${color.hex || '#000000'}" onchange="updateColor(${idx}, 'hex', this.value)" style="width:40px; height:40px; padding:0; border:none; cursor:pointer; border-radius:50%;" title="${currentLang === 'ar' ? 'درجة اللون' : 'Color Hex'}">
+        <input type="text" placeholder="${currentLang === 'ar' ? 'رابط الصورة (اختياري)' : 'Image URL (optional)'}" value="${color.image || ''}" onchange="updateColor(${idx}, 'image', this.value)" style="flex:2; min-width:200px;">
+        <button type="button" class="btn-icon danger" onclick="removeColorRow(${idx})" style="flex-shrink:0;"><i class="ph ph-trash"></i></button>
+      </div>
+    `).join('');
+  }
+
+  window.updateColor = function(idx, field, value) {
+    currentColors[idx][field] = value;
+  };
+
+  window.removeColorRow = function(idx) {
+    currentColors.splice(idx, 1);
+    renderColors();
+  };
+
+  document.getElementById('btn-add-color')?.addEventListener('click', () => {
+    currentColors.push({ name_ar: '', name_en: '', hex: '#000000', image: '' });
+    renderColors();
+  });
+
+  renderColors();
 
   // Image preview update
   const imgTextarea = document.getElementById('prod-images');
@@ -946,11 +1006,16 @@ function openProductModal(product = null) {
 
     const checkedLinked = Array.from(document.querySelectorAll('input[name="prod-linked"]:checked')).map(cb => cb.value);
 
+    const sizesRaw = document.getElementById('prod-sizes').value;
+    const sizes = sizesRaw.split(',').map(s => s.trim()).filter(Boolean);
+
     const data = {
       name_ar: nameAr,
       name_en: nameEn,
       description_ar: document.getElementById('prod-desc-ar').value.trim(),
       description_en: document.getElementById('prod-desc-en').value.trim(),
+      note_ar: document.getElementById('prod-note-ar').value.trim(),
+      note_en: document.getElementById('prod-note-en').value.trim(),
       price: price,
       discountPercentage: parseInt(document.getElementById('prod-discount').value) || 0,
       salePrice: parseFloat(document.getElementById('prod-sale-price').value) || 0,
@@ -959,6 +1024,8 @@ function openProductModal(product = null) {
       showScarcityBadge: document.getElementById('prod-show-scarcity').checked,
       scarcityThreshold: parseInt(document.getElementById('prod-scarcity-threshold').value) || 5,
       images: images,
+      sizes: sizes,
+      colors: currentColors.filter(c => c.name_ar || c.name_en), // Only save colors that have names
       status: document.getElementById('prod-status').value,
       featured: document.getElementById('prod-featured').checked,
       linkedProducts: checkedLinked

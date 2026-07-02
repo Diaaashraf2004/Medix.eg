@@ -590,21 +590,27 @@ function renderCartSidebar() {
     `;
   } else {
     itemsHtml = cartItems.map(item => `
-      <div class="cart-item" id="cart-item-${item.productId}">
+      <div class="cart-item" id="cart-item-${item.cartItemId || item.productId}">
         <img src="${item.product.images?.[0] || 'https://picsum.photos/seed/placeholder/150/150'}" alt="${escapeHtml(getProductName(item.product))}" class="cart-item-image" loading="lazy">
         <div class="cart-item-info">
           <div class="cart-item-name">${escapeHtml(getProductName(item.product))}</div>
+          ${(item.color || item.size) ? `
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">
+              ${item.color ? `${lang === 'ar' ? 'اللون:' : 'Color:'} <strong style="color:var(--text);">${escapeHtml(item.color)}</strong> ` : ''}
+              ${item.size ? `${lang === 'ar' ? 'المقاس:' : 'Size:'} <strong style="color:var(--text);">${escapeHtml(item.size)}</strong>` : ''}
+            </div>
+          ` : ''}
           <div class="cart-item-price">
             <span>${formatPrice(item.unitPrice)}</span>
             ${item.product.discountPercentage > 0 ? `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.85em; margin-inline-start: 8px;">${formatPrice(item.product.price)}</span>` : ''}
           </div>
           <div class="cart-item-actions">
             <div class="qty-selector">
-              <button class="qty-btn" data-action="cart-qty-decrease" data-product-id="${item.productId}"><i class="ph ph-minus"></i></button>
+              <button class="qty-btn" data-action="cart-qty-decrease" data-product-id="${item.productId}" data-cart-item-id="${item.cartItemId || item.productId}"><i class="ph ph-minus"></i></button>
               <span class="qty-value">${item.quantity}</span>
-              <button class="qty-btn" data-action="cart-qty-increase" data-product-id="${item.productId}"><i class="ph ph-plus"></i></button>
+              <button class="qty-btn" data-action="cart-qty-increase" data-product-id="${item.productId}" data-cart-item-id="${item.cartItemId || item.productId}"><i class="ph ph-plus"></i></button>
             </div>
-            <button class="btn btn-ghost btn-sm" data-action="cart-remove" data-product-id="${item.productId}" style="color:var(--danger)"><i class="ph ph-trash"></i></button>
+            <button class="btn btn-ghost btn-sm" data-action="cart-remove" data-product-id="${item.productId}" data-cart-item-id="${item.cartItemId || item.productId}" style="color:var(--danger)"><i class="ph ph-trash"></i></button>
           </div>
         </div>
       </div>
@@ -1137,6 +1143,39 @@ function renderProductDetailPage(productId) {
 
             <p class="product-detail-description">${escapeHtml(getProductDesc(product))}</p>
 
+            ${(product.colors && product.colors.length > 0) ? `
+              <div class="product-variant-section" style="margin-bottom:20px;">
+                <div class="variant-title" style="margin-bottom:8px;">${lang === 'ar' ? 'اللون:' : 'Color:'} <span id="selected-color-name" style="font-weight:bold; color:var(--text); margin-inline-start:4px;">${lang === 'ar' ? 'اختر اللون' : 'Select Color'}</span></div>
+                <div class="color-swatches" id="product-colors-container" style="display:flex; gap:10px; flex-wrap:wrap;">
+                  ${product.colors.map(c => `
+                    <button class="color-swatch" data-action="select-color" data-color-ar="${escapeHtml(c.name_ar)}" data-color-en="${escapeHtml(c.name_en)}" data-image="${escapeHtml(c.image || '')}" style="background-color: ${c.hex}; width:36px; height:36px; border-radius:50%; border:2px solid var(--border); cursor:pointer; position:relative;" aria-label="${escapeHtml(lang === 'ar' ? c.name_ar : c.name_en)}" title="${escapeHtml(lang === 'ar' ? c.name_ar : c.name_en)}"></button>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            ${(product.sizes && product.sizes.length > 0) ? `
+              <div class="product-variant-section" style="margin-bottom:20px;">
+                <div class="variant-title" style="margin-bottom:8px;">${lang === 'ar' ? 'المقاس:' : 'Size:'} <span id="selected-size-name" style="font-weight:bold; color:var(--text); margin-inline-start:4px;">${lang === 'ar' ? 'اختر المقاس' : 'Select Size'}</span></div>
+                <div class="size-selectors" id="product-sizes-container" style="display:flex; gap:10px; flex-wrap:wrap;">
+                  ${product.sizes.map(s => `
+                    <button class="size-swatch" data-action="select-size" data-size="${escapeHtml(s)}" style="padding:8px 16px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-card); cursor:pointer; font-weight:600;">${escapeHtml(s)}</button>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+            
+            ${(product.note_ar || product.note_en) ? `
+              <div class="product-note-alert" style="background-color: var(--bg-card); border: 1px solid var(--primary); padding: 12px; border-radius: var(--radius-md); margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start;">
+                <i class="ph-fill ph-info" style="color: var(--primary); font-size: 20px; margin-top:2px;"></i>
+                <span style="font-weight:500; font-size: 0.95rem;">${escapeHtml(lang === 'ar' ? (product.note_ar || product.note_en) : (product.note_en || product.note_ar))}</span>
+              </div>
+            ` : ''}
+            
+            <div id="variant-error" style="color: var(--danger); font-size: 14px; margin-bottom: 15px; display: none; font-weight:600;">
+              ${lang === 'ar' ? 'الرجاء اختيار اللون والمقاس أولاً' : 'Please select color and size first'}
+            </div>
+
             <div class="product-detail-actions" id="product-actions">
               <div class="qty-selector" id="qty-selector-detail">
                 <button class="qty-btn" data-action="detail-qty-decrease" id="detail-qty-minus"><i class="ph ph-minus"></i></button>
@@ -1383,15 +1422,21 @@ function renderCheckoutPage() {
           <div class="order-summary-card" id="checkout-summary">
             <h3 class="mb-3">${t('checkout.orderSummary')}</h3>
             ${cartItems.map(item => `
-              <div class="order-summary-item">
+              <div class="order-summary-item" id="checkout-item-${item.cartItemId || item.productId}">
                 <img src="${item.product.images?.[0] || 'https://picsum.photos/seed/placeholder/100/100'}" alt="" class="order-summary-item-image" loading="lazy">
                 <div class="order-summary-item-info">
                   <div class="order-summary-item-name">${escapeHtml(getProductName(item.product))}</div>
+                  ${(item.color || item.size) ? `
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2px;">
+                      ${item.color ? `${lang === 'ar' ? 'اللون:' : 'Color:'} <strong style="color:var(--text);">${escapeHtml(item.color)}</strong> ` : ''}
+                      ${item.size ? `${lang === 'ar' ? 'المقاس:' : 'Size:'} <strong style="color:var(--text);">${escapeHtml(item.size)}</strong>` : ''}
+                    </div>
+                  ` : ''}
                   <div class="checkout-item-actions" style="margin-top: 8px;">
                     <div class="qty-selector" style="transform: scale(0.9); transform-origin: ${isRTL() ? 'right' : 'left'} center;">
-                      <button type="button" class="qty-btn" data-action="checkout-qty-decrease" data-product-id="${item.productId}"><i class="ph ph-minus"></i></button>
+                      <button type="button" class="qty-btn" data-action="checkout-qty-decrease" data-product-id="${item.productId}" data-cart-item-id="${item.cartItemId || item.productId}"><i class="ph ph-minus"></i></button>
                       <span class="qty-value">${item.quantity}</span>
-                      <button type="button" class="qty-btn" data-action="checkout-qty-increase" data-product-id="${item.productId}"><i class="ph ph-plus"></i></button>
+                      <button type="button" class="qty-btn" data-action="checkout-qty-increase" data-product-id="${item.productId}" data-cart-item-id="${item.cartItemId || item.productId}"><i class="ph ph-plus"></i></button>
                     </div>
                   </div>
                 </div>
@@ -1471,15 +1516,21 @@ function updateCheckoutSummary() {
   summaryContainer.innerHTML = `
     <h3 class="mb-3">${t('checkout.orderSummary')}</h3>
     ${cartItems.map(item => `
-      <div class="order-summary-item">
+      <div class="order-summary-item" id="checkout-item-${item.cartItemId || item.productId}">
         <img src="${item.product.images?.[0] || 'https://picsum.photos/seed/placeholder/100/100'}" alt="" class="order-summary-item-image" loading="lazy">
         <div class="order-summary-item-info">
           <div class="order-summary-item-name">${escapeHtml(getProductName(item.product))}</div>
+          ${(item.color || item.size) ? `
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2px;">
+              ${item.color ? `${lang === 'ar' ? 'اللون:' : 'Color:'} <strong style="color:var(--text);">${escapeHtml(item.color)}</strong> ` : ''}
+              ${item.size ? `${lang === 'ar' ? 'المقاس:' : 'Size:'} <strong style="color:var(--text);">${escapeHtml(item.size)}</strong>` : ''}
+            </div>
+          ` : ''}
           <div class="checkout-item-actions" style="margin-top: 8px;">
             <div class="qty-selector" style="transform: scale(0.9); transform-origin: ${isRTL() ? 'right' : 'left'} center;">
-              <button type="button" class="qty-btn" data-action="checkout-qty-decrease" data-product-id="${item.productId}"><i class="ph ph-minus"></i></button>
+              <button type="button" class="qty-btn" data-action="checkout-qty-decrease" data-product-id="${item.productId}" data-cart-item-id="${item.cartItemId || item.productId}"><i class="ph ph-minus"></i></button>
               <span class="qty-value">${item.quantity}</span>
-              <button type="button" class="qty-btn" data-action="checkout-qty-increase" data-product-id="${item.productId}"><i class="ph ph-plus"></i></button>
+              <button type="button" class="qty-btn" data-action="checkout-qty-increase" data-product-id="${item.productId}" data-cart-item-id="${item.cartItemId || item.productId}"><i class="ph ph-plus"></i></button>
             </div>
           </div>
         </div>
@@ -2093,20 +2144,24 @@ document.addEventListener('click', (e) => {
       break;
 
     case 'cart-qty-increase': {
-      const item = Store.getCart().find(i => i.productId === productId);
-      if (item) Store.updateCartQuantity(productId, item.quantity + 1);
+      const cartId = target.dataset.cartItemId || productId;
+      const item = Store.getCart().find(i => i.cartItemId === cartId || i.productId === cartId);
+      if (item) Store.updateCartQuantity(cartId, item.quantity + 1);
       break;
     }
 
     case 'cart-qty-decrease': {
-      const item = Store.getCart().find(i => i.productId === productId);
-      if (item) Store.updateCartQuantity(productId, item.quantity - 1);
+      const cartId = target.dataset.cartItemId || productId;
+      const item = Store.getCart().find(i => i.cartItemId === cartId || i.productId === cartId);
+      if (item) Store.updateCartQuantity(cartId, item.quantity - 1);
       break;
     }
 
-    case 'cart-remove':
-      Store.removeFromCart(productId);
+    case 'cart-remove': {
+      const cartId = target.dataset.cartItemId || productId;
+      Store.removeFromCart(cartId);
       break;
+    }
 
     case 'go-checkout':
       closeCartSidebar();
@@ -2132,9 +2187,74 @@ document.addEventListener('click', (e) => {
       break;
     }
 
+    case 'select-color': {
+      const container = target.closest('#product-colors-container');
+      container.querySelectorAll('.color-swatch').forEach(btn => btn.classList.remove('selected'));
+      target.classList.add('selected');
+      const colorName = currentLang === 'ar' ? target.dataset.colorAr : target.dataset.colorEn;
+      document.getElementById('selected-color-name').textContent = colorName;
+      
+      const imageUrl = target.dataset.image;
+      if (imageUrl && imageUrl !== 'undefined') {
+        document.getElementById('detail-main-image-fg').src = imageUrl;
+        document.getElementById('detail-main-image-blur').style.backgroundImage = `url('${imageUrl}')`;
+      }
+      document.getElementById('variant-error').style.display = 'none';
+      break;
+    }
+    
+    case 'select-size': {
+      const container = target.closest('#product-sizes-container');
+      container.querySelectorAll('.size-swatch').forEach(btn => btn.classList.remove('selected'));
+      target.classList.add('selected');
+      document.getElementById('selected-size-name').textContent = target.dataset.size;
+      document.getElementById('variant-error').style.display = 'none';
+      break;
+    }
+
     case 'detail-buy-now': {
+      const product = Store.getProduct(productId);
+      if (!product) break;
+      
+      const colorSwatches = document.getElementById('product-colors-container');
+      const sizeSwatches = document.getElementById('product-sizes-container');
+      
+      let selectedColor = null;
+      let selectedSize = null;
+      
+      if (colorSwatches) {
+        const selectedBtn = colorSwatches.querySelector('.color-swatch.selected');
+        if (!selectedBtn) {
+          document.getElementById('variant-error').style.display = 'block';
+          return;
+        }
+        selectedColor = currentLang === 'ar' ? selectedBtn.dataset.colorAr : selectedBtn.dataset.colorEn;
+      }
+      
+      if (sizeSwatches) {
+        const selectedBtn = sizeSwatches.querySelector('.size-swatch.selected');
+        if (!selectedBtn) {
+          document.getElementById('variant-error').style.display = 'block';
+          return;
+        }
+        selectedSize = selectedBtn.dataset.size;
+      }
+
       const qty = parseInt(document.getElementById('detail-qty-value')?.textContent) || 1;
-      if (Store.addToCart(productId, qty)) {
+      
+      let addedAny = false;
+      if (Store.addToCart(productId, qty, { color: selectedColor, size: selectedSize })) {
+        addedAny = true;
+      }
+
+      const linkedCheckboxes = document.querySelectorAll('.linked-product-check:checked');
+      linkedCheckboxes.forEach(cb => {
+        if (Store.addToCart(cb.value, 1)) {
+          addedAny = true;
+        }
+      });
+
+      if (addedAny) {
         document.getElementById('modal-overlay')?.classList.remove('open');
         window.location.hash = '/checkout';
       }
@@ -2142,8 +2262,35 @@ document.addEventListener('click', (e) => {
     }
 
     case 'detail-add-to-cart': {
+      const product = Store.getProduct(productId);
+      if (!product) break;
+      
+      const colorSwatches = document.getElementById('product-colors-container');
+      const sizeSwatches = document.getElementById('product-sizes-container');
+      
+      let selectedColor = null;
+      let selectedSize = null;
+      
+      if (colorSwatches) {
+        const selectedBtn = colorSwatches.querySelector('.color-swatch.selected');
+        if (!selectedBtn) {
+          document.getElementById('variant-error').style.display = 'block';
+          return;
+        }
+        selectedColor = currentLang === 'ar' ? selectedBtn.dataset.colorAr : selectedBtn.dataset.colorEn;
+      }
+      
+      if (sizeSwatches) {
+        const selectedBtn = sizeSwatches.querySelector('.size-swatch.selected');
+        if (!selectedBtn) {
+          document.getElementById('variant-error').style.display = 'block';
+          return;
+        }
+        selectedSize = selectedBtn.dataset.size;
+      }
+
       const qty = parseInt(document.getElementById('detail-qty-value')?.textContent) || 1;
-      if (Store.addToCart(productId, qty)) {
+      if (Store.addToCart(productId, qty, { color: selectedColor, size: selectedSize })) {
         showToast(t('product.added'), 'success');
       }
       break;
@@ -2255,19 +2402,21 @@ document.addEventListener('click', (e) => {
 
     // Checkout Quantities
     case 'checkout-qty-increase': {
-      const item = Store.getCart().find(i => i.productId === productId);
-      if (item) Store.updateCartQuantity(productId, item.quantity + 1);
+      const cartId = target.dataset.cartItemId || productId;
+      const item = Store.getCart().find(i => i.cartItemId === cartId || i.productId === cartId);
+      if (item) Store.updateCartQuantity(cartId, item.quantity + 1);
       break;
     }
 
     case 'checkout-qty-decrease': {
-      const item = Store.getCart().find(i => i.productId === productId);
+      const cartId = target.dataset.cartItemId || productId;
+      const item = Store.getCart().find(i => i.cartItemId === cartId || i.productId === cartId);
       if (item && item.quantity > 1) {
-        Store.updateCartQuantity(productId, item.quantity - 1);
+        Store.updateCartQuantity(cartId, item.quantity - 1);
       } else if (item && item.quantity <= 1) {
         const confirmMsg = getLang() === 'ar' ? 'هل تريد إزالة هذا المنتج من الطلب؟' : 'Remove this item from order?';
         if (confirm(confirmMsg)) {
-          Store.removeFromCart(productId);
+          Store.removeFromCart(cartId);
         }
       }
       break;

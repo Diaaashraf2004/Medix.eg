@@ -3523,3 +3523,25 @@ html[dir='rtl'] .gallery-nav-btn.next {
     min-height: 300px;
   }
 }
+/* Product Variants */
+.color-swatch {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+.color-swatch.selected {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--bg-body), 0 0 0 4px var(--primary);
+}
+.size-swatch {
+  transition: all 0.2s;
+}
+.size-swatch:hover {
+  background-color: var(--border) !important;
+}
+.size-swatch.selected {
+  background-color: var(--primary) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+}

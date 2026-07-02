@@ -403,37 +403,41 @@ function getCart() {
   return getFromStorage(STORAGE_KEYS.cart) || [];
 }
 
-function addToCart(productId, quantity = 1) {
+function addToCart(productId, quantity = 1, options = {}) {
   const cart = getCart();
   const product = getProduct(productId);
   if (!product || product.stock <= 0) return false;
 
-  const existing = cart.find(item => item.productId === productId);
+  const { color = null, size = null } = options;
+  const cartItemId = `${productId}_${color || 'none'}_${size || 'none'}`;
+
+  const existing = cart.find(item => item.cartItemId === cartItemId || (item.productId === productId && item.color === color && item.size === size));
   if (existing) {
     const newQty = existing.quantity + quantity;
     existing.quantity = Math.min(newQty, product.stock);
+    if (!existing.cartItemId) existing.cartItemId = cartItemId;
   } else {
-    cart.push({ productId, quantity: Math.min(quantity, product.stock) });
+    cart.push({ cartItemId, productId, quantity: Math.min(quantity, product.stock), color, size });
   }
   saveToStorage(STORAGE_KEYS.cart, cart);
   emit('cart-updated', cart);
   return true;
 }
 
-function removeFromCart(productId) {
-  const cart = getCart().filter(item => item.productId !== productId);
+function removeFromCart(cartItemId) {
+  const cart = getCart().filter(item => item.cartItemId !== cartItemId && item.productId !== cartItemId);
   saveToStorage(STORAGE_KEYS.cart, cart);
   emit('cart-updated', cart);
 }
 
-function updateCartQuantity(productId, quantity) {
+function updateCartQuantity(cartItemId, quantity) {
   if (quantity <= 0) {
-    return removeFromCart(productId);
+    return removeFromCart(cartItemId);
   }
   const cart = getCart();
-  const item = cart.find(i => i.productId === productId);
+  const item = cart.find(i => i.cartItemId === cartItemId || i.productId === cartItemId);
   if (item) {
-    const product = getProduct(productId);
+    const product = getProduct(item.productId);
     item.quantity = Math.min(quantity, product ? product.stock : quantity);
     saveToStorage(STORAGE_KEYS.cart, cart);
     emit('cart-updated', cart);
@@ -1016,6 +1020,21 @@ function initFirebaseSync() {
             } catch(e) {}
             window.dispatchEvent(new CustomEvent('firebase-data-synced', { detail: { key: key } }));
           }
+        }
+      } else {
+        // Cloud document does not exist. If we have local data, push it to cloud.
+        const localDataStr = _useLocalStorage ? localStorage.getItem(key) : JSON.stringify(_memoryStore[key]);
+        if (localDataStr) {
+          try {
+            const localData = JSON.parse(localDataStr);
+            const hasData = Array.isArray(localData) ? localData.length > 0 : (localData && Object.keys(localData).length > 0);
+            if (hasData) {
+              const { setDoc } = window.FirebaseDB;
+              setDoc(doc(db, "store_data", key), { data: localData })
+                .then(() => console.log("Initial push to cloud for " + key))
+                .catch(e => console.error("Initial push failed for " + key, e));
+            }
+          } catch(e) {}
         }
       }
     });
