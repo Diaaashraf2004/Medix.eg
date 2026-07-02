@@ -822,7 +822,10 @@ function renderProductCard(product) {
 function renderHomePage() {
   const settings = Store.getSettings();
   const lang = getLang();
-  const featured = Store.getFeaturedProducts().slice(0, 8);
+  let featured = Store.getFeaturedProducts().slice(0, 8);
+  if (featured.length === 0) {
+    featured = Store.getActiveProducts().slice(0, 8);
+  }
   const categories = Store.getActiveCategories();
   const offers = Store.getDiscountedProducts().slice(0, 4);
   const subtitle = lang === 'ar' ? settings.subtitle_ar : settings.subtitle_en;

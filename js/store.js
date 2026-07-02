@@ -993,6 +993,22 @@ function initFirebaseSync() {
       if (exists) {
         const payload = docSnap.data().data;
         if (payload) {
+          const localDataStr = _useLocalStorage ? localStorage.getItem(key) : JSON.stringify(_memoryStore[key]);
+          let localData = null;
+          try { localData = localDataStr ? JSON.parse(localDataStr) : null; } catch(e){}
+
+          const isCloudEmpty = Array.isArray(payload) ? payload.length === 0 : (payload && Object.keys(payload).length === 0);
+          const hasLocalData = localData && (Array.isArray(localData) ? localData.length > 0 : Object.keys(localData).length > 0);
+
+          if (isCloudEmpty && hasLocalData) {
+            // Cloud has an empty document, but we have local data. Push local data instead of wiping!
+            const { setDoc } = window.FirebaseDB;
+            setDoc(doc(db, "store_data", key), { data: localData })
+              .then(() => console.log("Override empty cloud with local data for " + key))
+              .catch(e => console.error("Override push failed for " + key, e));
+            return;
+          }
+
           const newPayloadStr = JSON.stringify(payload);
           let isDifferent = true;
           

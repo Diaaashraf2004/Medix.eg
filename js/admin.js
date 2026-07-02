@@ -712,7 +712,7 @@ function renderProducts() {
   `;
 }
 // ===== IMAGE COMPRESSION =====
-function compressImage(file, maxWidth, callback) {
+function compressImage(file, maxWidth, callback, targetRatio = null) {
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = function(event) {
@@ -720,20 +720,43 @@ function compressImage(file, maxWidth, callback) {
     img.src = event.target.result;
     img.onload = function() {
       const canvas = document.createElement('canvas');
-      let width = img.width;
-      let height = img.height;
+      let targetWidth = img.width;
+      let targetHeight = img.height;
+      let drawX = 0, drawY = 0, drawWidth = img.width, drawHeight = img.height;
 
-      if (width > maxWidth) {
-        height = Math.round((height * maxWidth) / width);
-        width = maxWidth;
+      // Smart Dimension Adjust (Pad with white to match target ratio)
+      if (targetRatio) {
+        const imageRatio = img.width / img.height;
+        if (imageRatio > targetRatio) {
+          targetWidth = img.width;
+          targetHeight = img.width / targetRatio;
+          drawY = (targetHeight - img.height) / 2;
+        } else if (imageRatio < targetRatio) {
+          targetHeight = img.height;
+          targetWidth = img.height * targetRatio;
+          drawX = (targetWidth - img.width) / 2;
+        }
       }
-      canvas.width = width;
-      canvas.height = height;
+
+      if (targetWidth > maxWidth) {
+        const scale = maxWidth / targetWidth;
+        targetWidth = maxWidth;
+        targetHeight *= scale;
+        drawX *= scale;
+        drawY *= scale;
+        drawWidth *= scale;
+        drawHeight *= scale;
+      }
+
+      canvas.width = Math.round(targetWidth);
+      canvas.height = Math.round(targetHeight);
 
       const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, width, height);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, Math.round(drawX), Math.round(drawY), Math.round(drawWidth), Math.round(drawHeight));
 
-      const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+      const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85);
       callback(compressedBase64);
     };
   };
@@ -946,7 +969,7 @@ function openProductModal(product = null) {
             imgTextarea.dispatchEvent(new Event('input'));
             imgUpload.value = ''; // reset
           }
-        });
+        }, 3/4);
       });
     });
   }
@@ -1161,7 +1184,7 @@ function openCategoryModal(category = null) {
             <img src="${base64}" alt="Preview" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
           </div>
         `;
-      });
+      }, 1);
     });
   }
 
