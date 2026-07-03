@@ -432,6 +432,20 @@ function renderNavbar() {
   
   const currentCustomer = Store.getCurrentCustomer();
 
+  let announcementHtml = '';
+  if (settings.announcementActive) {
+    const text = lang === 'ar' ? (settings.announcementText_ar || '') : (settings.announcementText_en || settings.announcementText_ar || '');
+    if (text) {
+      announcementHtml = `
+        <div style="background-color: ${settings.announcementBgColor || '#000000'}; color: ${settings.announcementTextColor || '#ffffff'}; padding: 10px; text-align: center; font-weight: bold; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 8px;">
+          <i class="ph ph-megaphone"></i>
+          <span>${escapeHtml(text)}</span>
+        </div>
+      `;
+    }
+  }
+  const annContainer = document.getElementById('announcement-bar-container');
+  if (annContainer) annContainer.innerHTML = announcementHtml;
   let bannerHtml = '';
   let bannerClosed = false;
   try {
