@@ -1822,9 +1822,11 @@ function renderDesign() {
                 <div class="form-group">
                   <label>${currentLang === 'ar' ? 'مكان الظهور' : 'Position'}</label>
                   <select class="banner-position">
-                    <option value="top" ${banner.position === 'top' ? 'selected' : ''}>${currentLang === 'ar' ? 'أعلى الصفحة (تحت السلايدر)' : 'Top (Below Slider)'}</option>
-                    <option value="middle" ${banner.position === 'middle' ? 'selected' : ''}>${currentLang === 'ar' ? 'وسط الصفحة (فوق المنتجات)' : 'Middle (Above Products)'}</option>
-                    <option value="bottom" ${banner.position === 'bottom' ? 'selected' : ''}>${currentLang === 'ar' ? 'أسفل الصفحة (فوق الفوتر)' : 'Bottom (Above Footer)'}</option>
+                    <option value="top" ${banner.position === 'top' ? 'selected' : ''}>${currentLang === 'ar' ? 'أعلى الرئيسية (تحت السلايدر)' : 'Home Top (Below Slider)'}</option>
+                    <option value="middle" ${banner.position === 'middle' ? 'selected' : ''}>${currentLang === 'ar' ? 'وسط الرئيسية (فوق المنتجات)' : 'Home Middle (Above Products)'}</option>
+                    <option value="bottom" ${banner.position === 'bottom' ? 'selected' : ''}>${currentLang === 'ar' ? 'أسفل الرئيسية (فوق الفوتر)' : 'Home Bottom (Above Footer)'}</option>
+                    <option value="product_top" ${banner.position === 'product_top' ? 'selected' : ''}>${currentLang === 'ar' ? 'أعلى صفحة المنتج' : 'Product Page Top'}</option>
+                    <option value="product_bottom" ${banner.position === 'product_bottom' ? 'selected' : ''}>${currentLang === 'ar' ? 'أسفل صفحة المنتج' : 'Product Page Bottom'}</option>
                   </select>
                 </div>
               </div>
@@ -2478,9 +2480,11 @@ function attachDesignListeners() {
             <div class="form-group">
               <label>${currentLang === 'ar' ? 'مكان الظهور' : 'Position'}</label>
               <select class="banner-position">
-                <option value="top" selected>${currentLang === 'ar' ? 'أعلى الصفحة (تحت السلايدر)' : 'Top (Below Slider)'}</option>
-                <option value="middle">${currentLang === 'ar' ? 'وسط الصفحة (فوق المنتجات)' : 'Middle (Above Products)'}</option>
-                <option value="bottom">${currentLang === 'ar' ? 'أسفل الصفحة (فوق الفوتر)' : 'Bottom (Above Footer)'}</option>
+                <option value="top" selected>${currentLang === 'ar' ? 'أعلى الرئيسية (تحت السلايدر)' : 'Home Top (Below Slider)'}</option>
+                <option value="middle">${currentLang === 'ar' ? 'وسط الرئيسية (فوق المنتجات)' : 'Home Middle (Above Products)'}</option>
+                <option value="bottom">${currentLang === 'ar' ? 'أسفل الرئيسية (فوق الفوتر)' : 'Home Bottom (Above Footer)'}</option>
+                <option value="product_top">${currentLang === 'ar' ? 'أعلى صفحة المنتج' : 'Product Page Top'}</option>
+                <option value="product_bottom">${currentLang === 'ar' ? 'أسفل صفحة المنتج' : 'Product Page Bottom'}</option>
               </select>
             </div>
           </div>

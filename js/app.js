@@ -1093,8 +1093,23 @@ function renderProductDetailPage(productId) {
   const linkedIds = product.linkedProducts || [];
   const linkedProducts = Store.getActiveProducts().filter(p => linkedIds.includes(p.id));
 
+  const renderBannersForPosition = (pos) => {
+    return (settings.customBanners || [])
+      .filter(b => b.active && (b.position || 'top') === pos)
+      .map(b => `
+        <div class="custom-banner" style="background-color: ${b.bgColor}; color: ${b.textColor}; padding: ${b.size === 'small' ? '15px' : b.size === 'large' ? '40px' : '25px'} 0; text-align: ${b.align}; margin-bottom: 24px;">
+          <div class="container">
+            <div style="font-size: ${b.size === 'small' ? '1.1rem' : b.size === 'large' ? '2rem' : '1.5rem'}; font-weight: bold; line-height: 1.4;">
+              ${escapeHtml(lang === 'ar' ? b.text_ar : b.text_en).replace(/\n/g, '<br>')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+  };
+
   return `
     <div class="page-content">
+      ${renderBannersForPosition('product_top')}
       <div class="container">
         <!-- Breadcrumb -->
         <nav class="breadcrumb" id="product-breadcrumb">
@@ -1303,6 +1318,7 @@ function renderProductDetailPage(productId) {
           </section>
         ` : ''}
       </div>
+      ${renderBannersForPosition('product_bottom')}
     </div>
   `;
 }
