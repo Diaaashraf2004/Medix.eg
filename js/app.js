@@ -2224,7 +2224,7 @@ document.addEventListener('click', (e) => {
       const container = target.closest('#product-colors-container');
       container.querySelectorAll('.color-swatch').forEach(btn => btn.classList.remove('selected'));
       target.classList.add('selected');
-      const colorName = currentLang === 'ar' ? target.dataset.colorAr : target.dataset.colorEn;
+      const colorName = getLang() === 'ar' ? target.dataset.colorAr : target.dataset.colorEn;
       document.getElementById('selected-color-name').textContent = colorName;
       
       const imageUrl = target.dataset.image;
@@ -2261,7 +2261,7 @@ document.addEventListener('click', (e) => {
           document.getElementById('variant-error').style.display = 'block';
           return;
         }
-        selectedColor = currentLang === 'ar' ? selectedBtn.dataset.colorAr : selectedBtn.dataset.colorEn;
+        selectedColor = getLang() === 'ar' ? selectedBtn.dataset.colorAr : selectedBtn.dataset.colorEn;
       }
       
       if (sizeSwatches) {
@@ -2310,7 +2310,7 @@ document.addEventListener('click', (e) => {
           document.getElementById('variant-error').style.display = 'block';
           return;
         }
-        selectedColor = currentLang === 'ar' ? selectedBtn.dataset.colorAr : selectedBtn.dataset.colorEn;
+        selectedColor = getLang() === 'ar' ? selectedBtn.dataset.colorAr : selectedBtn.dataset.colorEn;
       }
       
       if (sizeSwatches) {

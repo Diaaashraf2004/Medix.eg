@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // Medix - Admin Panel
 // ============================================
 // ============================================
@@ -22,150 +22,150 @@ let settingsHistoryIndex = -1;
 // ===== i18n =====
 const translations = {
   ar: {
-    'admin.login': 'تسجيل الدخول',
-    'admin.password': 'كلمة المرور',
-    'admin.loginBtn': 'دخول',
-    'admin.wrongPassword': 'كلمة المرور غير صحيحة',
-    'admin.dashboard': 'لوحة التحكم',
-    'admin.products': 'المنتجات',
-    'admin.categories': 'التصنيفات',
-    'admin.orders': 'الطلبات',
-    'admin.settings': 'الإعدادات',
-    'admin.reviews': 'التقييمات',
-    'admin.logout': 'تسجيل الخروج',
-    'admin.totalProducts': 'إجمالي المنتجات',
-    'admin.totalOrders': 'إجمالي الطلبات',
-    'admin.revenue': 'الإيرادات',
-    'admin.pendingOrders': 'طلبات معلقة',
-    'admin.addProduct': 'إضافة منتج',
-    'admin.editProduct': 'تعديل المنتج',
-    'admin.deleteProduct': 'حذف المنتج',
-    'admin.confirmDelete': 'هل أنت متأكد من الحذف؟',
-    'admin.confirmDeleteDesc': 'لا يمكن التراجع عن هذا الإجراء.',
-    'admin.productName_ar': 'اسم المنتج (عربي)',
-    'admin.productName_en': 'اسم المنتج (إنجليزي)',
-    'admin.description_ar': 'الوصف (عربي)',
-    'admin.description_en': 'الوصف (إنجليزي)',
-    'admin.price': 'السعر',
-    'admin.discount': 'نسبة الخصم %',
-    'admin.category': 'التصنيف',
-    'admin.stock': 'المخزون',
-    'admin.images': 'صور المنتج (روابط)',
-    'admin.featured': 'منتج مميز',
-    'admin.status': 'الحالة',
-    'admin.addCategory': 'إضافة تصنيف',
-    'admin.editCategory': 'تعديل التصنيف',
-    'admin.categoryName_ar': 'اسم التصنيف (عربي)',
-    'admin.categoryName_en': 'اسم التصنيف (إنجليزي)',
-    'admin.icon': 'الأيقونة',
-    'admin.order': 'الترتيب',
-    'admin.orderNumber': 'رقم الطلب',
-    'admin.customer': 'العميل',
-    'admin.phone': 'الهاتف',
-    'admin.address': 'العنوان',
-    'admin.total': 'الإجمالي',
-    'admin.date': 'التاريخ',
-    'admin.updateStatus': 'تحديث الحالة',
-    'admin.viewDetails': 'عرض التفاصيل',
-    'admin.storeName': 'اسم المتجر',
-    'admin.subtitle': 'العنوان الفرعي',
-    'admin.fontHeading': 'خط العناوين',
-    'admin.fontBody': 'خط النصوص',
-    'admin.accentColor': 'اللون الأساسي',
-    'admin.contactPhone': 'رقم الهاتف',
-    'admin.contactWhatsapp': 'رقم الواتساب',
-    'admin.contactEmail': 'البريد الإلكتروني',
-    'admin.shippingCost': 'تكلفة الشحن',
-    'admin.freeShippingThreshold': 'حد الشحن المجاني',
-    'admin.saveSettings': 'حفظ الإعدادات',
-    'admin.approve': 'موافقة',
-    'admin.pending': 'معلق',
-    'admin.approved': 'تم الموافقة',
-    'admin.storeIdentity': 'هوية المتجر',
-    'admin.typography': 'الخطوط',
-    'admin.colors': 'الألوان',
-    'admin.contactInfo': 'معلومات التواصل',
-    'admin.shipping': 'الشحن',
-    'admin.subtitleAr': 'العنوان الفرعي (عربي)',
-    'admin.subtitleEn': 'العنوان الفرعي (إنجليزي)',
-    'admin.aboutAr': 'عن المتجر (عربي)',
-    'admin.aboutEn': 'عن المتجر (إنجليزي)',
-    'admin.fontArHeading': 'خط العناوين العربي',
-    'admin.fontArBody': 'خط النصوص العربي',
-    'admin.addressAr': 'العنوان (عربي)',
-    'admin.addressEn': 'العنوان (إنجليزي)',
-    'admin.livePreview': 'معاينة مباشرة',
-    'admin.headingSample': 'نص عنوان تجريبي',
-    'admin.bodySample': 'هذا نص تجريبي لمعاينة الخط المختار. يمكنك رؤية كيف سيبدو الخط في المتجر.',
-    'admin.recentOrders': 'أحدث الطلبات',
-    'admin.quickActions': 'إجراءات سريعة',
-    'admin.viewAllOrders': 'عرض كل الطلبات',
-    'admin.backToStore': 'العودة للمتجر',
-    'admin.product': 'المنتج',
-    'admin.rating': 'التقييم',
-    'admin.comment': 'التعليق',
-    'admin.noReviews': 'لا توجد تقييمات',
-    'admin.noProducts': 'لا توجد منتجات',
-    'admin.noCategories': 'لا توجد تصنيفات',
-    'admin.noOrders': 'لا توجد طلبات',
-    'admin.selectCategory': 'اختر التصنيف',
-    'admin.all': 'الكل',
-    'admin.new': 'جديد',
-    'admin.confirmed': 'مؤكد',
-    'admin.preparing': 'قيد التحضير',
-    'admin.shipping': 'قيد الشحن',
-    'admin.delivered': 'تم التوصيل',
-    'admin.cancelled': 'ملغي',
-    'admin.orderDetails': 'تفاصيل الطلب',
-    'admin.customerInfo': 'معلومات العميل',
-    'admin.orderItems': 'عناصر الطلب',
-    'admin.subtotal': 'المجموع الفرعي',
-    'admin.shippingFee': 'رسوم الشحن',
-    'admin.grandTotal': 'الإجمالي',
-    'admin.notes': 'ملاحظات',
-    'admin.messageOnWhatsapp': 'مراسلة واتساب',
-    'admin.city': 'المدينة',
-    'admin.email': 'البريد',
-    'admin.qty': 'الكمية',
-    'admin.unitPrice': 'سعر الوحدة',
-    'admin.free': 'مجاني',
-    'admin.imageUrls': 'أدخل رابط صورة واحد في كل سطر',
-    'admin.active': 'نشط',
-    'admin.inactive': 'غير نشط',
-    'admin.name': 'الاسم',
-    'admin.productCount': 'عدد المنتجات',
-    'admin.deleteCategory': 'حذف التصنيف',
-    'admin.deleteReview': 'حذف التقييم',
-    'admin.settingsSaved': 'تم حفظ الإعدادات بنجاح',
-    'admin.productSaved': 'تم حفظ المنتج بنجاح',
-    'admin.productDeleted': 'تم حذف المنتج',
-    'admin.categorySaved': 'تم حفظ التصنيف بنجاح',
-    'admin.categoryDeleted': 'تم حذف التصنيف',
-    'admin.orderUpdated': 'تم تحديث حالة الطلب',
-    'admin.reviewApproved': 'تم الموافقة على التقييم',
-    'admin.reviewDeleted': 'تم حذف التقييم',
-    'admin.fillRequired': 'يرجى ملء جميع الحقول المطلوبة',
-    'admin.currency': 'ج.م',
-    'admin.adminPanel': 'لوحة التحكم',
-    'admin.welcomeBack': 'مرحباً بك مجدداً',
-    'admin.loginSubtitle': 'أدخل كلمة المرور للدخول إلى لوحة التحكم',
-    'admin.deleteOrder': 'حذف الطلب',
-    'admin.orderDeleted': 'تم حذف الطلب',
-    'admin.coupons': 'الكوبونات',
-    'admin.addCoupon': 'إضافة كوبون',
-    'admin.editCoupon': 'تعديل الكوبون',
-    'admin.code': 'كود الخصم',
-    'admin.discountType': 'نوع الخصم',
-    'admin.discountValue': 'قيمة الخصم',
-    'admin.percentage': 'نسبة مئوية (%)',
-    'admin.fixed': 'مبلغ ثابت',
-    'admin.minOrderAmount': 'الحد الأدنى للطلب',
-    'admin.expiryDate': 'تاريخ الانتهاء',
-    'admin.deleteCoupon': 'حذف الكوبون',
-    'admin.couponSaved': 'تم حفظ الكوبون',
-    'admin.couponDeleted': 'تم حذف الكوبون',
-    'admin.noCoupons': 'لا توجد كوبونات',
-    'admin.couponDiscount': 'خصم الكوبون'
+    'admin.login': 'Ã˜ÂªÃ˜Â³Ã˜Â¬Ã™Å Ã™â€ž Ã˜Â§Ã™â€žÃ˜Â¯Ã˜Â®Ã™Ë†Ã™â€ž',
+    'admin.password': 'Ã™Æ’Ã™â€žÃ™â€¦Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â±Ã™Ë†Ã˜Â±',
+    'admin.loginBtn': 'Ã˜Â¯Ã˜Â®Ã™Ë†Ã™â€ž',
+    'admin.wrongPassword': 'Ã™Æ’Ã™â€žÃ™â€¦Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â±Ã™Ë†Ã˜Â± Ã˜ÂºÃ™Å Ã˜Â± Ã˜ÂµÃ˜Â­Ã™Å Ã˜Â­Ã˜Â©',
+    'admin.dashboard': 'Ã™â€žÃ™Ë†Ã˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â­Ã™Æ’Ã™â€¦',
+    'admin.products': 'Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬Ã˜Â§Ã˜Âª',
+    'admin.categories': 'Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™ÂÃ˜Â§Ã˜Âª',
+    'admin.orders': 'Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨Ã˜Â§Ã˜Âª',
+    'admin.settings': 'Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¹Ã˜Â¯Ã˜Â§Ã˜Â¯Ã˜Â§Ã˜Âª',
+    'admin.reviews': 'Ã˜Â§Ã™â€žÃ˜ÂªÃ™â€šÃ™Å Ã™Å Ã™â€¦Ã˜Â§Ã˜Âª',
+    'admin.logout': 'Ã˜ÂªÃ˜Â³Ã˜Â¬Ã™Å Ã™â€ž Ã˜Â§Ã™â€žÃ˜Â®Ã˜Â±Ã™Ë†Ã˜Â¬',
+    'admin.totalProducts': 'Ã˜Â¥Ã˜Â¬Ã™â€¦Ã˜Â§Ã™â€žÃ™Å  Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬Ã˜Â§Ã˜Âª',
+    'admin.totalOrders': 'Ã˜Â¥Ã˜Â¬Ã™â€¦Ã˜Â§Ã™â€žÃ™Å  Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨Ã˜Â§Ã˜Âª',
+    'admin.revenue': 'Ã˜Â§Ã™â€žÃ˜Â¥Ã™Å Ã˜Â±Ã˜Â§Ã˜Â¯Ã˜Â§Ã˜Âª',
+    'admin.pendingOrders': 'Ã˜Â·Ã™â€žÃ˜Â¨Ã˜Â§Ã˜Âª Ã™â€¦Ã˜Â¹Ã™â€žÃ™â€šÃ˜Â©',
+    'admin.addProduct': 'Ã˜Â¥Ã˜Â¶Ã˜Â§Ã™ÂÃ˜Â© Ã™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬',
+    'admin.editProduct': 'Ã˜ÂªÃ˜Â¹Ã˜Â¯Ã™Å Ã™â€ž Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬',
+    'admin.deleteProduct': 'Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬',
+    'admin.confirmDelete': 'Ã™â€¡Ã™â€ž Ã˜Â£Ã™â€ Ã˜Âª Ã™â€¦Ã˜ÂªÃ˜Â£Ã™Æ’Ã˜Â¯ Ã™â€¦Ã™â€  Ã˜Â§Ã™â€žÃ˜Â­Ã˜Â°Ã™ÂÃ˜Å¸',
+    'admin.confirmDeleteDesc': 'Ã™â€žÃ˜Â§ Ã™Å Ã™â€¦Ã™Æ’Ã™â€  Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¬Ã˜Â¹ Ã˜Â¹Ã™â€  Ã™â€¡Ã˜Â°Ã˜Â§ Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¬Ã˜Â±Ã˜Â§Ã˜Â¡.',
+    'admin.productName_ar': 'Ã˜Â§Ã˜Â³Ã™â€¦ Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬ (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )',
+    'admin.productName_en': 'Ã˜Â§Ã˜Â³Ã™â€¦ Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬ (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )',
+    'admin.description_ar': 'Ã˜Â§Ã™â€žÃ™Ë†Ã˜ÂµÃ™Â (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )',
+    'admin.description_en': 'Ã˜Â§Ã™â€žÃ™Ë†Ã˜ÂµÃ™Â (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )',
+    'admin.price': 'Ã˜Â§Ã™â€žÃ˜Â³Ã˜Â¹Ã˜Â±',
+    'admin.discount': 'Ã™â€ Ã˜Â³Ã˜Â¨Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â®Ã˜ÂµÃ™â€¦ %',
+    'admin.category': 'Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â',
+    'admin.stock': 'Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â®Ã˜Â²Ã™Ë†Ã™â€ ',
+    'admin.images': 'Ã˜ÂµÃ™Ë†Ã˜Â± Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬ (Ã˜Â±Ã™Ë†Ã˜Â§Ã˜Â¨Ã˜Â·)',
+    'admin.featured': 'Ã™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬ Ã™â€¦Ã™â€¦Ã™Å Ã˜Â²',
+    'admin.status': 'Ã˜Â§Ã™â€žÃ˜Â­Ã˜Â§Ã™â€žÃ˜Â©',
+    'admin.addCategory': 'Ã˜Â¥Ã˜Â¶Ã˜Â§Ã™ÂÃ˜Â© Ã˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â',
+    'admin.editCategory': 'Ã˜ÂªÃ˜Â¹Ã˜Â¯Ã™Å Ã™â€ž Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â',
+    'admin.categoryName_ar': 'Ã˜Â§Ã˜Â³Ã™â€¦ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )',
+    'admin.categoryName_en': 'Ã˜Â§Ã˜Â³Ã™â€¦ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )',
+    'admin.icon': 'Ã˜Â§Ã™â€žÃ˜Â£Ã™Å Ã™â€šÃ™Ë†Ã™â€ Ã˜Â©',
+    'admin.order': 'Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â±Ã˜ÂªÃ™Å Ã˜Â¨',
+    'admin.orderNumber': 'Ã˜Â±Ã™â€šÃ™â€¦ Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨',
+    'admin.customer': 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€¦Ã™Å Ã™â€ž',
+    'admin.phone': 'Ã˜Â§Ã™â€žÃ™â€¡Ã˜Â§Ã˜ÂªÃ™Â',
+    'admin.address': 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€ ',
+    'admin.total': 'Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¬Ã™â€¦Ã˜Â§Ã™â€žÃ™Å ',
+    'admin.date': 'Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â§Ã˜Â±Ã™Å Ã˜Â®',
+    'admin.updateStatus': 'Ã˜ÂªÃ˜Â­Ã˜Â¯Ã™Å Ã˜Â« Ã˜Â§Ã™â€žÃ˜Â­Ã˜Â§Ã™â€žÃ˜Â©',
+    'admin.viewDetails': 'Ã˜Â¹Ã˜Â±Ã˜Â¶ Ã˜Â§Ã™â€žÃ˜ÂªÃ™ÂÃ˜Â§Ã˜ÂµÃ™Å Ã™â€ž',
+    'admin.storeName': 'Ã˜Â§Ã˜Â³Ã™â€¦ Ã˜Â§Ã™â€žÃ™â€¦Ã˜ÂªÃ˜Â¬Ã˜Â±',
+    'admin.subtitle': 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å ',
+    'admin.fontHeading': 'Ã˜Â®Ã˜Â· Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã˜Â§Ã™Ë†Ã™Å Ã™â€ ',
+    'admin.fontBody': 'Ã˜Â®Ã˜Â· Ã˜Â§Ã™â€žÃ™â€ Ã˜ÂµÃ™Ë†Ã˜Âµ',
+    'admin.accentColor': 'Ã˜Â§Ã™â€žÃ™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ˜Â£Ã˜Â³Ã˜Â§Ã˜Â³Ã™Å ',
+    'admin.contactPhone': 'Ã˜Â±Ã™â€šÃ™â€¦ Ã˜Â§Ã™â€žÃ™â€¡Ã˜Â§Ã˜ÂªÃ™Â',
+    'admin.contactWhatsapp': 'Ã˜Â±Ã™â€šÃ™â€¦ Ã˜Â§Ã™â€žÃ™Ë†Ã˜Â§Ã˜ÂªÃ˜Â³Ã˜Â§Ã˜Â¨',
+    'admin.contactEmail': 'Ã˜Â§Ã™â€žÃ˜Â¨Ã˜Â±Ã™Å Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜Â¥Ã™â€žÃ™Æ’Ã˜ÂªÃ˜Â±Ã™Ë†Ã™â€ Ã™Å ',
+    'admin.shippingCost': 'Ã˜ÂªÃ™Æ’Ã™â€žÃ™ÂÃ˜Â© Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â­Ã™â€ ',
+    'admin.freeShippingThreshold': 'Ã˜Â­Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â­Ã™â€  Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â¬Ã˜Â§Ã™â€ Ã™Å ',
+    'admin.saveSettings': 'Ã˜Â­Ã™ÂÃ˜Â¸ Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¹Ã˜Â¯Ã˜Â§Ã˜Â¯Ã˜Â§Ã˜Âª',
+    'admin.approve': 'Ã™â€¦Ã™Ë†Ã˜Â§Ã™ÂÃ™â€šÃ˜Â©',
+    'admin.pending': 'Ã™â€¦Ã˜Â¹Ã™â€žÃ™â€š',
+    'admin.approved': 'Ã˜ÂªÃ™â€¦ Ã˜Â§Ã™â€žÃ™â€¦Ã™Ë†Ã˜Â§Ã™ÂÃ™â€šÃ˜Â©',
+    'admin.storeIdentity': 'Ã™â€¡Ã™Ë†Ã™Å Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã˜ÂªÃ˜Â¬Ã˜Â±',
+    'admin.typography': 'Ã˜Â§Ã™â€žÃ˜Â®Ã˜Â·Ã™Ë†Ã˜Â·',
+    'admin.colors': 'Ã˜Â§Ã™â€žÃ˜Â£Ã™â€žÃ™Ë†Ã˜Â§Ã™â€ ',
+    'admin.contactInfo': 'Ã™â€¦Ã˜Â¹Ã™â€žÃ™Ë†Ã™â€¦Ã˜Â§Ã˜Âª Ã˜Â§Ã™â€žÃ˜ÂªÃ™Ë†Ã˜Â§Ã˜ÂµÃ™â€ž',
+    'admin.shipping': 'Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â­Ã™â€ ',
+    'admin.subtitleAr': 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )',
+    'admin.subtitleEn': 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )',
+    'admin.aboutAr': 'Ã˜Â¹Ã™â€  Ã˜Â§Ã™â€žÃ™â€¦Ã˜ÂªÃ˜Â¬Ã˜Â± (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )',
+    'admin.aboutEn': 'Ã˜Â¹Ã™â€  Ã˜Â§Ã™â€žÃ™â€¦Ã˜ÂªÃ˜Â¬Ã˜Â± (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )',
+    'admin.fontArHeading': 'Ã˜Â®Ã˜Â· Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã˜Â§Ã™Ë†Ã™Å Ã™â€  Ã˜Â§Ã™â€žÃ˜Â¹Ã˜Â±Ã˜Â¨Ã™Å ',
+    'admin.fontArBody': 'Ã˜Â®Ã˜Â· Ã˜Â§Ã™â€žÃ™â€ Ã˜ÂµÃ™Ë†Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â¹Ã˜Â±Ã˜Â¨Ã™Å ',
+    'admin.addressAr': 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )',
+    'admin.addressEn': 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )',
+    'admin.livePreview': 'Ã™â€¦Ã˜Â¹Ã˜Â§Ã™Å Ã™â€ Ã˜Â© Ã™â€¦Ã˜Â¨Ã˜Â§Ã˜Â´Ã˜Â±Ã˜Â©',
+    'admin.headingSample': 'Ã™â€ Ã˜Âµ Ã˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  Ã˜ÂªÃ˜Â¬Ã˜Â±Ã™Å Ã˜Â¨Ã™Å ',
+    'admin.bodySample': 'Ã™â€¡Ã˜Â°Ã˜Â§ Ã™â€ Ã˜Âµ Ã˜ÂªÃ˜Â¬Ã˜Â±Ã™Å Ã˜Â¨Ã™Å  Ã™â€žÃ™â€¦Ã˜Â¹Ã˜Â§Ã™Å Ã™â€ Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â®Ã˜Â· Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â®Ã˜ÂªÃ˜Â§Ã˜Â±. Ã™Å Ã™â€¦Ã™Æ’Ã™â€ Ã™Æ’ Ã˜Â±Ã˜Â¤Ã™Å Ã˜Â© Ã™Æ’Ã™Å Ã™Â Ã˜Â³Ã™Å Ã˜Â¨Ã˜Â¯Ã™Ë† Ã˜Â§Ã™â€žÃ˜Â®Ã˜Â· Ã™ÂÃ™Å  Ã˜Â§Ã™â€žÃ™â€¦Ã˜ÂªÃ˜Â¬Ã˜Â±.',
+    'admin.recentOrders': 'Ã˜Â£Ã˜Â­Ã˜Â¯Ã˜Â« Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨Ã˜Â§Ã˜Âª',
+    'admin.quickActions': 'Ã˜Â¥Ã˜Â¬Ã˜Â±Ã˜Â§Ã˜Â¡Ã˜Â§Ã˜Âª Ã˜Â³Ã˜Â±Ã™Å Ã˜Â¹Ã˜Â©',
+    'admin.viewAllOrders': 'Ã˜Â¹Ã˜Â±Ã˜Â¶ Ã™Æ’Ã™â€ž Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨Ã˜Â§Ã˜Âª',
+    'admin.backToStore': 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™Ë†Ã˜Â¯Ã˜Â© Ã™â€žÃ™â€žÃ™â€¦Ã˜ÂªÃ˜Â¬Ã˜Â±',
+    'admin.product': 'Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬',
+    'admin.rating': 'Ã˜Â§Ã™â€žÃ˜ÂªÃ™â€šÃ™Å Ã™Å Ã™â€¦',
+    'admin.comment': 'Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¹Ã™â€žÃ™Å Ã™â€š',
+    'admin.noReviews': 'Ã™â€žÃ˜Â§ Ã˜ÂªÃ™Ë†Ã˜Â¬Ã˜Â¯ Ã˜ÂªÃ™â€šÃ™Å Ã™Å Ã™â€¦Ã˜Â§Ã˜Âª',
+    'admin.noProducts': 'Ã™â€žÃ˜Â§ Ã˜ÂªÃ™Ë†Ã˜Â¬Ã˜Â¯ Ã™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬Ã˜Â§Ã˜Âª',
+    'admin.noCategories': 'Ã™â€žÃ˜Â§ Ã˜ÂªÃ™Ë†Ã˜Â¬Ã˜Â¯ Ã˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™ÂÃ˜Â§Ã˜Âª',
+    'admin.noOrders': 'Ã™â€žÃ˜Â§ Ã˜ÂªÃ™Ë†Ã˜Â¬Ã˜Â¯ Ã˜Â·Ã™â€žÃ˜Â¨Ã˜Â§Ã˜Âª',
+    'admin.selectCategory': 'Ã˜Â§Ã˜Â®Ã˜ÂªÃ˜Â± Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â',
+    'admin.all': 'Ã˜Â§Ã™â€žÃ™Æ’Ã™â€ž',
+    'admin.new': 'Ã˜Â¬Ã˜Â¯Ã™Å Ã˜Â¯',
+    'admin.confirmed': 'Ã™â€¦Ã˜Â¤Ã™Æ’Ã˜Â¯',
+    'admin.preparing': 'Ã™â€šÃ™Å Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â­Ã˜Â¶Ã™Å Ã˜Â±',
+    'admin.shipping': 'Ã™â€šÃ™Å Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â­Ã™â€ ',
+    'admin.delivered': 'Ã˜ÂªÃ™â€¦ Ã˜Â§Ã™â€žÃ˜ÂªÃ™Ë†Ã˜ÂµÃ™Å Ã™â€ž',
+    'admin.cancelled': 'Ã™â€¦Ã™â€žÃ˜ÂºÃ™Å ',
+    'admin.orderDetails': 'Ã˜ÂªÃ™ÂÃ˜Â§Ã˜ÂµÃ™Å Ã™â€ž Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨',
+    'admin.customerInfo': 'Ã™â€¦Ã˜Â¹Ã™â€žÃ™Ë†Ã™â€¦Ã˜Â§Ã˜Âª Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€¦Ã™Å Ã™â€ž',
+    'admin.orderItems': 'Ã˜Â¹Ã™â€ Ã˜Â§Ã˜ÂµÃ˜Â± Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨',
+    'admin.subtotal': 'Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â¬Ã™â€¦Ã™Ë†Ã˜Â¹ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å ',
+    'admin.shippingFee': 'Ã˜Â±Ã˜Â³Ã™Ë†Ã™â€¦ Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â­Ã™â€ ',
+    'admin.grandTotal': 'Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¬Ã™â€¦Ã˜Â§Ã™â€žÃ™Å ',
+    'admin.notes': 'Ã™â€¦Ã™â€žÃ˜Â§Ã˜Â­Ã˜Â¸Ã˜Â§Ã˜Âª',
+    'admin.messageOnWhatsapp': 'Ã™â€¦Ã˜Â±Ã˜Â§Ã˜Â³Ã™â€žÃ˜Â© Ã™Ë†Ã˜Â§Ã˜ÂªÃ˜Â³Ã˜Â§Ã˜Â¨',
+    'admin.city': 'Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â¯Ã™Å Ã™â€ Ã˜Â©',
+    'admin.email': 'Ã˜Â§Ã™â€žÃ˜Â¨Ã˜Â±Ã™Å Ã˜Â¯',
+    'admin.qty': 'Ã˜Â§Ã™â€žÃ™Æ’Ã™â€¦Ã™Å Ã˜Â©',
+    'admin.unitPrice': 'Ã˜Â³Ã˜Â¹Ã˜Â± Ã˜Â§Ã™â€žÃ™Ë†Ã˜Â­Ã˜Â¯Ã˜Â©',
+    'admin.free': 'Ã™â€¦Ã˜Â¬Ã˜Â§Ã™â€ Ã™Å ',
+    'admin.imageUrls': 'Ã˜Â£Ã˜Â¯Ã˜Â®Ã™â€ž Ã˜Â±Ã˜Â§Ã˜Â¨Ã˜Â· Ã˜ÂµÃ™Ë†Ã˜Â±Ã˜Â© Ã™Ë†Ã˜Â§Ã˜Â­Ã˜Â¯ Ã™ÂÃ™Å  Ã™Æ’Ã™â€ž Ã˜Â³Ã˜Â·Ã˜Â±',
+    'admin.active': 'Ã™â€ Ã˜Â´Ã˜Â·',
+    'admin.inactive': 'Ã˜ÂºÃ™Å Ã˜Â± Ã™â€ Ã˜Â´Ã˜Â·',
+    'admin.name': 'Ã˜Â§Ã™â€žÃ˜Â§Ã˜Â³Ã™â€¦',
+    'admin.productCount': 'Ã˜Â¹Ã˜Â¯Ã˜Â¯ Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬Ã˜Â§Ã˜Âª',
+    'admin.deleteCategory': 'Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â',
+    'admin.deleteReview': 'Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ˜ÂªÃ™â€šÃ™Å Ã™Å Ã™â€¦',
+    'admin.settingsSaved': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã™ÂÃ˜Â¸ Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¹Ã˜Â¯Ã˜Â§Ã˜Â¯Ã˜Â§Ã˜Âª Ã˜Â¨Ã™â€ Ã˜Â¬Ã˜Â§Ã˜Â­',
+    'admin.productSaved': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã™ÂÃ˜Â¸ Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬ Ã˜Â¨Ã™â€ Ã˜Â¬Ã˜Â§Ã˜Â­',
+    'admin.productDeleted': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬',
+    'admin.categorySaved': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã™ÂÃ˜Â¸ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â Ã˜Â¨Ã™â€ Ã˜Â¬Ã˜Â§Ã˜Â­',
+    'admin.categoryDeleted': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â',
+    'admin.orderUpdated': 'Ã˜ÂªÃ™â€¦ Ã˜ÂªÃ˜Â­Ã˜Â¯Ã™Å Ã˜Â« Ã˜Â­Ã˜Â§Ã™â€žÃ˜Â© Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨',
+    'admin.reviewApproved': 'Ã˜ÂªÃ™â€¦ Ã˜Â§Ã™â€žÃ™â€¦Ã™Ë†Ã˜Â§Ã™ÂÃ™â€šÃ˜Â© Ã˜Â¹Ã™â€žÃ™â€° Ã˜Â§Ã™â€žÃ˜ÂªÃ™â€šÃ™Å Ã™Å Ã™â€¦',
+    'admin.reviewDeleted': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ˜ÂªÃ™â€šÃ™Å Ã™Å Ã™â€¦',
+    'admin.fillRequired': 'Ã™Å Ã˜Â±Ã˜Â¬Ã™â€° Ã™â€¦Ã™â€žÃ˜Â¡ Ã˜Â¬Ã™â€¦Ã™Å Ã˜Â¹ Ã˜Â§Ã™â€žÃ˜Â­Ã™â€šÃ™Ë†Ã™â€ž Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â·Ã™â€žÃ™Ë†Ã˜Â¨Ã˜Â©',
+    'admin.currency': 'Ã˜Â¬.Ã™â€¦',
+    'admin.adminPanel': 'Ã™â€žÃ™Ë†Ã˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â­Ã™Æ’Ã™â€¦',
+    'admin.welcomeBack': 'Ã™â€¦Ã˜Â±Ã˜Â­Ã˜Â¨Ã˜Â§Ã™â€¹ Ã˜Â¨Ã™Æ’ Ã™â€¦Ã˜Â¬Ã˜Â¯Ã˜Â¯Ã˜Â§Ã™â€¹',
+    'admin.loginSubtitle': 'Ã˜Â£Ã˜Â¯Ã˜Â®Ã™â€ž Ã™Æ’Ã™â€žÃ™â€¦Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â±Ã™Ë†Ã˜Â± Ã™â€žÃ™â€žÃ˜Â¯Ã˜Â®Ã™Ë†Ã™â€ž Ã˜Â¥Ã™â€žÃ™â€° Ã™â€žÃ™Ë†Ã˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â­Ã™Æ’Ã™â€¦',
+    'admin.deleteOrder': 'Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨',
+    'admin.orderDeleted': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨',
+    'admin.coupons': 'Ã˜Â§Ã™â€žÃ™Æ’Ã™Ë†Ã˜Â¨Ã™Ë†Ã™â€ Ã˜Â§Ã˜Âª',
+    'admin.addCoupon': 'Ã˜Â¥Ã˜Â¶Ã˜Â§Ã™ÂÃ˜Â© Ã™Æ’Ã™Ë†Ã˜Â¨Ã™Ë†Ã™â€ ',
+    'admin.editCoupon': 'Ã˜ÂªÃ˜Â¹Ã˜Â¯Ã™Å Ã™â€ž Ã˜Â§Ã™â€žÃ™Æ’Ã™Ë†Ã˜Â¨Ã™Ë†Ã™â€ ',
+    'admin.code': 'Ã™Æ’Ã™Ë†Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜Â®Ã˜ÂµÃ™â€¦',
+    'admin.discountType': 'Ã™â€ Ã™Ë†Ã˜Â¹ Ã˜Â§Ã™â€žÃ˜Â®Ã˜ÂµÃ™â€¦',
+    'admin.discountValue': 'Ã™â€šÃ™Å Ã™â€¦Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â®Ã˜ÂµÃ™â€¦',
+    'admin.percentage': 'Ã™â€ Ã˜Â³Ã˜Â¨Ã˜Â© Ã™â€¦Ã˜Â¦Ã™Ë†Ã™Å Ã˜Â© (%)',
+    'admin.fixed': 'Ã™â€¦Ã˜Â¨Ã™â€žÃ˜Âº Ã˜Â«Ã˜Â§Ã˜Â¨Ã˜Âª',
+    'admin.minOrderAmount': 'Ã˜Â§Ã™â€žÃ˜Â­Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜Â£Ã˜Â¯Ã™â€ Ã™â€° Ã™â€žÃ™â€žÃ˜Â·Ã™â€žÃ˜Â¨',
+    'admin.expiryDate': 'Ã˜ÂªÃ˜Â§Ã˜Â±Ã™Å Ã˜Â® Ã˜Â§Ã™â€žÃ˜Â§Ã™â€ Ã˜ÂªÃ™â€¡Ã˜Â§Ã˜Â¡',
+    'admin.deleteCoupon': 'Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ™Æ’Ã™Ë†Ã˜Â¨Ã™Ë†Ã™â€ ',
+    'admin.couponSaved': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã™ÂÃ˜Â¸ Ã˜Â§Ã™â€žÃ™Æ’Ã™Ë†Ã˜Â¨Ã™Ë†Ã™â€ ',
+    'admin.couponDeleted': 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã˜Â°Ã™Â Ã˜Â§Ã™â€žÃ™Æ’Ã™Ë†Ã˜Â¨Ã™Ë†Ã™â€ ',
+    'admin.noCoupons': 'Ã™â€žÃ˜Â§ Ã˜ÂªÃ™Ë†Ã˜Â¬Ã˜Â¯ Ã™Æ’Ã™Ë†Ã˜Â¨Ã™Ë†Ã™â€ Ã˜Â§Ã˜Âª',
+    'admin.couponDiscount': 'Ã˜Â®Ã˜ÂµÃ™â€¦ Ã˜Â§Ã™â€žÃ™Æ’Ã™Ë†Ã˜Â¨Ã™Ë†Ã™â€ '
   },
   en: {
     'admin.login': 'Admin Login',
@@ -396,7 +396,7 @@ function showToast(message, type = 'success') {
   toast.innerHTML = `
     <span class="toast-icon">${icons[type] || icons.info}</span>
     <span class="toast-message">${message}</span>
-    <button class="toast-close" onclick="this.parentElement.classList.add('leaving');setTimeout(()=>this.parentElement.remove(),300)">✕</button>
+    <button class="toast-close" onclick="this.parentElement.classList.add('leaving');setTimeout(()=>this.parentElement.remove(),300)">Ã¢Å“â€¢</button>
   `;
   container.appendChild(toast);
   setTimeout(() => {
@@ -413,7 +413,7 @@ function openModal(title, bodyHTML, footerHTML = '') {
       <div class="admin-modal">
         <div class="modal-header">
           <h2>${title}</h2>
-          <button class="modal-close" data-action="close-modal">✕</button>
+          <button class="modal-close" data-action="close-modal">Ã¢Å“â€¢</button>
         </div>
         <div class="modal-body">${bodyHTML}</div>
         ${footerHTML ? `<div class="modal-footer">${footerHTML}</div>` : ''}
@@ -439,8 +439,8 @@ function confirmDialog(title, message, onConfirm) {
       <h3>${title}</h3>
       <p>${message}</p>
       <div class="confirm-actions">
-        <button class="btn btn-secondary" data-action="close-modal">${currentLang === 'ar' ? 'إلغاء' : 'Cancel'}</button>
-        <button class="btn btn-danger" id="confirm-yes-btn">${currentLang === 'ar' ? 'حذف' : 'Delete'}</button>
+        <button class="btn btn-secondary" data-action="close-modal">${currentLang === 'ar' ? 'Ã˜Â¥Ã™â€žÃ˜ÂºÃ˜Â§Ã˜Â¡' : 'Cancel'}</button>
+        <button class="btn btn-danger" id="confirm-yes-btn">${currentLang === 'ar' ? 'Ã˜Â­Ã˜Â°Ã™Â' : 'Delete'}</button>
       </div>
     </div>
   `);
@@ -464,12 +464,12 @@ function renderLoginPage() {
         </div>
         <form class="login-form" id="login-form">
           <div class="input-group">
-            <label for="login-email">البريد الإلكتروني (الإيميل)</label>
+            <label for="login-email">Ã˜Â§Ã™â€žÃ˜Â¨Ã˜Â±Ã™Å Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜Â¥Ã™â€žÃ™Æ’Ã˜ÂªÃ˜Â±Ã™Ë†Ã™â€ Ã™Å  (Ã˜Â§Ã™â€žÃ˜Â¥Ã™Å Ã™â€¦Ã™Å Ã™â€ž)</label>
             <input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email" autofocus>
           </div>
           <div class="input-group">
             <label for="login-password">${t('admin.password')}</label>
-            <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+            <input type="password" id="login-password" placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢" autocomplete="current-password">
           </div>
           <div class="login-error" id="login-error">${t('admin.wrongPassword')}</div>
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;">${t('admin.loginBtn')}</button>
@@ -493,7 +493,7 @@ function renderAdminLayout(activeRoute) {
     { route: 'coupons', icon: '<i class="ph ph-ticket"></i>', label: t('admin.coupons') },
     { route: 'orders', icon: '<i class="ph ph-shopping-cart"></i>', label: t('admin.orders'), badge: stats.pendingOrders || 0 },
     { route: 'reviews', icon: '<i class="ph ph-star"></i>', label: t('admin.reviews'), badge: pendingReviews },
-    { route: 'design', icon: '<i class="ph ph-paint-brush-broad"></i>', label: currentLang === 'ar' ? 'التصميم والنصوص' : 'Design & Texts' },
+    { route: 'design', icon: '<i class="ph ph-paint-brush-broad"></i>', label: currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€¦Ã™Å Ã™â€¦ Ã™Ë†Ã˜Â§Ã™â€žÃ™â€ Ã˜ÂµÃ™Ë†Ã˜Âµ' : 'Design & Texts' },
     { route: 'settings', icon: '<i class="ph ph-gear"></i>', label: t('admin.settings') },
   ];
 
@@ -544,7 +544,7 @@ function renderAdminLayout(activeRoute) {
           <button class="topbar-btn" data-action="undo" title="Undo" id="btn-undo" disabled><i class="ph ph-arrow-u-up-left"></i></button>
           <button class="topbar-btn" data-action="redo" title="Redo" id="btn-redo" disabled><i class="ph ph-arrow-u-up-right"></i></button>
           <a href="index.html" class="topbar-link" title="${t('admin.backToStore')}"><i class="ph ph-storefront"></i> ${t('admin.backToStore')}</a>
-          <button class="topbar-btn" data-action="toggle-lang" title="AR / EN">${currentLang === 'ar' ? 'EN' : 'ع'}</button>
+          <button class="topbar-btn" data-action="toggle-lang" title="AR / EN">${currentLang === 'ar' ? 'EN' : 'Ã˜Â¹'}</button>
         </div>
       </header>
       <main class="admin-content" id="admin-content">${contentHTML}</main>
@@ -658,7 +658,7 @@ function renderProducts() {
         <h2>${t('admin.products')} (${products.length})</h2>
         <div class="search-input-wrap">
           <span class="search-icon"><i class="ph ph-magnifying-glass"></i></span>
-          <input type="text" id="product-search" placeholder="${currentLang === 'ar' ? 'بحث...' : 'Search...'}" value="${productSearchQuery}">
+          <input type="text" id="product-search" placeholder="${currentLang === 'ar' ? 'Ã˜Â¨Ã˜Â­Ã˜Â«...' : 'Search...'}" value="${productSearchQuery}">
         </div>
       </div>
       <div class="table-scroll">
@@ -786,7 +786,7 @@ function openProductModal(product = null) {
         <textarea id="prod-desc-en">${product?.description_en || ''}</textarea>
       </div>
       <div class="form-group">
-        <label for="prod-price">${t('admin.price')} (${currentLang === 'ar' ? 'قبل الخصم' : 'Before Discount'}) *</label>
+        <label for="prod-price">${t('admin.price')} (${currentLang === 'ar' ? 'Ã™â€šÃ˜Â¨Ã™â€ž Ã˜Â§Ã™â€žÃ˜Â®Ã˜ÂµÃ™â€¦' : 'Before Discount'}) *</label>
         <input type="number" id="prod-price" min="0" step="1" value="${product?.price || ''}" required>
       </div>
       <div class="form-group">
@@ -794,7 +794,7 @@ function openProductModal(product = null) {
         <input type="number" id="prod-discount" min="0" max="100" step="1" value="${product?.discountPercentage || 0}">
       </div>
       <div class="form-group">
-        <label for="prod-sale-price">${currentLang === 'ar' ? 'السعر بعد الخصم (سعر البيع)' : 'Sale Price (After Discount)'}</label>
+        <label for="prod-sale-price">${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â³Ã˜Â¹Ã˜Â± Ã˜Â¨Ã˜Â¹Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜Â®Ã˜ÂµÃ™â€¦ (Ã˜Â³Ã˜Â¹Ã˜Â± Ã˜Â§Ã™â€žÃ˜Â¨Ã™Å Ã˜Â¹)' : 'Sale Price (After Discount)'}</label>
         <input type="number" id="prod-sale-price" min="0" step="1" value="${product ? Store.getProductPrice(product) : ''}">
       </div>
       <div class="form-group">
@@ -809,35 +809,35 @@ function openProductModal(product = null) {
         <input type="number" id="prod-stock" min="0" value="${product?.stock ?? 10}">
       </div>
       <div class="form-group">
-        <label for="prod-scarcity-threshold">${currentLang === 'ar' ? 'حد ظهور شارة الاستعجال (أقصى مخزون لظهورها)' : 'Scarcity Threshold'}</label>
+        <label for="prod-scarcity-threshold">${currentLang === 'ar' ? 'Ã˜Â­Ã˜Â¯ Ã˜Â¸Ã™â€¡Ã™Ë†Ã˜Â± Ã˜Â´Ã˜Â§Ã˜Â±Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â§Ã˜Â³Ã˜ÂªÃ˜Â¹Ã˜Â¬Ã˜Â§Ã™â€ž (Ã˜Â£Ã™â€šÃ˜ÂµÃ™â€° Ã™â€¦Ã˜Â®Ã˜Â²Ã™Ë†Ã™â€  Ã™â€žÃ˜Â¸Ã™â€¡Ã™Ë†Ã˜Â±Ã™â€¡Ã˜Â§)' : 'Scarcity Threshold'}</label>
         <input type="number" id="prod-scarcity-threshold" min="0" value="${product?.scarcityThreshold ?? 5}">
       </div>
       <div class="form-group full-width checkbox-group" style="display:flex; align-items:center; gap:8px;">
         <input type="checkbox" id="prod-show-scarcity" ${product?.showScarcityBadge !== false ? 'checked' : ''} style="width:20px; height:20px; cursor:pointer;">
-        <label for="prod-show-scarcity" style="cursor:pointer; font-weight:bold;">${currentLang === 'ar' ? 'تفعيل شارة الاستعجال (سارع بالشراء! متبقي X فقط)' : 'Enable Scarcity Badge'}</label>
+        <label for="prod-show-scarcity" style="cursor:pointer; font-weight:bold;">${currentLang === 'ar' ? 'Ã˜ÂªÃ™ÂÃ˜Â¹Ã™Å Ã™â€ž Ã˜Â´Ã˜Â§Ã˜Â±Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â§Ã˜Â³Ã˜ÂªÃ˜Â¹Ã˜Â¬Ã˜Â§Ã™â€ž (Ã˜Â³Ã˜Â§Ã˜Â±Ã˜Â¹ Ã˜Â¨Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â±Ã˜Â§Ã˜Â¡! Ã™â€¦Ã˜ÂªÃ˜Â¨Ã™â€šÃ™Å  X Ã™ÂÃ™â€šÃ˜Â·)' : 'Enable Scarcity Badge'}</label>
       </div>
       
       <!-- Notes -->
       <div class="form-group full-width">
-        <label for="prod-note-ar">${currentLang === 'ar' ? 'ملاحظة المنتج (عربي) - اختياري' : 'Product Note (Ar) - Optional'}</label>
-        <input type="text" id="prod-note-ar" value="${product?.note_ar || ''}" placeholder="${currentLang === 'ar' ? 'مثال: يغسل بماء بارد فقط' : 'e.g. Wash with cold water only'}">
+        <label for="prod-note-ar">${currentLang === 'ar' ? 'Ã™â€¦Ã™â€žÃ˜Â§Ã˜Â­Ã˜Â¸Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬ (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å ) - Ã˜Â§Ã˜Â®Ã˜ÂªÃ™Å Ã˜Â§Ã˜Â±Ã™Å ' : 'Product Note (Ar) - Optional'}</label>
+        <input type="text" id="prod-note-ar" value="${product?.note_ar || ''}" placeholder="${currentLang === 'ar' ? 'Ã™â€¦Ã˜Â«Ã˜Â§Ã™â€ž: Ã™Å Ã˜ÂºÃ˜Â³Ã™â€ž Ã˜Â¨Ã™â€¦Ã˜Â§Ã˜Â¡ Ã˜Â¨Ã˜Â§Ã˜Â±Ã˜Â¯ Ã™ÂÃ™â€šÃ˜Â·' : 'e.g. Wash with cold water only'}">
       </div>
       <div class="form-group full-width">
-        <label for="prod-note-en">${currentLang === 'ar' ? 'ملاحظة المنتج (إنجليزي) - اختياري' : 'Product Note (En) - Optional'}</label>
-        <input type="text" id="prod-note-en" value="${product?.note_en || ''}" placeholder="${currentLang === 'ar' ? 'مثال: Wash with cold water only' : 'e.g. Wash with cold water only'}">
+        <label for="prod-note-en">${currentLang === 'ar' ? 'Ã™â€¦Ã™â€žÃ˜Â§Ã˜Â­Ã˜Â¸Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬ (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å ) - Ã˜Â§Ã˜Â®Ã˜ÂªÃ™Å Ã˜Â§Ã˜Â±Ã™Å ' : 'Product Note (En) - Optional'}</label>
+        <input type="text" id="prod-note-en" value="${product?.note_en || ''}" placeholder="${currentLang === 'ar' ? 'Ã™â€¦Ã˜Â«Ã˜Â§Ã™â€ž: Wash with cold water only' : 'e.g. Wash with cold water only'}">
       </div>
       
       <!-- Sizes -->
       <div class="form-group full-width">
-        <label for="prod-sizes">${currentLang === 'ar' ? 'المقاسات المتاحة (افصل بينها بفاصلة)' : 'Available Sizes (comma separated)'}</label>
+        <label for="prod-sizes">${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€¦Ã™â€šÃ˜Â§Ã˜Â³Ã˜Â§Ã˜Âª Ã˜Â§Ã™â€žÃ™â€¦Ã˜ÂªÃ˜Â§Ã˜Â­Ã˜Â© (Ã˜Â§Ã™ÂÃ˜ÂµÃ™â€ž Ã˜Â¨Ã™Å Ã™â€ Ã™â€¡Ã˜Â§ Ã˜Â¨Ã™ÂÃ˜Â§Ã˜ÂµÃ™â€žÃ˜Â©)' : 'Available Sizes (comma separated)'}</label>
         <input type="text" id="prod-sizes" value="${(product?.sizes || []).join(', ')}" placeholder="S, M, L, XL, 2XL">
       </div>
 
       <!-- Colors -->
       <div class="form-group full-width">
         <label style="display:flex; justify-content:space-between; align-items:center;">
-          ${currentLang === 'ar' ? 'الألوان المتاحة' : 'Available Colors'}
-          <button type="button" class="btn btn-secondary btn-sm" id="btn-add-color" style="padding: 4px 12px;"><i class="ph ph-plus"></i> ${currentLang === 'ar' ? 'إضافة لون' : 'Add Color'}</button>
+          ${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â£Ã™â€žÃ™Ë†Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ™â€¦Ã˜ÂªÃ˜Â§Ã˜Â­Ã˜Â©' : 'Available Colors'}
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-add-color" style="padding: 4px 12px;"><i class="ph ph-plus"></i> ${currentLang === 'ar' ? 'Ã˜Â¥Ã˜Â¶Ã˜Â§Ã™ÂÃ˜Â© Ã™â€žÃ™Ë†Ã™â€ ' : 'Add Color'}</button>
         </label>
         <div id="colors-container" style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
           <!-- Colors will be injected here -->
@@ -849,9 +849,9 @@ function openProductModal(product = null) {
         <div class="file-upload-wrapper" style="margin-bottom:8px; display:flex; align-items:center; gap:12px;">
           <input type="file" id="prod-image-upload" accept="image/*" multiple style="display:none">
           <label for="prod-image-upload" class="btn btn-secondary" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
-            <i class="ph ph-upload-simple"></i> ${currentLang === 'ar' ? 'رفع صور من الجهاز' : 'Upload Images'}
+            <i class="ph ph-upload-simple"></i> ${currentLang === 'ar' ? 'Ã˜Â±Ã™ÂÃ˜Â¹ Ã˜ÂµÃ™Ë†Ã˜Â± Ã™â€¦Ã™â€  Ã˜Â§Ã™â€žÃ˜Â¬Ã™â€¡Ã˜Â§Ã˜Â²' : 'Upload Images'}
           </label>
-          <span class="text-muted" style="font-size:12px">${currentLang === 'ar' ? 'يتم ضغط الصور تلقائياً للحفاظ على المساحة' : 'Images are auto-compressed'}</span>
+          <span class="text-muted" style="font-size:12px">${currentLang === 'ar' ? 'Ã™Å Ã˜ÂªÃ™â€¦ Ã˜Â¶Ã˜ÂºÃ˜Â· Ã˜Â§Ã™â€žÃ˜ÂµÃ™Ë†Ã˜Â± Ã˜ÂªÃ™â€žÃ™â€šÃ˜Â§Ã˜Â¦Ã™Å Ã˜Â§Ã™â€¹ Ã™â€žÃ™â€žÃ˜Â­Ã™ÂÃ˜Â§Ã˜Â¸ Ã˜Â¹Ã™â€žÃ™â€° Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â³Ã˜Â§Ã˜Â­Ã˜Â©' : 'Images are auto-compressed'}</span>
         </div>
         <textarea id="prod-images" placeholder="${t('admin.imageUrls')}" rows="3">${product?.images?.join('\n') || ''}</textarea>
         <div class="image-preview-grid" id="img-preview-grid">
@@ -874,7 +874,7 @@ function openProductModal(product = null) {
         <label for="prod-featured">${t('admin.featured')}</label>
       </div>
       <div class="form-group full-width">
-        <label>${currentLang === 'ar' ? 'المنتجات المرتبطة (إضافية اختيارية للعميل)' : 'Linked Products (Optional Upsells)'}</label>
+        <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬Ã˜Â§Ã˜Âª Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â±Ã˜ÂªÃ˜Â¨Ã˜Â·Ã˜Â© (Ã˜Â¥Ã˜Â¶Ã˜Â§Ã™ÂÃ™Å Ã˜Â© Ã˜Â§Ã˜Â®Ã˜ÂªÃ™Å Ã˜Â§Ã˜Â±Ã™Å Ã˜Â© Ã™â€žÃ™â€žÃ˜Â¹Ã™â€¦Ã™Å Ã™â€ž)' : 'Linked Products (Optional Upsells)'}</label>
         <div class="linked-products-selector" style="max-height: 150px; overflow-y: auto; border: 1px solid var(--border); padding: 10px; border-radius: var(--radius-sm); background: var(--bg-input);">
           ${Store.getProducts().filter(p => p.id !== product?.id).map(p => `
             <label class="linked-product-option" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer;">
@@ -882,15 +882,15 @@ function openProductModal(product = null) {
               <img src="${p.images?.[0] || 'https://via.placeholder.com/32'}" alt="" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px;">
               <span>${currentLang === 'ar' ? (p.name_ar || p.name_en) : (p.name_en || p.name_ar)} (${p.price} ${t('admin.currency')})</span>
             </label>
-          `).join('') || `<p class="text-muted" style="font-size: 12px; margin: 0;">${currentLang === 'ar' ? 'لا توجد منتجات أخرى للربط' : 'No other products available to link'}</p>`}
+          `).join('') || `<p class="text-muted" style="font-size: 12px; margin: 0;">${currentLang === 'ar' ? 'Ã™â€žÃ˜Â§ Ã˜ÂªÃ™Ë†Ã˜Â¬Ã˜Â¯ Ã™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬Ã˜Â§Ã˜Âª Ã˜Â£Ã˜Â®Ã˜Â±Ã™â€° Ã™â€žÃ™â€žÃ˜Â±Ã˜Â¨Ã˜Â·' : 'No other products available to link'}</p>`}
         </div>
       </div>
     </form>
   `;
 
   const footer = `
-    <button class="btn btn-secondary" data-action="close-modal">${currentLang === 'ar' ? 'إلغاء' : 'Cancel'}</button>
-    <button class="btn btn-primary" id="save-product-btn">${currentLang === 'ar' ? 'حفظ' : 'Save'}</button>
+    <button class="btn btn-secondary" data-action="close-modal">${currentLang === 'ar' ? 'Ã˜Â¥Ã™â€žÃ˜ÂºÃ˜Â§Ã˜Â¡' : 'Cancel'}</button>
+    <button class="btn btn-primary" id="save-product-btn">${currentLang === 'ar' ? 'Ã˜Â­Ã™ÂÃ˜Â¸' : 'Save'}</button>
   `;
 
   openModal(title, body, footer);
@@ -902,10 +902,10 @@ function openProductModal(product = null) {
   function renderColors() {
     colorsContainer.innerHTML = currentColors.map((color, idx) => `
       <div class="color-row" style="display:flex; gap:10px; align-items:center; background:var(--bg-input); padding:10px; border-radius:8px; border:1px solid var(--border); flex-wrap: wrap;">
-        <input type="text" placeholder="${currentLang === 'ar' ? 'اسم اللون (عربي)' : 'Color Name (Ar)'}" value="${color.name_ar || ''}" onchange="updateColor(${idx}, 'name_ar', this.value)" style="flex:1; min-width:120px;">
-        <input type="text" placeholder="${currentLang === 'ar' ? 'اسم اللون (إنجليزي)' : 'Color Name (En)'}" value="${color.name_en || ''}" onchange="updateColor(${idx}, 'name_en', this.value)" style="flex:1; min-width:120px;">
-        <input type="color" value="${color.hex || '#000000'}" onchange="updateColor(${idx}, 'hex', this.value)" style="width:40px; height:40px; padding:0; border:none; cursor:pointer; border-radius:50%;" title="${currentLang === 'ar' ? 'درجة اللون' : 'Color Hex'}">
-        <input type="text" placeholder="${currentLang === 'ar' ? 'رابط الصورة (اختياري)' : 'Image URL (optional)'}" value="${color.image || ''}" onchange="updateColor(${idx}, 'image', this.value)" style="flex:2; min-width:200px;">
+        <input type="text" placeholder="${currentLang === 'ar' ? 'Ã˜Â§Ã˜Â³Ã™â€¦ Ã˜Â§Ã™â€žÃ™â€žÃ™Ë†Ã™â€  (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )' : 'Color Name (Ar)'}" value="${color.name_ar || ''}" onchange="updateColor(${idx}, 'name_ar', this.value)" style="flex:1; min-width:120px;">
+        <input type="text" placeholder="${currentLang === 'ar' ? 'Ã˜Â§Ã˜Â³Ã™â€¦ Ã˜Â§Ã™â€žÃ™â€žÃ™Ë†Ã™â€  (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )' : 'Color Name (En)'}" value="${color.name_en || ''}" onchange="updateColor(${idx}, 'name_en', this.value)" style="flex:1; min-width:120px;">
+        <input type="color" value="${color.hex || '#000000'}" onchange="updateColor(${idx}, 'hex', this.value)" style="width:40px; height:40px; padding:0; border:none; cursor:pointer; border-radius:50%;" title="${currentLang === 'ar' ? 'Ã˜Â¯Ã˜Â±Ã˜Â¬Ã˜Â© Ã˜Â§Ã™â€žÃ™â€žÃ™Ë†Ã™â€ ' : 'Color Hex'}">
+        <input type="text" placeholder="${currentLang === 'ar' ? 'Ã˜Â±Ã˜Â§Ã˜Â¨Ã˜Â· Ã˜Â§Ã™â€žÃ˜ÂµÃ™Ë†Ã˜Â±Ã˜Â© (Ã˜Â§Ã˜Â®Ã˜ÂªÃ™Å Ã˜Â§Ã˜Â±Ã™Å )' : 'Image URL (optional)'}" value="${color.image || ''}" onchange="updateColor(${idx}, 'image', this.value)" style="flex:2; min-width:200px;">
         <button type="button" class="btn-icon danger" onclick="removeColorRow(${idx})" style="flex-shrink:0;"><i class="ph ph-trash"></i></button>
       </div>
     `).join('');
@@ -1131,11 +1131,11 @@ function openCategoryModal(category = null) {
         <input type="text" id="cat-name-en" value="${category?.name_en || ''}" required>
       </div>
       <div class="form-group full-width">
-        <label>${t('admin.icon')} (صورة التصنيف)</label>
+        <label>${t('admin.icon')} (Ã˜ÂµÃ™Ë†Ã˜Â±Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€ Ã™Å Ã™Â)</label>
         <div class="file-upload-wrapper" style="margin-bottom:8px; display:flex; align-items:center; gap:12px;">
           <input type="file" id="cat-image-upload" accept="image/*" style="display:none">
           <label for="cat-image-upload" class="btn btn-secondary" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
-            <i class="ph ph-upload-simple"></i> ${currentLang === 'ar' ? 'رفع صورة' : 'Upload Image'}
+            <i class="ph ph-upload-simple"></i> ${currentLang === 'ar' ? 'Ã˜Â±Ã™ÂÃ˜Â¹ Ã˜ÂµÃ™Ë†Ã˜Â±Ã˜Â©' : 'Upload Image'}
           </label>
         </div>
         <textarea id="cat-icon" placeholder="Base64 Image Data or URL" rows="2" style="display:none;">${category?.image || category?.icon || ''}</textarea>
@@ -1162,8 +1162,8 @@ function openCategoryModal(category = null) {
   `;
 
   const footer = `
-    <button class="btn btn-secondary" data-action="close-modal">${currentLang === 'ar' ? 'إلغاء' : 'Cancel'}</button>
-    <button class="btn btn-primary" id="save-category-btn">${currentLang === 'ar' ? 'حفظ' : 'Save'}</button>
+    <button class="btn btn-secondary" data-action="close-modal">${currentLang === 'ar' ? 'Ã˜Â¥Ã™â€žÃ˜ÂºÃ˜Â§Ã˜Â¡' : 'Cancel'}</button>
+    <button class="btn btn-primary" id="save-category-btn">${currentLang === 'ar' ? 'Ã˜Â­Ã™ÂÃ˜Â¸' : 'Save'}</button>
   `;
 
   openModal(title, body, footer);
@@ -1542,8 +1542,8 @@ function openCouponModal(coupon = null) {
   `;
   
   const footer = `
-    <button class="btn btn-secondary" data-action="close-modal">${currentLang === 'ar' ? 'إلغاء' : 'Cancel'}</button>
-    <button class="btn btn-primary" id="save-coupon-btn">${currentLang === 'ar' ? 'حفظ' : 'Save'}</button>
+    <button class="btn btn-secondary" data-action="close-modal">${currentLang === 'ar' ? 'Ã˜Â¥Ã™â€žÃ˜ÂºÃ˜Â§Ã˜Â¡' : 'Cancel'}</button>
+    <button class="btn btn-primary" id="save-coupon-btn">${currentLang === 'ar' ? 'Ã˜Â­Ã™ÂÃ˜Â¸' : 'Save'}</button>
   `;
   
   openModal(title, body, footer);
@@ -1596,11 +1596,11 @@ function renderSettings() {
     <div class="page-header" style="flex-direction: row; align-items: center; justify-content: space-between;">
       <h1>${t('admin.settings')}</h1>
       <div style="display: flex; gap: 8px;">
-        <button class="btn btn-secondary btn-sm" id="settings-undo-btn" ${settingsHistoryIndex <= 0 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} title="${currentLang === 'ar' ? 'تراجع' : 'Undo'}">
-          <i class="ph ph-arrow-u-up-left"></i> ${currentLang === 'ar' ? 'تراجع' : 'Undo'}
+        <button class="btn btn-secondary btn-sm" id="settings-undo-btn" ${settingsHistoryIndex <= 0 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} title="${currentLang === 'ar' ? 'Ã˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¬Ã˜Â¹' : 'Undo'}">
+          <i class="ph ph-arrow-u-up-left"></i> ${currentLang === 'ar' ? 'Ã˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¬Ã˜Â¹' : 'Undo'}
         </button>
-        <button class="btn btn-secondary btn-sm" id="settings-redo-btn" ${settingsHistoryIndex >= settingsHistory.length - 1 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} title="${currentLang === 'ar' ? 'إعادة' : 'Redo'}">
-          <i class="ph ph-arrow-u-up-right"></i> ${currentLang === 'ar' ? 'إعادة' : 'Redo'}
+        <button class="btn btn-secondary btn-sm" id="settings-redo-btn" ${settingsHistoryIndex >= settingsHistory.length - 1 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} title="${currentLang === 'ar' ? 'Ã˜Â¥Ã˜Â¹Ã˜Â§Ã˜Â¯Ã˜Â©' : 'Redo'}">
+          <i class="ph ph-arrow-u-up-right"></i> ${currentLang === 'ar' ? 'Ã˜Â¥Ã˜Â¹Ã˜Â§Ã˜Â¯Ã˜Â©' : 'Redo'}
         </button>
       </div>
     </div>
@@ -1651,13 +1651,13 @@ function renderDesign() {
 
   return `
     <div class="page-header" style="flex-direction: row; align-items: center; justify-content: space-between;">
-      <h1>${currentLang === 'ar' ? 'التصميم والنصوص' : 'Design & Texts'}</h1>
+      <h1>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€¦Ã™Å Ã™â€¦ Ã™Ë†Ã˜Â§Ã™â€žÃ™â€ Ã˜ÂµÃ™Ë†Ã˜Âµ' : 'Design & Texts'}</h1>
       <div style="display: flex; gap: 8px;">
-        <button class="btn btn-secondary btn-sm" id="design-undo-btn" ${settingsHistoryIndex <= 0 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} title="${currentLang === 'ar' ? 'تراجع' : 'Undo'}">
-          <i class="ph ph-arrow-u-up-left"></i> ${currentLang === 'ar' ? 'تراجع' : 'Undo'}
+        <button class="btn btn-secondary btn-sm" id="design-undo-btn" ${settingsHistoryIndex <= 0 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} title="${currentLang === 'ar' ? 'Ã˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¬Ã˜Â¹' : 'Undo'}">
+          <i class="ph ph-arrow-u-up-left"></i> ${currentLang === 'ar' ? 'Ã˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¬Ã˜Â¹' : 'Undo'}
         </button>
-        <button class="btn btn-secondary btn-sm" id="design-redo-btn" ${settingsHistoryIndex >= settingsHistory.length - 1 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} title="${currentLang === 'ar' ? 'إعادة' : 'Redo'}">
-          <i class="ph ph-arrow-u-up-right"></i> ${currentLang === 'ar' ? 'إعادة' : 'Redo'}
+        <button class="btn btn-secondary btn-sm" id="design-redo-btn" ${settingsHistoryIndex >= settingsHistory.length - 1 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} title="${currentLang === 'ar' ? 'Ã˜Â¥Ã˜Â¹Ã˜Â§Ã˜Â¯Ã˜Â©' : 'Redo'}">
+          <i class="ph ph-arrow-u-up-right"></i> ${currentLang === 'ar' ? 'Ã˜Â¥Ã˜Â¹Ã˜Â§Ã˜Â¯Ã˜Â©' : 'Redo'}
         </button>
       </div>
     </div>
@@ -1667,12 +1667,12 @@ function renderDesign() {
     <!-- Image Dimension Tips -->
     <div class="settings-section" style="border-left: 4px solid var(--accent); background: rgba(201,160,78,0.05);">
       <div class="settings-section-body" style="padding: 15px;">
-        <h4 style="margin-bottom: 10px; color: var(--accent);"><i class="ph ph-info"></i> ${currentLang === 'ar' ? 'نصيحة حول أبعاد الصور' : 'Image Dimensions Tip'}</h4>
-        <p style="margin-bottom: 5px; font-size: 0.95rem;">${currentLang === 'ar' ? 'للحصول على أفضل مظهر للبنرات وصور السلايدر بدون تشوه:' : 'For the best appearance of banners and slider images without distortion:'}</p>
+        <h4 style="margin-bottom: 10px; color: var(--accent);"><i class="ph ph-info"></i> ${currentLang === 'ar' ? 'Ã™â€ Ã˜ÂµÃ™Å Ã˜Â­Ã˜Â© Ã˜Â­Ã™Ë†Ã™â€ž Ã˜Â£Ã˜Â¨Ã˜Â¹Ã˜Â§Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜ÂµÃ™Ë†Ã˜Â±' : 'Image Dimensions Tip'}</h4>
+        <p style="margin-bottom: 5px; font-size: 0.95rem;">${currentLang === 'ar' ? 'Ã™â€žÃ™â€žÃ˜Â­Ã˜ÂµÃ™Ë†Ã™â€ž Ã˜Â¹Ã™â€žÃ™â€° Ã˜Â£Ã™ÂÃ˜Â¶Ã™â€ž Ã™â€¦Ã˜Â¸Ã™â€¡Ã˜Â± Ã™â€žÃ™â€žÃ˜Â¨Ã™â€ Ã˜Â±Ã˜Â§Ã˜Âª Ã™Ë†Ã˜ÂµÃ™Ë†Ã˜Â± Ã˜Â§Ã™â€žÃ˜Â³Ã™â€žÃ˜Â§Ã™Å Ã˜Â¯Ã˜Â± Ã˜Â¨Ã˜Â¯Ã™Ë†Ã™â€  Ã˜ÂªÃ˜Â´Ã™Ë†Ã™â€¡:' : 'For the best appearance of banners and slider images without distortion:'}</p>
         <ul style="list-style-type: disc; margin-inline-start: 20px; font-size: 0.9rem; color: var(--text-secondary);">
-          <li><b>${currentLang === 'ar' ? 'السلايدر الرئيسي:' : 'Hero Slider:'}</b> ${currentLang === 'ar' ? 'يفضل استخدام صور أفقية عريضة (مثال: 1920 بيكسل عرض × 800 بيكسل طول).' : 'Prefer wide horizontal images (e.g. 1920px width × 800px height).'}</li>
-          <li><b>${currentLang === 'ar' ? 'البنرات الحرة:' : 'Custom Banners:'}</b> ${currentLang === 'ar' ? 'يفضل استخدام صور بأبعاد 1200 عرض × 400 طول.' : 'Prefer dimensions of 1200 width × 400 height.'}</li>
-          <li>${currentLang === 'ar' ? 'الصور يتم ضبطها تلقائياً لتغطية المساحة المتاحة (Cover) مع التركيز على وسط الصورة.' : 'Images are automatically adjusted to cover the available area, keeping the center focused.'}</li>
+          <li><b>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â³Ã™â€žÃ˜Â§Ã™Å Ã˜Â¯Ã˜Â± Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å :' : 'Hero Slider:'}</b> ${currentLang === 'ar' ? 'Ã™Å Ã™ÂÃ˜Â¶Ã™â€ž Ã˜Â§Ã˜Â³Ã˜ÂªÃ˜Â®Ã˜Â¯Ã˜Â§Ã™â€¦ Ã˜ÂµÃ™Ë†Ã˜Â± Ã˜Â£Ã™ÂÃ™â€šÃ™Å Ã˜Â© Ã˜Â¹Ã˜Â±Ã™Å Ã˜Â¶Ã˜Â© (Ã™â€¦Ã˜Â«Ã˜Â§Ã™â€ž: 1920 Ã˜Â¨Ã™Å Ã™Æ’Ã˜Â³Ã™â€ž Ã˜Â¹Ã˜Â±Ã˜Â¶ Ãƒâ€” 800 Ã˜Â¨Ã™Å Ã™Æ’Ã˜Â³Ã™â€ž Ã˜Â·Ã™Ë†Ã™â€ž).' : 'Prefer wide horizontal images (e.g. 1920px width Ãƒâ€” 800px height).'}</li>
+          <li><b>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â¨Ã™â€ Ã˜Â±Ã˜Â§Ã˜Âª Ã˜Â§Ã™â€žÃ˜Â­Ã˜Â±Ã˜Â©:' : 'Custom Banners:'}</b> ${currentLang === 'ar' ? 'Ã™Å Ã™ÂÃ˜Â¶Ã™â€ž Ã˜Â§Ã˜Â³Ã˜ÂªÃ˜Â®Ã˜Â¯Ã˜Â§Ã™â€¦ Ã˜ÂµÃ™Ë†Ã˜Â± Ã˜Â¨Ã˜Â£Ã˜Â¨Ã˜Â¹Ã˜Â§Ã˜Â¯ 1200 Ã˜Â¹Ã˜Â±Ã˜Â¶ Ãƒâ€” 400 Ã˜Â·Ã™Ë†Ã™â€ž.' : 'Prefer dimensions of 1200 width Ãƒâ€” 400 height.'}</li>
+          <li>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜ÂµÃ™Ë†Ã˜Â± Ã™Å Ã˜ÂªÃ™â€¦ Ã˜Â¶Ã˜Â¨Ã˜Â·Ã™â€¡Ã˜Â§ Ã˜ÂªÃ™â€žÃ™â€šÃ˜Â§Ã˜Â¦Ã™Å Ã˜Â§Ã™â€¹ Ã™â€žÃ˜ÂªÃ˜ÂºÃ˜Â·Ã™Å Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â³Ã˜Â§Ã˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã˜ÂªÃ˜Â§Ã˜Â­Ã˜Â© (Cover) Ã™â€¦Ã˜Â¹ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â±Ã™Æ’Ã™Å Ã˜Â² Ã˜Â¹Ã™â€žÃ™â€° Ã™Ë†Ã˜Â³Ã˜Â· Ã˜Â§Ã™â€žÃ˜ÂµÃ™Ë†Ã˜Â±Ã˜Â©.' : 'Images are automatically adjusted to cover the available area, keeping the center focused.'}</li>
         </ul>
       </div>
     </div>
@@ -1681,39 +1681,39 @@ function renderDesign() {
     <div class="settings-section">
       <div class="settings-section-header">
         <span class="section-icon"><i class="ph ph-images"></i></span>
-        <span>${currentLang === 'ar' ? 'السلايدر الرئيسي (Hero)' : 'Hero Slider'}</span>
+        <span>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â³Ã™â€žÃ˜Â§Ã™Å Ã˜Â¯Ã˜Â± Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å  (Hero)' : 'Hero Slider'}</span>
       </div>
       <div class="settings-section-body">
         <div class="admin-form mb-16">
           <div class="form-group">
-            <label>${currentLang === 'ar' ? 'مدة التبديل بين الصور (بالثواني)' : 'Slider Interval (seconds)'}</label>
+            <label>${currentLang === 'ar' ? 'Ã™â€¦Ã˜Â¯Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¨Ã˜Â¯Ã™Å Ã™â€ž Ã˜Â¨Ã™Å Ã™â€  Ã˜Â§Ã™â€žÃ˜ÂµÃ™Ë†Ã˜Â± (Ã˜Â¨Ã˜Â§Ã™â€žÃ˜Â«Ã™Ë†Ã˜Â§Ã™â€ Ã™Å )' : 'Slider Interval (seconds)'}</label>
             <input type="number" id="set-slider-interval" value="${settings.sliderInterval || 4}" min="1" max="10">
           </div>
           
           <div class="form-group checkbox-group" style="display:flex; align-items:center; gap:8px;">
             <input type="checkbox" id="set-hero-title-bold" ${settings.heroTitleBold ? 'checked' : ''} style="width:20px; height:20px; cursor:pointer;">
-            <label for="set-hero-title-bold" style="cursor:pointer; font-weight: bold;">${currentLang === 'ar' ? 'العنوان الرئيسي عريض (Bold)' : 'Bold Main Title'}</label>
+            <label for="set-hero-title-bold" style="cursor:pointer; font-weight: bold;">${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å  Ã˜Â¹Ã˜Â±Ã™Å Ã˜Â¶ (Bold)' : 'Bold Main Title'}</label>
           </div>
           <div class="form-group checkbox-group" style="display:flex; align-items:center; gap:8px;">
             <input type="checkbox" id="set-hero-sub-bold" ${settings.heroSubtitleBold ? 'checked' : ''} style="width:20px; height:20px; cursor:pointer;">
-            <label for="set-hero-sub-bold" style="cursor:pointer; font-weight: bold;">${currentLang === 'ar' ? 'النص الفرعي عريض (Bold)' : 'Bold Subtitle'}</label>
+            <label for="set-hero-sub-bold" style="cursor:pointer; font-weight: bold;">${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  Ã˜Â¹Ã˜Â±Ã™Å Ã˜Â¶ (Bold)' : 'Bold Subtitle'}</label>
           </div>
           <div class="form-group checkbox-group" style="display:flex; align-items:center; gap:8px; margin-bottom: 15px;">
             <input type="checkbox" id="set-hero-btn-bold" ${settings.heroBtnBold ? 'checked' : ''} style="width:20px; height:20px; cursor:pointer;">
-            <label for="set-hero-btn-bold" style="cursor:pointer; font-weight: bold;">${currentLang === 'ar' ? 'نص الزر عريض (Bold)' : 'Bold Button Text'}</label>
+            <label for="set-hero-btn-bold" style="cursor:pointer; font-weight: bold;">${currentLang === 'ar' ? 'Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â²Ã˜Â± Ã˜Â¹Ã˜Â±Ã™Å Ã˜Â¶ (Bold)' : 'Bold Button Text'}</label>
           </div>
           
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'حجم العنوان' : 'Title Size'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â­Ã˜Â¬Ã™â€¦ Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€ ' : 'Title Size'}</label>
               <input type="text" id="set-hero-title-size" value="${settings.heroTitleSize || '4rem'}" placeholder="e.g. 4rem or 60px">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'حجم النص الفرعي' : 'Subtitle Size'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â­Ã˜Â¬Ã™â€¦ Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å ' : 'Subtitle Size'}</label>
               <input type="text" id="set-hero-sub-size" value="${settings.heroSubtitleSize || '1.5rem'}" placeholder="e.g. 1.5rem or 24px">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'حجم نص الزر' : 'Button Text Size'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â­Ã˜Â¬Ã™â€¦ Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â²Ã˜Â±' : 'Button Text Size'}</label>
               <input type="text" id="set-hero-btn-size" value="${settings.heroBtnSize || '1.1rem'}" placeholder="e.g. 1.1rem or 18px">
             </div>
           </div>
@@ -1722,55 +1722,55 @@ function renderDesign() {
           ${(settings.heroSlider || []).map((slide, i) => `
             <div class="slide-setting-item" style="border: 1px solid var(--border); padding: 15px; margin-bottom: 15px; border-radius: 8px; position:relative;">
               <h5 style="margin-bottom: 10px;">Slide ${i + 1}</h5>
-              <button class="btn btn-danger btn-sm" style="position:absolute; top:15px; inset-inline-end:15px; padding:6px 12px;" type="button" data-action="delete-slide">${currentLang === 'ar' ? 'حذف' : 'Delete'}</button>
+              <button class="btn btn-danger btn-sm" style="position:absolute; top:15px; inset-inline-end:15px; padding:6px 12px;" type="button" data-action="delete-slide">${currentLang === 'ar' ? 'Ã˜Â­Ã˜Â°Ã™Â' : 'Delete'}</button>
               
               <div class="admin-form">
                 <div class="form-group full-width">
-                  <label>${currentLang === 'ar' ? 'الصورة (URL)' : 'Image (URL)'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜ÂµÃ™Ë†Ã˜Â±Ã˜Â© (URL)' : 'Image (URL)'}</label>
                   <input type="text" class="slide-img" value="${slide.image || ''}">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'العنوان (عربي)' : 'Title (Arabic)'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )' : 'Title (Arabic)'}</label>
                   <input type="text" class="slide-title-ar" value="${slide.title_ar || ''}">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'العنوان (إنجليزي)' : 'Title (English)'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )' : 'Title (English)'}</label>
                   <input type="text" class="slide-title-en" value="${slide.title_en || ''}">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'النص الفرعي (عربي)' : 'Subtitle (Arabic)'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )' : 'Subtitle (Arabic)'}</label>
                   <input type="text" class="slide-sub-ar" value="${slide.subtitle_ar || ''}">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'النص الفرعي (إنجليزي)' : 'Subtitle (English)'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )' : 'Subtitle (English)'}</label>
                   <input type="text" class="slide-sub-en" value="${slide.subtitle_en || ''}">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'لون العنوان' : 'Title Color'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€ ' : 'Title Color'}</label>
                   <input type="color" class="slide-text-color" value="${slide.textColor || '#c9a04e'}" style="height:40px;padding:2px;">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'لون النص الفرعي' : 'Subtitle Color'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å ' : 'Subtitle Color'}</label>
                   <input type="color" class="slide-subtitle-color" value="${slide.subtitleColor || '#ffffff'}" style="height:40px;padding:2px;">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'لون خلفية الزر' : 'Button Background'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â®Ã™â€žÃ™ÂÃ™Å Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â²Ã˜Â±' : 'Button Background'}</label>
                   <input type="color" class="slide-btn-bg" value="${slide.buttonBg || '#c9a04e'}" style="height:40px;padding:2px;">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'لون نص الزر' : 'Button Text Color'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â²Ã˜Â±' : 'Button Text Color'}</label>
                   <input type="color" class="slide-btn-text" value="${slide.buttonText || '#0a0a0f'}" style="height:40px;padding:2px;">
                 </div>
               </div>
               
               <!-- Slide Live Preview -->
-              <h6 style="margin-top: 15px; margin-bottom: 5px; color: var(--text-secondary);">${currentLang === 'ar' ? 'معاينة السلايدر:' : 'Slide Preview:'}</h6>
+              <h6 style="margin-top: 15px; margin-bottom: 5px; color: var(--text-secondary);">${currentLang === 'ar' ? 'Ã™â€¦Ã˜Â¹Ã˜Â§Ã™Å Ã™â€ Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â³Ã™â€žÃ˜Â§Ã™Å Ã˜Â¯Ã˜Â±:' : 'Slide Preview:'}</h6>
               <div class="slide-preview-box" style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; height: 180px; position: relative; display: flex; align-items: center; justify-content: center; background: #000;">
                 <img src="${slide.image || ''}" class="prev-slide-img" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;">
                 <div style="position: relative; z-index: 1; text-align: center; padding: 20px;">
-                  <h3 class="prev-slide-title" style="color:${slide.textColor || '#c9a04e'}; margin-bottom: 5px; font-size: 1.5rem; margin-top: 0;">${(currentLang === 'ar' ? slide.title_ar : slide.title_en) || (currentLang === 'ar' ? 'العنوان التجريبي' : 'Sample Title')}</h3>
-                  <p class="prev-slide-sub" style="color:${slide.subtitleColor || '#ffffff'}; margin-bottom: 15px; font-size: 1rem;">${(currentLang === 'ar' ? slide.subtitle_ar : slide.subtitle_en) || (currentLang === 'ar' ? 'النص الفرعي التجريبي' : 'Sample Subtitle')}</p>
-                  <button class="prev-slide-btn" style="background:${slide.buttonBg || '#c9a04e'}; color:${slide.buttonText || '#0a0a0f'}; border: 1px solid rgba(128,128,128,0.25); padding:8px 20px; border-radius:6px; font-weight:bold;">${currentLang === 'ar' ? 'تسوق الآن' : 'Shop Now'}</button>
+                  <h3 class="prev-slide-title" style="color:${slide.textColor || '#c9a04e'}; margin-bottom: 5px; font-size: 1.5rem; margin-top: 0;">${(currentLang === 'ar' ? slide.title_ar : slide.title_en) || (currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¬Ã˜Â±Ã™Å Ã˜Â¨Ã™Å ' : 'Sample Title')}</h3>
+                  <p class="prev-slide-sub" style="color:${slide.subtitleColor || '#ffffff'}; margin-bottom: 15px; font-size: 1rem;">${(currentLang === 'ar' ? slide.subtitle_ar : slide.subtitle_en) || (currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¬Ã˜Â±Ã™Å Ã˜Â¨Ã™Å ' : 'Sample Subtitle')}</p>
+                  <button class="prev-slide-btn" style="background:${slide.buttonBg || '#c9a04e'}; color:${slide.buttonText || '#0a0a0f'}; border: 1px solid rgba(128,128,128,0.25); padding:8px 20px; border-radius:6px; font-weight:bold;">${currentLang === 'ar' ? 'Ã˜ÂªÃ˜Â³Ã™Ë†Ã™â€š Ã˜Â§Ã™â€žÃ˜Â¢Ã™â€ ' : 'Shop Now'}</button>
                 </div>
               </div>
             </div>
@@ -1778,7 +1778,7 @@ function renderDesign() {
         </div>
         <div style="text-align: start; margin-top: 15px; margin-bottom: 15px;">
           <button class="btn btn-secondary" id="add-slide-btn" type="button">
-            <i class="ph ph-plus"></i> ${currentLang === 'ar' ? 'إضافة صورة جديدة' : 'Add Slide'}
+            <i class="ph ph-plus"></i> ${currentLang === 'ar' ? 'Ã˜Â¥Ã˜Â¶Ã˜Â§Ã™ÂÃ˜Â© Ã˜ÂµÃ™Ë†Ã˜Â±Ã˜Â© Ã˜Â¬Ã˜Â¯Ã™Å Ã˜Â¯Ã˜Â©' : 'Add Slide'}
           </button>
         </div>
       </div>
@@ -1788,87 +1788,86 @@ function renderDesign() {
     <div class="settings-section">
       <div class="settings-section-header">
         <span class="section-icon"><i class="ph ph-flag-banner"></i></span>
-        <span>${currentLang === 'ar' ? 'النصوص والبنرات الحرة' : 'Custom Banners'}</span>
+        <span>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜ÂµÃ™Ë†Ã˜Âµ Ã™Ë†Ã˜Â§Ã™â€žÃ˜Â¨Ã™â€ Ã˜Â±Ã˜Â§Ã˜Âª Ã˜Â§Ã™â€žÃ˜Â­Ã˜Â±Ã˜Â©' : 'Custom Banners'}</span>
       </div>
       <div class="settings-section-body">
         <div id="custom-banners-container">
           ${(settings.customBanners || []).map((banner, i) => `
             <div class="banner-setting-item admin-form" style="padding:16px; border:1px solid rgba(255,255,255,0.1); border-radius:8px; margin-bottom:16px;">
               <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
-                <h5 style="margin:0">${currentLang === 'ar' ? 'بنر' : 'Banner'} ${i + 1}</h5>
+                <h5 style="margin:0">${currentLang === 'ar' ? 'Ã˜Â¨Ã™â€ Ã˜Â±' : 'Banner'} ${i + 1}</h5>
                 <button class="btn-icon btn-danger btn-sm" data-action="delete-custom-banner"><i class="ph ph-trash"></i></button>
               </div>
               <div class="form-row">
                 <div class="form-group checkbox-group" style="display:flex; align-items:center; gap:8px;">
                   <input type="checkbox" class="banner-active" ${banner.active ? 'checked' : ''}>
-                  <label>${currentLang === 'ar' ? 'تفعيل' : 'Active'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜ÂªÃ™ÂÃ˜Â¹Ã™Å Ã™â€ž' : 'Active'}</label>
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'الحجم' : 'Size'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â­Ã˜Â¬Ã™â€¦' : 'Size'}</label>
                   <select class="banner-size">
-                    <option value="small" ${banner.size === 'small' ? 'selected' : ''}>${currentLang === 'ar' ? 'صغير' : 'Small'}</option>
-                    <option value="medium" ${banner.size === 'medium' ? 'selected' : ''}>${currentLang === 'ar' ? 'متوسط' : 'Medium'}</option>
-                    <option value="large" ${banner.size === 'large' ? 'selected' : ''}>${currentLang === 'ar' ? 'كبير' : 'Large'}</option>
+                    <option value="small" ${banner.size === 'small' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã˜ÂµÃ˜ÂºÃ™Å Ã˜Â±' : 'Small'}</option>
+                    <option value="medium" ${banner.size === 'medium' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã™â€¦Ã˜ÂªÃ™Ë†Ã˜Â³Ã˜Â·' : 'Medium'}</option>
+                    <option value="large" ${banner.size === 'large' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã™Æ’Ã˜Â¨Ã™Å Ã˜Â±' : 'Large'}</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'المحاذاة' : 'Alignment'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â­Ã˜Â§Ã˜Â°Ã˜Â§Ã˜Â©' : 'Alignment'}</label>
                   <select class="banner-align">
-                    <option value="center" ${banner.align === 'center' ? 'selected' : ''}>${currentLang === 'ar' ? 'وسط' : 'Center'}</option>
-                    <option value="right" ${banner.align === 'right' ? 'selected' : ''}>${currentLang === 'ar' ? 'يمين' : 'Right'}</option>
-                    <option value="left" ${banner.align === 'left' ? 'selected' : ''}>${currentLang === 'ar' ? 'يسار' : 'Left'}</option>
+                    <option value="center" ${banner.align === 'center' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã™Ë†Ã˜Â³Ã˜Â·' : 'Center'}</option>
+                    <option value="right" ${banner.align === 'right' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã™Å Ã™â€¦Ã™Å Ã™â€ ' : 'Right'}</option>
+                    <option value="left" ${banner.align === 'left' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã™Å Ã˜Â³Ã˜Â§Ã˜Â±' : 'Left'}</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'مكان الظهور' : 'Position'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã™â€¦Ã™Æ’Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ˜Â¸Ã™â€¡Ã™Ë†Ã˜Â±' : 'Position'}</label>
                   <select class="banner-position">
-                    <option value="top" ${banner.position === 'top' ? 'selected' : ''}>${currentLang === 'ar' ? 'أعلى الرئيسية (تحت السلايدر)' : 'Home Top (Below Slider)'}</option>
-                    <option value="middle" ${banner.position === 'middle' ? 'selected' : ''}>${currentLang === 'ar' ? 'وسط الرئيسية (فوق المنتجات)' : 'Home Middle (Above Products)'}</option>
-                    <option value="bottom" ${banner.position === 'bottom' ? 'selected' : ''}>${currentLang === 'ar' ? 'أسفل الرئيسية (فوق الفوتر)' : 'Home Bottom (Above Footer)'}</option>
-                    <option value="product_top" ${banner.position === 'product_top' ? 'selected' : ''}>${currentLang === 'ar' ? 'أعلى صفحة المنتج' : 'Product Page Top'}</option>
-                    <option value="product_bottom" ${banner.position === 'product_bottom' ? 'selected' : ''}>${currentLang === 'ar' ? 'أسفل صفحة المنتج' : 'Product Page Bottom'}</option>
+                    <option value="top" ${banner.position === 'top' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â¹Ã™â€žÃ™â€° Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å Ã˜Â© (Ã˜ÂªÃ˜Â­Ã˜Âª Ã˜Â§Ã™â€žÃ˜Â³Ã™â€žÃ˜Â§Ã™Å Ã˜Â¯Ã˜Â±)' : 'Home Top (Below Slider)'}</option>
+                    <option value="middle" ${banner.position === 'middle' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã™Ë†Ã˜Â³Ã˜Â· Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å Ã˜Â© (Ã™ÂÃ™Ë†Ã™â€š Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬Ã˜Â§Ã˜Âª)' : 'Home Middle (Above Products)'}</option>
+                    <option value="bottom" ${banner.position === 'bottom' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â³Ã™ÂÃ™â€ž Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å Ã˜Â© (Ã™ÂÃ™Ë†Ã™â€š Ã˜Â§Ã™â€žÃ™ÂÃ™Ë†Ã˜ÂªÃ˜Â±)' : 'Home Bottom (Above Footer)'}</option>
+                    <option value="product_top" ${banner.position === 'product_top' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â¹Ã™â€žÃ™â€° Ã˜ÂµÃ™ÂÃ˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬' : 'Product Page Top'}</option>
+                    <option value="product_bottom" ${banner.position === 'product_bottom' ? 'selected' : ''}>${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â³Ã™ÂÃ™â€ž Ã˜ÂµÃ™ÂÃ˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬' : 'Product Page Bottom'}</option>
                   </select>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'النص (عربي)' : 'Text (Arabic)'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )' : 'Text (Arabic)'}</label>
                   <textarea class="banner-text-ar" rows="2">${banner.text_ar || ''}</textarea>
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'النص (إنجليزي)' : 'Text (English)'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )' : 'Text (English)'}</label>
                   <textarea class="banner-text-en" rows="2">${banner.text_en || ''}</textarea>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'لون الخلفية' : 'Background Color'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ˜Â®Ã™â€žÃ™ÂÃ™Å Ã˜Â©' : 'Background Color'}</label>
                   <input type="color" class="banner-bg-color" value="${banner.bgColor || '#1a1a2e'}" style="height:40px;padding:2px;">
                 </div>
                 <div class="form-group">
-                  <label>${currentLang === 'ar' ? 'لون النص' : 'Text Color'}</label>
+                  <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ' : 'Text Color'}</label>
                   <input type="color" class="banner-text-color" value="${banner.textColor || '#f0f0f5'}" style="height:40px;padding:2px;">
                 </div>
               </div>
               
               <!-- Banner Live Preview -->
-              <h6 style="margin-top: 15px; margin-bottom: 5px; color: var(--text-secondary);">${currentLang === 'ar' ? 'معاينة البنر:' : 'Banner Preview:'}</h6>
+              <h6 style="margin-top: 15px; margin-bottom: 5px; color: var(--text-secondary);">${currentLang === 'ar' ? 'Ã™â€¦Ã˜Â¹Ã˜Â§Ã™Å Ã™â€ Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â¨Ã™â€ Ã˜Â±:' : 'Banner Preview:'}</h6>
               <div class="banner-preview-box" style="padding: 20px; text-align: ${banner.align || 'center'}; background:${banner.bgColor || '#1a1a2e'}; color:${banner.textColor || '#f0f0f5'}; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.2);">
-                <span class="prev-banner-text" style="font-size: 1.1rem; font-weight: bold;">${(currentLang === 'ar' ? banner.text_ar : banner.text_en) || (currentLang === 'ar' ? 'نص البنر التجريبي' : 'Sample Banner Text')}</span>
+                <span class="prev-banner-text" style="font-size: 1.1rem; font-weight: bold;">${(currentLang === 'ar' ? banner.text_ar : banner.text_en) || (currentLang === 'ar' ? 'Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â¨Ã™â€ Ã˜Â± Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¬Ã˜Â±Ã™Å Ã˜Â¨Ã™Å ' : 'Sample Banner Text')}</span>
               </div>
             </div>
           `).join('')}
-        </div>
         <div style="text-align: start; margin-top: 15px; margin-bottom: 15px;">
           <button class="btn btn-secondary" id="add-custom-banner-btn" type="button">
-            <i class="ph ph-plus"></i> ${currentLang === 'ar' ? 'إضافة بنر جديد' : 'Add New Banner'}
+            <i class="ph ph-plus"></i> ${currentLang === 'ar' ? 'Ã˜Â¥Ã˜Â¶Ã˜Â§Ã™ Ã˜Â© Ã˜Â¨Ã™â€ Ã˜Â± Ã˜Â¬Ã˜Â¯Ã™Å Ã˜Â¯' : 'Add New Banner'}
           </button>
         </div>
       </div>
     </div>
     <div style="text-align:center;padding:20px 0">
       <button class="btn btn-primary" id="save-design-btn" style="padding:14px 40px;font-size:16px">
-        <i class="ph ph-floppy-disk"></i> ${currentLang === 'ar' ? 'حفظ التصميم' : 'Save Design'}
+        <i class="ph ph-floppy-disk"></i> ${currentLang === 'ar' ? 'Ã˜Â­Ã™ÂÃ˜Â¸ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€¦Ã™Å Ã™â€¦' : 'Save Design'}
       </button>
     </div>
   `;
@@ -1881,30 +1880,30 @@ function renderSettingsPart2() {
     <div class="settings-section">
       <div class="settings-section-header">
         <span class="section-icon"><i class="ph ph-megaphone"></i></span>
-        <span>${currentLang === 'ar' ? 'شريط الإعلانات (أعلى الموقع)' : 'Announcement Bar'}</span>
+        <span>${currentLang === 'ar' ? 'Ã˜Â´Ã˜Â±Ã™Å Ã˜Â· Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¹Ã™â€žÃ˜Â§Ã™â€ Ã˜Â§Ã˜Âª (Ã˜Â£Ã˜Â¹Ã™â€žÃ™â€° Ã˜Â§Ã™â€žÃ™â€¦Ã™Ë†Ã™â€šÃ˜Â¹)' : 'Announcement Bar'}</span>
       </div>
       <div class="settings-section-body">
         <div class="admin-form">
           <div class="form-group checkbox-group" style="display:flex; align-items:center; gap:8px; grid-column: 1 / -1; margin-bottom:16px;">
             <input type="checkbox" id="set-announcement-active" ${settings.announcementActive ? 'checked' : ''} style="width:20px; height:20px; cursor:pointer;">
             <label for="set-announcement-active" style="font-weight:bold; cursor:pointer; font-size:15px;">
-              ${currentLang === 'ar' ? 'تفعيل شريط الإعلانات' : 'Enable Announcement Bar'}
+              ${currentLang === 'ar' ? 'Ã˜ÂªÃ™ÂÃ˜Â¹Ã™Å Ã™â€ž Ã˜Â´Ã˜Â±Ã™Å Ã˜Â· Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¹Ã™â€žÃ˜Â§Ã™â€ Ã˜Â§Ã˜Âª' : 'Enable Announcement Bar'}
             </label>
           </div>
           <div class="form-group">
-            <label>${currentLang === 'ar' ? 'نص الإعلان (عربي)' : 'Announcement Text (Arabic)'}</label>
-            <input type="text" id="set-announcement-ar" value="${settings.announcementText_ar || ''}" placeholder="مثال: خصم 50% لفترة محدودة!">
+            <label>${currentLang === 'ar' ? 'Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¹Ã™â€žÃ˜Â§Ã™â€  (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )' : 'Announcement Text (Arabic)'}</label>
+            <input type="text" id="set-announcement-ar" value="${settings.announcementText_ar || ''}" placeholder="Ã™â€¦Ã˜Â«Ã˜Â§Ã™â€ž: Ã˜Â®Ã˜ÂµÃ™â€¦ 50% Ã™â€žÃ™ÂÃ˜ÂªÃ˜Â±Ã˜Â© Ã™â€¦Ã˜Â­Ã˜Â¯Ã™Ë†Ã˜Â¯Ã˜Â©!">
           </div>
           <div class="form-group">
-            <label>${currentLang === 'ar' ? 'نص الإعلان (إنجليزي)' : 'Announcement Text (English)'}</label>
+            <label>${currentLang === 'ar' ? 'Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¹Ã™â€žÃ˜Â§Ã™â€  (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )' : 'Announcement Text (English)'}</label>
             <input type="text" id="set-announcement-en" value="${settings.announcementText_en || ''}" placeholder="e.g. 50% Off Limited Time!">
           </div>
           <div class="form-group">
-            <label>${currentLang === 'ar' ? 'لون الخلفية' : 'Background Color'}</label>
+            <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ˜Â®Ã™â€žÃ™ÂÃ™Å Ã˜Â©' : 'Background Color'}</label>
             <input type="color" id="set-announcement-bg" value="${settings.announcementBgColor || '#000000'}" style="height:40px;padding:2px;">
           </div>
           <div class="form-group">
-            <label>${currentLang === 'ar' ? 'لون النص' : 'Text Color'}</label>
+            <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ' : 'Text Color'}</label>
             <input type="color" id="set-announcement-text" value="${settings.announcementTextColor || '#ffffff'}" style="height:40px;padding:2px;">
           </div>
         </div>
@@ -1928,11 +1927,11 @@ function renderSettingsPart2() {
             <input type="text" id="set-whatsapp" value="${settings.contactWhatsapp || ''}" dir="ltr" placeholder="+201000000000">
           </div>
           <div class="form-group">
-            <label>${currentLang === 'ar' ? 'رابط فيسبوك' : 'Facebook Link'}</label>
+            <label>${currentLang === 'ar' ? 'Ã˜Â±Ã˜Â§Ã˜Â¨Ã˜Â· Ã™ÂÃ™Å Ã˜Â³Ã˜Â¨Ã™Ë†Ã™Æ’' : 'Facebook Link'}</label>
             <input type="text" id="set-facebook" value="${settings.socialFacebook || ''}" dir="ltr" placeholder="https://facebook.com/...">
           </div>
           <div class="form-group">
-            <label>${currentLang === 'ar' ? 'رابط انستجرام' : 'Instagram Link'}</label>
+            <label>${currentLang === 'ar' ? 'Ã˜Â±Ã˜Â§Ã˜Â¨Ã˜Â· Ã˜Â§Ã™â€ Ã˜Â³Ã˜ÂªÃ˜Â¬Ã˜Â±Ã˜Â§Ã™â€¦' : 'Instagram Link'}</label>
             <input type="text" id="set-instagram" value="${settings.socialInstagram || ''}" dir="ltr" placeholder="https://instagram.com/...">
           </div>
           <div class="form-group">
@@ -1962,7 +1961,7 @@ function renderSettingsPart2() {
           <div class="form-group checkbox-group" style="display:flex; align-items:center; gap:8px; grid-column: 1 / -1; margin-bottom:16px;">
             <input type="checkbox" id="set-free-shipping-active" ${settings.freeShippingActive ? 'checked' : ''} style="width:20px; height:20px; cursor:pointer;">
             <label for="set-free-shipping-active" style="font-weight:bold; cursor:pointer; font-size:15px;">
-              ${currentLang === 'ar' ? 'تفعيل الشحن المجاني عند الوصول للحد الأدنى' : 'Enable Free Shipping when reaching threshold'}
+              ${currentLang === 'ar' ? 'Ã˜ÂªÃ™ÂÃ˜Â¹Ã™Å Ã™â€ž Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â­Ã™â€  Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â¬Ã˜Â§Ã™â€ Ã™Å  Ã˜Â¹Ã™â€ Ã˜Â¯ Ã˜Â§Ã™â€žÃ™Ë†Ã˜ÂµÃ™Ë†Ã™â€ž Ã™â€žÃ™â€žÃ˜Â­Ã˜Â¯ Ã˜Â§Ã™â€žÃ˜Â£Ã˜Â¯Ã™â€ Ã™â€°' : 'Enable Free Shipping when reaching threshold'}
             </label>
           </div>
           <div class="form-group">
@@ -1976,7 +1975,15 @@ function renderSettingsPart2() {
         </div>
         
         <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:20px;">
-          <h4 style="margin-bottom:12px; font-size:15px; color:var(--text-primary); font-family:var(--font-ar-heading);">${currentLang === 'ar' ? 'أسعار الشحن التفصيلية للمحافظات' : 'Detailed Shipping Rates by City'}</h4>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h4 style="margin-bottom:12px; font-size:15px; color:var(--text-primary); font-family:var(--font-ar-heading);">${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â³Ã˜Â¹Ã˜Â§Ã˜Â± Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â­Ã™â€  Ã˜Â§Ã™â€žÃ˜ÂªÃ™ÂÃ˜ÂµÃ™Å Ã™â€žÃ™Å Ã˜Â© Ã™â€žÃ™â€žÃ™â€¦Ã˜Â­Ã˜Â§Ã™ÂÃ˜Â¸Ã˜Â§Ã˜Âª' : 'Detailed Shipping Rates by City'}</h4>
+            <div>
+              <input type="file" id="shipping-csv-upload" accept=".csv" style="display:none;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-upload-shipping-csv" title="Upload CSV for Rates">
+                <i class="ph ph-upload-simple"></i> Upload Rates (CSV)
+              </button>
+            </div>
+          </div>
           <div class="shipping-rates-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:12px; max-height:280px; overflow-y:auto; padding:12px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-input);">
             ${Object.entries(settings.shippingRates || {}).map(([city, rate]) => `
               <div class="form-group" style="margin-bottom:0; display:flex; flex-direction:column; gap:4px;">
@@ -1993,11 +2000,11 @@ function renderSettingsPart2() {
     <div class="settings-section">
       <div class="settings-section-header">
         <span class="section-icon"><i class="ph ph-envelope-simple"></i></span>
-        <span>${currentLang === 'ar' ? 'إعدادات البريد (EmailJS)' : 'Email Settings (EmailJS)'}</span>
+        <span>${currentLang === 'ar' ? 'Ã˜Â¥Ã˜Â¹Ã˜Â¯Ã˜Â§Ã˜Â¯Ã˜Â§Ã˜Âª Ã˜Â§Ã™â€žÃ˜Â¨Ã˜Â±Ã™Å Ã˜Â¯ (EmailJS)' : 'Email Settings (EmailJS)'}</span>
       </div>
       <div class="settings-section-body">
         <p class="text-muted" style="margin-bottom:16px;font-size:14px">
-          ${currentLang === 'ar' ? 'قم بإنشاء حساب في emailjs.com مجاناً لإرسال الطلبات إلى بريدك.' : 'Create a free account at emailjs.com to receive order emails.'}
+          ${currentLang === 'ar' ? 'Ã™â€šÃ™â€¦ Ã˜Â¨Ã˜Â¥Ã™â€ Ã˜Â´Ã˜Â§Ã˜Â¡ Ã˜Â­Ã˜Â³Ã˜Â§Ã˜Â¨ Ã™ÂÃ™Å  emailjs.com Ã™â€¦Ã˜Â¬Ã˜Â§Ã™â€ Ã˜Â§Ã™â€¹ Ã™â€žÃ˜Â¥Ã˜Â±Ã˜Â³Ã˜Â§Ã™â€ž Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨Ã˜Â§Ã˜Âª Ã˜Â¥Ã™â€žÃ™â€° Ã˜Â¨Ã˜Â±Ã™Å Ã˜Â¯Ã™Æ’.' : 'Create a free account at emailjs.com to receive order emails.'}
         </p>
         <div class="form-row">
           <div class="form-group">
@@ -2041,6 +2048,62 @@ function attachSettingsListeners() {
 
   // Save settings
   const saveBtn = document.getElementById('save-settings-btn');
+  
+  // CSV Upload Logic
+  const csvUploadBtn = document.getElementById('btn-upload-shipping-csv');
+  const csvInput = document.getElementById('shipping-csv-upload');
+  if (csvUploadBtn && csvInput) {
+    csvUploadBtn.addEventListener('click', () => {
+      csvInput.click();
+    });
+    csvInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const text = event.target.result;
+        const lines = text.split(/\r?\n/).filter(l => l.trim() !== '');
+        let updatedCount = 0;
+        lines.forEach((line, index) => {
+          if (index === 0 && (line.includes('Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â­Ã˜Â§Ã™ÂÃ˜Â¸Ã˜Â©') || line.includes('City') || line.includes('Ã˜Â§Ã™â€žÃ˜Â³Ã˜Â¹Ã˜Â±') || line.includes('Price'))) {
+            return; // Skip header
+          }
+          const parts = line.split(',');
+          if (parts.length >= 2) {
+            const city = parts[0].trim();
+            const rate = parseFloat(parts[1].trim());
+            if (city && !isNaN(rate)) {
+              // Find matching input by exact city name
+              let input = document.querySelector(`.city-shipping-rate[data-city="${city}"]`);
+              if (input) {
+                input.value = rate;
+                updatedCount++;
+              } else {
+                // If city doesn't exist in DOM, we could append it, but the existing DOM renders from Store.getSettings().shippingRates.
+                // For simplicity, we just inject it into the DOM so it gets saved
+                const grid = document.querySelector('.shipping-rates-grid');
+                if (grid) {
+                  const div = document.createElement('div');
+                  div.className = 'form-group';
+                  div.style = 'margin-bottom:0; display:flex; flex-direction:column; gap:4px;';
+                  div.innerHTML = `
+                    <label style="font-size:12px; color:var(--text-secondary);">${escapeHtml(city)}</label>
+                    <input type="number" class="city-shipping-rate" data-city="${escapeHtml(city)}" value="${rate}" min="0" style="padding:6px 10px; font-size:14px; border-radius:4px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-primary);">
+                  `;
+                  grid.appendChild(div);
+                  updatedCount++;
+                }
+              }
+            }
+          }
+        });
+        alert(currentLang === 'ar' ? `Ã˜ÂªÃ™â€¦ Ã˜ÂªÃ˜Â­Ã˜Â¯Ã™Å Ã˜Â« ${updatedCount} Ã™â€¦Ã˜Â­Ã˜Â§Ã™ÂÃ˜Â¸Ã˜Â© Ã˜Â¨Ã™â€ Ã˜Â¬Ã˜Â§Ã˜Â­. Ã™â€žÃ˜Â§ Ã˜ÂªÃ™â€ Ã˜Â³Ã™â€° Ã˜Â¶Ã˜ÂºÃ˜Â· Ã˜Â­Ã™ÂÃ˜Â¸ Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¹Ã˜Â¯Ã˜Â§Ã˜Â¯Ã˜Â§Ã˜Âª.` : `Successfully updated ${updatedCount} cities. Don't forget to Save Settings.`);
+        csvInput.value = ''; // Reset
+      };
+      reader.readAsText(file);
+    });
+  }
+
   if (saveBtn) {
     saveBtn.addEventListener('click', () => {
       const shippingRates = {};
@@ -2107,7 +2170,7 @@ function attachSettingsListeners() {
         settingsHistoryIndex--;
         const prevSettings = settingsHistory[settingsHistoryIndex];
         Store.saveSettings(prevSettings);
-        showToast(currentLang === 'ar' ? 'تم التراجع عن التعديل' : 'Undo successful', 'info');
+        showToast(currentLang === 'ar' ? 'Ã˜ÂªÃ™â€¦ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¬Ã˜Â¹ Ã˜Â¹Ã™â€  Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¹Ã˜Â¯Ã™Å Ã™â€ž' : 'Undo successful', 'info');
         renderContentArea('settings');
       }
     });
@@ -2119,7 +2182,7 @@ function attachSettingsListeners() {
         settingsHistoryIndex++;
         const nextSettings = settingsHistory[settingsHistoryIndex];
         Store.saveSettings(nextSettings);
-        showToast(currentLang === 'ar' ? 'تم إعادة تطبيق التعديل' : 'Redo successful', 'info');
+        showToast(currentLang === 'ar' ? 'Ã˜ÂªÃ™â€¦ Ã˜Â¥Ã˜Â¹Ã˜Â§Ã˜Â¯Ã˜Â© Ã˜ÂªÃ˜Â·Ã˜Â¨Ã™Å Ã™â€š Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¹Ã˜Â¯Ã™Å Ã™â€ž' : 'Redo successful', 'info');
         renderContentArea('settings');
       }
     });
@@ -2190,13 +2253,13 @@ function attachDesignListeners() {
         img.src = e.target.value;
       }
       if (e.target.classList.contains('slide-title-ar') && currentLang === 'ar' && title) {
-        title.textContent = e.target.value || 'العنوان التجريبي';
+        title.textContent = e.target.value || 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¬Ã˜Â±Ã™Å Ã˜Â¨Ã™Å ';
       }
       if (e.target.classList.contains('slide-title-en') && currentLang === 'en' && title) {
         title.textContent = e.target.value || 'Sample Title';
       }
       if (e.target.classList.contains('slide-sub-ar') && currentLang === 'ar' && sub) {
-        sub.textContent = e.target.value || 'النص الفرعي التجريبي';
+        sub.textContent = e.target.value || 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¬Ã˜Â±Ã™Å Ã˜Â¨Ã™Å ';
       }
       if (e.target.classList.contains('slide-sub-en') && currentLang === 'en' && sub) {
         sub.textContent = e.target.value || 'Sample Subtitle';
@@ -2228,7 +2291,7 @@ function attachDesignListeners() {
       if (!previewBox || !previewText) return;
       
       if (e.target.classList.contains('banner-text-ar') && currentLang === 'ar') {
-        previewText.textContent = e.target.value || 'نص البنر التجريبي';
+        previewText.textContent = e.target.value || 'Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â¨Ã™â€ Ã˜Â± Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¬Ã˜Â±Ã™Å Ã˜Â¨Ã™Å ';
       }
       if (e.target.classList.contains('banner-text-en') && currentLang === 'en') {
         previewText.textContent = e.target.value || 'Sample Banner Text';
@@ -2258,7 +2321,7 @@ function attachDesignListeners() {
           title_en: item.querySelector('.slide-title-en').value,
           subtitle_ar: item.querySelector('.slide-sub-ar').value,
           subtitle_en: item.querySelector('.slide-sub-en').value,
-          buttonText_ar: 'تسوق الآن',
+          buttonText_ar: 'Ã˜ÂªÃ˜Â³Ã™Ë†Ã™â€š Ã˜Â§Ã™â€žÃ˜Â¢Ã™â€ ',
           buttonText_en: 'Shop Now',
           buttonLink: '#/products',
           textColor: item.querySelector('.slide-text-color')?.value || '#c9a04e',
@@ -2345,7 +2408,7 @@ function attachDesignListeners() {
       settingsHistoryIndex = settingsHistory.length - 1;
 
       Store.saveSettings(newSettings);
-      showToast(currentLang === 'ar' ? 'تم حفظ التصميم' : 'Design saved', 'success');
+      showToast(currentLang === 'ar' ? 'Ã˜ÂªÃ™â€¦ Ã˜Â­Ã™ÂÃ˜Â¸ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜ÂµÃ™â€¦Ã™Å Ã™â€¦' : 'Design saved', 'success');
       renderContentArea('design');
     });
   }
@@ -2360,7 +2423,7 @@ function attachDesignListeners() {
         settingsHistoryIndex--;
         const prevSettings = settingsHistory[settingsHistoryIndex];
         Store.saveSettings(prevSettings);
-        showToast(currentLang === 'ar' ? 'تم التراجع عن التعديل' : 'Undo successful', 'info');
+        showToast(currentLang === 'ar' ? 'Ã˜ÂªÃ™â€¦ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¬Ã˜Â¹ Ã˜Â¹Ã™â€  Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¹Ã˜Â¯Ã™Å Ã™â€ž' : 'Undo successful', 'info');
         renderContentArea('design');
       }
     });
@@ -2372,7 +2435,7 @@ function attachDesignListeners() {
         settingsHistoryIndex++;
         const nextSettings = settingsHistory[settingsHistoryIndex];
         Store.saveSettings(nextSettings);
-        showToast(currentLang === 'ar' ? 'تم إعادة تطبيق التعديل' : 'Redo successful', 'info');
+        showToast(currentLang === 'ar' ? 'Ã˜ÂªÃ™â€¦ Ã˜Â¥Ã˜Â¹Ã˜Â§Ã˜Â¯Ã˜Â© Ã˜ÂªÃ˜Â·Ã˜Â¨Ã™Å Ã™â€š Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¹Ã˜Â¯Ã™Å Ã™â€ž' : 'Redo successful', 'info');
         renderContentArea('design');
       }
     });
@@ -2387,53 +2450,53 @@ function attachDesignListeners() {
       const slideHTML = `
         <div class="slide-setting-item" style="border: 1px solid var(--border); padding: 15px; margin-bottom: 15px; border-radius: 8px; position:relative;">
           <h5 style="margin-bottom: 10px;">Slide ${slideIndex}</h5>
-          <button class="btn btn-danger btn-sm" style="position:absolute; top:15px; inset-inline-end:15px; padding:6px 12px;" type="button" data-action="delete-slide">${currentLang === 'ar' ? 'حذف' : 'Delete'}</button>
+          <button class="btn btn-danger btn-sm" style="position:absolute; top:15px; inset-inline-end:15px; padding:6px 12px;" type="button" data-action="delete-slide">${currentLang === 'ar' ? 'Ã˜Â­Ã˜Â°Ã™Â' : 'Delete'}</button>
           <div class="admin-form">
             <div class="form-group full-width">
-              <label>${currentLang === 'ar' ? 'الصورة (URL)' : 'Image (URL)'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜ÂµÃ™Ë†Ã˜Â±Ã˜Â© (URL)' : 'Image (URL)'}</label>
               <input type="text" class="slide-img" value="">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'العنوان (عربي)' : 'Title (Arabic)'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )' : 'Title (Arabic)'}</label>
               <input type="text" class="slide-title-ar" value="">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'العنوان (إنجليزي)' : 'Title (English)'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )' : 'Title (English)'}</label>
               <input type="text" class="slide-title-en" value="">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'النص الفرعي (عربي)' : 'Subtitle (Arabic)'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )' : 'Subtitle (Arabic)'}</label>
               <input type="text" class="slide-sub-ar" value="">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'النص الفرعي (إنجليزي)' : 'Subtitle (English)'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å  (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )' : 'Subtitle (English)'}</label>
               <input type="text" class="slide-sub-en" value="">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'لون العنوان' : 'Title Color'}</label>
+              <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€ ' : 'Title Color'}</label>
               <input type="color" class="slide-text-color" value="#c9a04e" style="height:40px;padding:2px;">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'لون النص الفرعي' : 'Subtitle Color'}</label>
+              <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å ' : 'Subtitle Color'}</label>
               <input type="color" class="slide-subtitle-color" value="#ffffff" style="height:40px;padding:2px;">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'لون خلفية الزر' : 'Button Background'}</label>
+              <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â®Ã™â€žÃ™ÂÃ™Å Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â²Ã˜Â±' : 'Button Background'}</label>
               <input type="color" class="slide-btn-bg" value="#c9a04e" style="height:40px;padding:2px;">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'لون نص الزر' : 'Button Text Color'}</label>
+              <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â²Ã˜Â±' : 'Button Text Color'}</label>
               <input type="color" class="slide-btn-text" value="#0a0a0f" style="height:40px;padding:2px;">
             </div>
           </div>
           
-          <h6 style="margin-top: 15px; margin-bottom: 5px; color: var(--text-secondary);">${currentLang === 'ar' ? 'معاينة السلايدر:' : 'Slide Preview:'}</h6>
+          <h6 style="margin-top: 15px; margin-bottom: 5px; color: var(--text-secondary);">${currentLang === 'ar' ? 'Ã™â€¦Ã˜Â¹Ã˜Â§Ã™Å Ã™â€ Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â³Ã™â€žÃ˜Â§Ã™Å Ã˜Â¯Ã˜Â±:' : 'Slide Preview:'}</h6>
           <div class="slide-preview-box" style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; height: 180px; position: relative; display: flex; align-items: center; justify-content: center; background: #000;">
             <img src="" class="prev-slide-img" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;">
             <div style="position: relative; z-index: 1; text-align: center; padding: 20px;">
-              <h3 class="prev-slide-title" style="color:#c9a04e; margin-bottom: 5px; font-size: 1.5rem; margin-top: 0;">${currentLang === 'ar' ? 'العنوان' : 'Title'}</h3>
-              <p class="prev-slide-sub" style="color:#ffffff; margin-bottom: 15px; font-size: 1rem;">${currentLang === 'ar' ? 'النص الفرعي' : 'Subtitle'}</p>
-              <button class="prev-slide-btn" style="background:#c9a04e; color:#0a0a0f; border:none; padding:8px 20px; border-radius:6px; font-weight:bold;">${currentLang === 'ar' ? 'تسوق الآن' : 'Shop Now'}</button>
+              <h3 class="prev-slide-title" style="color:#c9a04e; margin-bottom: 5px; font-size: 1.5rem; margin-top: 0;">${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€ ' : 'Title'}</h3>
+              <p class="prev-slide-sub" style="color:#ffffff; margin-bottom: 15px; font-size: 1rem;">${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å ' : 'Subtitle'}</p>
+              <button class="prev-slide-btn" style="background:#c9a04e; color:#0a0a0f; border:none; padding:8px 20px; border-radius:6px; font-weight:bold;">${currentLang === 'ar' ? 'Ã˜ÂªÃ˜Â³Ã™Ë†Ã™â€š Ã˜Â§Ã™â€žÃ˜Â¢Ã™â€ ' : 'Shop Now'}</button>
             </div>
           </div>
         </div>
@@ -2453,65 +2516,65 @@ function attachDesignListeners() {
       const bannerHTML = `
         <div class="banner-setting-item admin-form" style="padding:16px; border:1px solid rgba(255,255,255,0.1); border-radius:8px; margin-bottom:16px;">
           <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
-            <h5 style="margin:0">${currentLang === 'ar' ? 'بنر' : 'Banner'} ${bannerIndex}</h5>
+            <h5 style="margin:0">${currentLang === 'ar' ? 'Ã˜Â¨Ã™â€ Ã˜Â±' : 'Banner'} ${bannerIndex}</h5>
             <button class="btn-icon btn-danger btn-sm" data-action="delete-custom-banner" type="button"><i class="ph ph-trash"></i></button>
           </div>
           <div class="form-row">
             <div class="form-group checkbox-group" style="display:flex; align-items:center; gap:8px;">
               <input type="checkbox" class="banner-active" checked>
-              <label>${currentLang === 'ar' ? 'تفعيل' : 'Active'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜ÂªÃ™ÂÃ˜Â¹Ã™Å Ã™â€ž' : 'Active'}</label>
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'الحجم' : 'Size'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ˜Â­Ã˜Â¬Ã™â€¦' : 'Size'}</label>
               <select class="banner-size">
-                <option value="small">${currentLang === 'ar' ? 'صغير' : 'Small'}</option>
-                <option value="medium" selected>${currentLang === 'ar' ? 'متوسط' : 'Medium'}</option>
-                <option value="large">${currentLang === 'ar' ? 'كبير' : 'Large'}</option>
+                <option value="small">${currentLang === 'ar' ? 'Ã˜ÂµÃ˜ÂºÃ™Å Ã˜Â±' : 'Small'}</option>
+                <option value="medium" selected>${currentLang === 'ar' ? 'Ã™â€¦Ã˜ÂªÃ™Ë†Ã˜Â³Ã˜Â·' : 'Medium'}</option>
+                <option value="large">${currentLang === 'ar' ? 'Ã™Æ’Ã˜Â¨Ã™Å Ã˜Â±' : 'Large'}</option>
               </select>
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'المحاذاة' : 'Alignment'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â­Ã˜Â§Ã˜Â°Ã˜Â§Ã˜Â©' : 'Alignment'}</label>
               <select class="banner-align">
-                <option value="center" selected>${currentLang === 'ar' ? 'وسط' : 'Center'}</option>
-                <option value="right">${currentLang === 'ar' ? 'يمين' : 'Right'}</option>
-                <option value="left">${currentLang === 'ar' ? 'يسار' : 'Left'}</option>
+                <option value="center" selected>${currentLang === 'ar' ? 'Ã™Ë†Ã˜Â³Ã˜Â·' : 'Center'}</option>
+                <option value="right">${currentLang === 'ar' ? 'Ã™Å Ã™â€¦Ã™Å Ã™â€ ' : 'Right'}</option>
+                <option value="left">${currentLang === 'ar' ? 'Ã™Å Ã˜Â³Ã˜Â§Ã˜Â±' : 'Left'}</option>
               </select>
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'مكان الظهور' : 'Position'}</label>
+              <label>${currentLang === 'ar' ? 'Ã™â€¦Ã™Æ’Ã˜Â§Ã™â€  Ã˜Â§Ã™â€žÃ˜Â¸Ã™â€¡Ã™Ë†Ã˜Â±' : 'Position'}</label>
               <select class="banner-position">
-                <option value="top" selected>${currentLang === 'ar' ? 'أعلى الرئيسية (تحت السلايدر)' : 'Home Top (Below Slider)'}</option>
-                <option value="middle">${currentLang === 'ar' ? 'وسط الرئيسية (فوق المنتجات)' : 'Home Middle (Above Products)'}</option>
-                <option value="bottom">${currentLang === 'ar' ? 'أسفل الرئيسية (فوق الفوتر)' : 'Home Bottom (Above Footer)'}</option>
-                <option value="product_top">${currentLang === 'ar' ? 'أعلى صفحة المنتج' : 'Product Page Top'}</option>
-                <option value="product_bottom">${currentLang === 'ar' ? 'أسفل صفحة المنتج' : 'Product Page Bottom'}</option>
+                <option value="top" selected>${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â¹Ã™â€žÃ™â€° Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å Ã˜Â© (Ã˜ÂªÃ˜Â­Ã˜Âª Ã˜Â§Ã™â€žÃ˜Â³Ã™â€žÃ˜Â§Ã™Å Ã˜Â¯Ã˜Â±)' : 'Home Top (Below Slider)'}</option>
+                <option value="middle">${currentLang === 'ar' ? 'Ã™Ë†Ã˜Â³Ã˜Â· Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å Ã˜Â© (Ã™ÂÃ™Ë†Ã™â€š Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬Ã˜Â§Ã˜Âª)' : 'Home Middle (Above Products)'}</option>
+                <option value="bottom">${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â³Ã™ÂÃ™â€ž Ã˜Â§Ã™â€žÃ˜Â±Ã˜Â¦Ã™Å Ã˜Â³Ã™Å Ã˜Â© (Ã™ÂÃ™Ë†Ã™â€š Ã˜Â§Ã™â€žÃ™ÂÃ™Ë†Ã˜ÂªÃ˜Â±)' : 'Home Bottom (Above Footer)'}</option>
+                <option value="product_top">${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â¹Ã™â€žÃ™â€° Ã˜ÂµÃ™ÂÃ˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬' : 'Product Page Top'}</option>
+                <option value="product_bottom">${currentLang === 'ar' ? 'Ã˜Â£Ã˜Â³Ã™ÂÃ™â€ž Ã˜ÂµÃ™ÂÃ˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬' : 'Product Page Bottom'}</option>
               </select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'النص (عربي)' : 'Text (Arabic)'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ (Ã˜Â¹Ã˜Â±Ã˜Â¨Ã™Å )' : 'Text (Arabic)'}</label>
               <textarea class="banner-text-ar" rows="2"></textarea>
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'النص (إنجليزي)' : 'Text (English)'}</label>
+              <label>${currentLang === 'ar' ? 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ (Ã˜Â¥Ã™â€ Ã˜Â¬Ã™â€žÃ™Å Ã˜Â²Ã™Å )' : 'Text (English)'}</label>
               <textarea class="banner-text-en" rows="2"></textarea>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'لون الخلفية' : 'Background Color'}</label>
+              <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ˜Â®Ã™â€žÃ™ÂÃ™Å Ã˜Â©' : 'Background Color'}</label>
               <input type="color" class="banner-bg-color" value="#1a1a2e" style="height:40px;padding:2px;">
             </div>
             <div class="form-group">
-              <label>${currentLang === 'ar' ? 'لون النص' : 'Text Color'}</label>
+              <label>${currentLang === 'ar' ? 'Ã™â€žÃ™Ë†Ã™â€  Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ' : 'Text Color'}</label>
               <input type="color" class="banner-text-color" value="#f0f0f5" style="height:40px;padding:2px;">
             </div>
           </div>
           
-          <h6 style="margin-top: 15px; margin-bottom: 5px; color: var(--text-secondary);">${currentLang === 'ar' ? 'معاينة البنر:' : 'Banner Preview:'}</h6>
+          <h6 style="margin-top: 15px; margin-bottom: 5px; color: var(--text-secondary);">${currentLang === 'ar' ? 'Ã™â€¦Ã˜Â¹Ã˜Â§Ã™Å Ã™â€ Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â¨Ã™â€ Ã˜Â±:' : 'Banner Preview:'}</h6>
           <div class="banner-preview-box" style="padding: 20px; text-align: center; background:#1a1a2e; color:#f0f0f5; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.2);">
-            <span class="prev-banner-text" style="font-size: 1.1rem; font-weight: bold;">${currentLang === 'ar' ? 'نص البنر' : 'Banner Text'}</span>
+            <span class="prev-banner-text" style="font-size: 1.1rem; font-weight: bold;">${currentLang === 'ar' ? 'Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â¨Ã™â€ Ã˜Â±' : 'Banner Text'}</span>
           </div>
         </div>
       `;
@@ -2531,9 +2594,9 @@ function attachDesignListeners() {
       const slideItem = target.closest('.slide-setting-item');
       if (slideItem) {
         if (target.classList.contains('slide-img')) slideItem.querySelector('.prev-slide-img').src = target.value;
-        if (target.classList.contains('slide-title-ar') && currentLang === 'ar') slideItem.querySelector('.prev-slide-title').textContent = target.value || 'العنوان';
+        if (target.classList.contains('slide-title-ar') && currentLang === 'ar') slideItem.querySelector('.prev-slide-title').textContent = target.value || 'Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€ ';
         if (target.classList.contains('slide-title-en') && currentLang === 'en') slideItem.querySelector('.prev-slide-title').textContent = target.value || 'Title';
-        if (target.classList.contains('slide-sub-ar') && currentLang === 'ar') slideItem.querySelector('.prev-slide-sub').textContent = target.value || 'النص الفرعي';
+        if (target.classList.contains('slide-sub-ar') && currentLang === 'ar') slideItem.querySelector('.prev-slide-sub').textContent = target.value || 'Ã˜Â§Ã™â€žÃ™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ™ÂÃ˜Â±Ã˜Â¹Ã™Å ';
         if (target.classList.contains('slide-sub-en') && currentLang === 'en') slideItem.querySelector('.prev-slide-sub').textContent = target.value || 'Subtitle';
         if (target.classList.contains('slide-text-color')) slideItem.querySelector('.prev-slide-title').style.color = target.value;
         if (target.classList.contains('slide-subtitle-color')) slideItem.querySelector('.prev-slide-sub').style.color = target.value;
@@ -2548,7 +2611,7 @@ function attachDesignListeners() {
         if (target.classList.contains('banner-align')) previewBox.style.textAlign = target.value;
         if (target.classList.contains('banner-bg-color')) previewBox.style.background = target.value;
         if (target.classList.contains('banner-text-color')) previewBox.style.color = target.value;
-        if (target.classList.contains('banner-text-ar') && currentLang === 'ar') bannerItem.querySelector('.prev-banner-text').textContent = target.value || 'نص البنر';
+        if (target.classList.contains('banner-text-ar') && currentLang === 'ar') bannerItem.querySelector('.prev-banner-text').textContent = target.value || 'Ã™â€ Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â¨Ã™â€ Ã˜Â±';
         if (target.classList.contains('banner-text-en') && currentLang === 'en') bannerItem.querySelector('.prev-banner-text').textContent = target.value || 'Banner Text';
       }
     });
@@ -2615,14 +2678,14 @@ document.addEventListener('click', (e) => {
 
     case 'undo':
       if (Store.storeUndo()) {
-        showToast(currentLang === 'ar' ? 'تم التراجع' : 'Undo successful', 'info');
+        showToast(currentLang === 'ar' ? 'Ã˜ÂªÃ™â€¦ Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¬Ã˜Â¹' : 'Undo successful', 'info');
         renderContentArea(getRoute());
       }
       break;
 
     case 'redo':
       if (Store.storeRedo()) {
-        showToast(currentLang === 'ar' ? 'تم إعادة التطبيق' : 'Redo successful', 'info');
+        showToast(currentLang === 'ar' ? 'Ã˜ÂªÃ™â€¦ Ã˜Â¥Ã˜Â¹Ã˜Â§Ã˜Â¯Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â·Ã˜Â¨Ã™Å Ã™â€š' : 'Redo successful', 'info');
         renderContentArea(getRoute());
       }
       break;
@@ -2680,7 +2743,7 @@ document.addEventListener('click', (e) => {
         if (bannerContainer) {
           bannerContainer.querySelectorAll('.banner-setting-item').forEach((b, i) => {
             const h5 = b.querySelector('h5');
-            if (h5) h5.textContent = (currentLang === 'ar' ? 'بنر ' : 'Banner ') + (i + 1);
+            if (h5) h5.textContent = (currentLang === 'ar' ? 'Ã˜Â¨Ã™â€ Ã˜Â± ' : 'Banner ') + (i + 1);
           });
         }
       }
@@ -2776,7 +2839,7 @@ document.addEventListener('submit', (e) => {
     
     errorEl.classList.remove('visible');
     const originalText = btn.textContent;
-    btn.textContent = 'جاري تسجيل الدخول...';
+    btn.textContent = 'Ã˜Â¬Ã˜Â§Ã˜Â±Ã™Å  Ã˜ÂªÃ˜Â³Ã˜Â¬Ã™Å Ã™â€ž Ã˜Â§Ã™â€žÃ˜Â¯Ã˜Â®Ã™Ë†Ã™â€ž...';
     btn.disabled = true;
 
     Store.adminLogin(email, password).then(result => {
@@ -2784,7 +2847,7 @@ document.addEventListener('submit', (e) => {
         navigate('dashboard');
         renderCurrentPage();
       } else {
-        errorEl.textContent = "خطأ: " + (result || "بيانات الدخول خاطئة");
+        errorEl.textContent = "Ã˜Â®Ã˜Â·Ã˜Â£: " + (result || "Ã˜Â¨Ã™Å Ã˜Â§Ã™â€ Ã˜Â§Ã˜Âª Ã˜Â§Ã™â€žÃ˜Â¯Ã˜Â®Ã™Ë†Ã™â€ž Ã˜Â®Ã˜Â§Ã˜Â·Ã˜Â¦Ã˜Â©");
         errorEl.classList.add('visible');
         btn.textContent = originalText;
         btn.disabled = false;
@@ -2830,7 +2893,7 @@ window.addEventListener('hashchange', () => {
   }
 });
 
-// Store events — auto-refresh
+// Store events Ã¢â‚¬â€ auto-refresh
 Store.on('products-updated', () => {
   if (getRoute() === 'products' || getRoute() === 'dashboard') {
     renderContentArea(getRoute());
@@ -2873,7 +2936,7 @@ function init() {
   applyLanguage(currentLang);
   
   let currentSettings = Store.getSettings();
-  document.title = `${currentSettings.storeName || 'Medix'} - Admin Panel | لوحة التحكم`;
+  document.title = `${currentSettings.storeName || 'Medix'} - Admin Panel | Ã™â€žÃ™Ë†Ã˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â­Ã™Æ’Ã™â€¦`;
   
   // Initialize settings history
   settingsHistory = [JSON.parse(JSON.stringify(currentSettings))];
@@ -2891,7 +2954,7 @@ function init() {
 window.addEventListener('storage', (e) => {
   if (e.key && e.key.startsWith('lr_')) {
     const currentSettings = Store.getSettings();
-    document.title = `${currentSettings.storeName || 'Medix'} - Admin Panel | لوحة التحكم`;
+    document.title = `${currentSettings.storeName || 'Medix'} - Admin Panel | Ã™â€žÃ™Ë†Ã˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â­Ã™Æ’Ã™â€¦`;
     renderCurrentPage();
   }
 });
@@ -2901,9 +2964,10 @@ window.addEventListener('firebase-data-synced', (e) => {
   const key = e.detail.key;
   if (key && key.startsWith('lr_')) {
     const currentSettings = Store.getSettings();
-    document.title = `${currentSettings.storeName || 'Medix'} - Admin Panel | لوحة التحكم`;
+    document.title = `${currentSettings.storeName || 'Medix'} - Admin Panel | Ã™â€žÃ™Ë†Ã˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â­Ã™Æ’Ã™â€¦`;
     renderCurrentPage();
   }
 });
 
 init();
+
