@@ -711,56 +711,7 @@ function renderProducts() {
     </div>
   `;
 }
-// ===== IMAGE COMPRESSION =====
-function compressImage(file, maxWidth, callback, targetRatio = null) {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function(event) {
-    const img = new Image();
-    img.src = event.target.result;
-    img.onload = function() {
-      const canvas = document.createElement('canvas');
-      let targetWidth = img.width;
-      let targetHeight = img.height;
-      let drawX = 0, drawY = 0, drawWidth = img.width, drawHeight = img.height;
 
-      // Smart Dimension Adjust (Pad with white to match target ratio)
-      if (targetRatio) {
-        const imageRatio = img.width / img.height;
-        if (imageRatio > targetRatio) {
-          targetWidth = img.width;
-          targetHeight = img.width / targetRatio;
-          drawY = (targetHeight - img.height) / 2;
-        } else if (imageRatio < targetRatio) {
-          targetHeight = img.height;
-          targetWidth = img.height * targetRatio;
-          drawX = (targetWidth - img.width) / 2;
-        }
-      }
-
-      if (targetWidth > maxWidth) {
-        const scale = maxWidth / targetWidth;
-        targetWidth = maxWidth;
-        targetHeight *= scale;
-        drawX *= scale;
-        drawY *= scale;
-        drawWidth *= scale;
-        drawHeight *= scale;
-      }
-
-      canvas.width = Math.round(targetWidth);
-      canvas.height = Math.round(targetHeight);
-
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, Math.round(drawX), Math.round(drawY), Math.round(drawWidth), Math.round(drawHeight));
-
-      const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85);
-      callback(compressedBase64);
-    };
-  };
-}
 
 function openProductModal(product = null) {
   const isEdit = !!product;
@@ -846,13 +797,15 @@ function openProductModal(product = null) {
 
       <div class="form-group full-width">
         <label>${t('admin.images')}</label>
-        <div class="file-upload-wrapper" style="margin-bottom:8px; display:flex; align-items:center; gap:12px;">
-          <input type="file" id="prod-image-upload" accept="image/*" multiple style="display:none">
-          <label for="prod-image-upload" class="btn btn-secondary" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
-            <i class="ph ph-upload-simple"></i> ${currentLang === 'ar' ? 'رفع صور من الجهاز' : 'Upload Images'}
-          </label>
-          <span class="text-muted" style="font-size:12px">${currentLang === 'ar' ? 'يتم ضغط الصور تلقائياً للحفاظ على المساحة' : 'Images are auto-compressed'}</span>
+        <div style="display:flex; gap:8px; margin-bottom:10px;">
+          <input type="text" id="prod-image-url-input" placeholder="${currentLang === 'ar' ? 'الصق رابط الصورة هنا (https://...)' : 'Paste image URL here (https://...)'}" style="flex:1;">
+          <button type="button" class="btn btn-secondary" id="btn-add-image-url" style="white-space:nowrap;">
+            <i class="ph ph-plus"></i> ${currentLang === 'ar' ? 'إضافة' : 'Add'}
+          </button>
         </div>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px; margin-top:-4px;">
+          ${currentLang === 'ar' ? '💡 ارفع الصورة على موقع مثل <strong><a href="https://imgbb.com" target="_blank" style="color:var(--accent);">imgbb.com</a></strong> أو <strong><a href="https://postimages.org" target="_blank" style="color:var(--accent);">postimages.org</a></strong> ثم الصق الرابط هنا' : '💡 Upload your image to <strong><a href="https://imgbb.com" target="_blank" style="color:var(--accent);">imgbb.com</a></strong> or <strong><a href="https://postimages.org" target="_blank" style="color:var(--accent);">postimages.org</a></strong> then paste the URL here'}
+        </p>
         <textarea id="prod-images" placeholder="${t('admin.imageUrls')}" rows="3">${product?.images?.join('\n') || ''}</textarea>
         <div class="image-preview-grid" id="img-preview-grid">
           ${(product?.images || []).map((url, i) => `
@@ -950,28 +903,22 @@ function openProductModal(product = null) {
     };
   }
 
-  // Handle file uploads
-  const imgUpload = document.getElementById('prod-image-upload');
-  if (imgUpload && imgTextarea) {
-    imgUpload.addEventListener('change', (e) => {
-      const files = e.target.files;
-      if (!files.length) return;
-      
+  // Add Image URL button logic
+  const urlInput = document.getElementById('prod-image-url-input');
+  const addUrlBtn = document.getElementById('btn-add-image-url');
+  if (urlInput && addUrlBtn && imgTextarea) {
+    const addUrlFn = () => {
+      const url = urlInput.value.trim();
+      if (!url) return;
       const currentImages = imgTextarea.value ? imgTextarea.value.split('\n').map(u => u.trim()).filter(Boolean) : [];
-      let processed = 0;
-      
-      Array.from(files).forEach(file => {
-        compressImage(file, 800, (base64) => {
-          currentImages.push(base64);
-          processed++;
-          if (processed === files.length) {
-            imgTextarea.value = currentImages.join('\n');
-            imgTextarea.dispatchEvent(new Event('input'));
-            imgUpload.value = ''; // reset
-          }
-        }, 3/4);
-      });
-    });
+      currentImages.push(url);
+      imgTextarea.value = currentImages.join('\n');
+      imgTextarea.dispatchEvent(new Event('input'));
+      urlInput.value = '';
+      urlInput.focus();
+    };
+    addUrlBtn.addEventListener('click', addUrlFn);
+    urlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addUrlFn(); } });
   }
 
   // Price & Discount Auto-Calculation Listeners
@@ -1131,14 +1078,17 @@ function openCategoryModal(category = null) {
         <input type="text" id="cat-name-en" value="${category?.name_en || ''}" required>
       </div>
       <div class="form-group full-width">
-        <label>${t('admin.icon')} (صورة التصنيف)</label>
-        <div class="file-upload-wrapper" style="margin-bottom:8px; display:flex; align-items:center; gap:12px;">
-          <input type="file" id="cat-image-upload" accept="image/*" style="display:none">
-          <label for="cat-image-upload" class="btn btn-secondary" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
-            <i class="ph ph-upload-simple"></i> ${currentLang === 'ar' ? 'رفع صورة' : 'Upload Image'}
-          </label>
+        <label>${t('admin.icon')} (${currentLang === 'ar' ? 'صورة التصنيف' : 'Category Image'})</label>
+        <div style="display:flex; gap:8px; margin-bottom:8px;">
+          <input type="text" id="cat-icon-url-input" placeholder="${currentLang === 'ar' ? 'الصق رابط الصورة هنا (https://...)' : 'Paste image URL here (https://...)'}" style="flex:1;">
+          <button type="button" class="btn btn-secondary" id="btn-set-cat-image" style="white-space:nowrap;">
+            <i class="ph ph-check"></i> ${currentLang === 'ar' ? 'تطبيق' : 'Apply'}
+          </button>
         </div>
-        <textarea id="cat-icon" placeholder="Base64 Image Data or URL" rows="2" style="display:none;">${category?.image || category?.icon || ''}</textarea>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px; margin-top:-4px;">
+          ${currentLang === 'ar' ? '💡 ارفع الصورة على <a href="https://imgbb.com" target="_blank" style="color:var(--accent);">imgbb.com</a> ثم الصق الرابط' : '💡 Upload to <a href="https://imgbb.com" target="_blank" style="color:var(--accent);">imgbb.com</a> then paste the URL'}
+        </p>
+        <input type="hidden" id="cat-icon" value="${category?.image || category?.icon || ''}">
         <div class="image-preview-grid" id="cat-img-preview">
           ${(category?.image || category?.icon) ? `
             <div class="image-preview-item" style="width:80px;height:80px;">
@@ -1168,25 +1118,27 @@ function openCategoryModal(category = null) {
 
   openModal(title, body, footer);
 
-  // Handle file uploads for category
-  const catImgUpload = document.getElementById('cat-image-upload');
-  const catImgTextarea = document.getElementById('cat-icon');
+  // Handle URL input for category image
+  const catIconUrlInput = document.getElementById('cat-icon-url-input');
+  const setCatImgBtn = document.getElementById('btn-set-cat-image');
+  const catIconHidden = document.getElementById('cat-icon');
   const catImgPreview = document.getElementById('cat-img-preview');
   
-  if (catImgUpload && catImgTextarea) {
-    catImgUpload.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      compressImage(file, 400, (base64) => {
-        catImgTextarea.value = base64;
-        catImgPreview.innerHTML = `
-          <div class="image-preview-item" style="width:80px;height:80px;">
-            <img src="${base64}" alt="Preview" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
-          </div>
-        `;
-      }, 1);
-    });
-  }
+  const applyCatImage = () => {
+    const url = catIconUrlInput?.value?.trim() || catIconHidden?.value?.trim() || '';
+    const finalUrl = catIconUrlInput?.value?.trim() || '';
+    if (!finalUrl) return;
+    catIconHidden.value = finalUrl;
+    catImgPreview.innerHTML = `
+      <div class="image-preview-item" style="width:80px;height:80px;">
+        <img src="${finalUrl}" alt="Preview" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" onerror="this.src='https://via.placeholder.com/80'">
+      </div>
+    `;
+  };
+  if (setCatImgBtn) setCatImgBtn.addEventListener('click', applyCatImage);
+  if (catIconUrlInput) catIconUrlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); applyCatImage(); } });
+  // Pre-fill URL input if editing existing category
+  if (catIconUrlInput && catIconHidden?.value) catIconUrlInput.value = catIconHidden.value;
 
   document.getElementById('save-category-btn').addEventListener('click', () => {
     const nameAr = document.getElementById('cat-name-ar').value.trim();
