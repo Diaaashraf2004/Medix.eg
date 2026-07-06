@@ -1362,7 +1362,7 @@ function renderCheckoutPage() {
     `;
   }
 
-  const shippingText = 'â€”';
+  const shippingText = '—';
 
   let discountRow = '';
   let finalTotal = cartTotal.subtotal;
@@ -2548,7 +2548,7 @@ function updateCheckoutShipping(city) {
   const totalDisplay = document.getElementById('checkout-total-display');
 
   if (!city) {
-    if (shippingDisplay) shippingDisplay.textContent = 'â€”';
+    if (shippingDisplay) shippingDisplay.textContent = '—';
     const cartTotal = Store.getCartTotal('');
     let finalTotal = cartTotal.subtotal;
     if (currentCouponCode) {

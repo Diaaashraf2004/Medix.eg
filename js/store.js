@@ -143,7 +143,7 @@ function storeUndo() {
     isUndoRedoAction = true;
     historyIndex--;
     const state = historyStack[historyIndex];
-    Object.keys(state).forEach(key => localStorage.setItem(key, state[key]));
+    Object.keys(state).forEach(key => saveToStorage(key, state[key]));
     isUndoRedoAction = false;
     emit('history-changed', { canUndo: historyIndex > 0, canRedo: historyIndex < historyStack.length - 1 });
     // Trigger storage event so admin/app redraws
@@ -158,7 +158,7 @@ function storeRedo() {
     isUndoRedoAction = true;
     historyIndex++;
     const state = historyStack[historyIndex];
-    Object.keys(state).forEach(key => localStorage.setItem(key, state[key]));
+    Object.keys(state).forEach(key => saveToStorage(key, state[key]));
     isUndoRedoAction = false;
     emit('history-changed', { canUndo: historyIndex > 0, canRedo: historyIndex < historyStack.length - 1 });
     window.dispatchEvent(new StorageEvent('storage', { key: 'lr_history_redo' }));
@@ -1016,7 +1016,12 @@ function initFirebaseSync() {
             if (localStorage.getItem(key) === newPayloadStr) {
               isDifferent = false;
             } else {
-              localStorage.setItem(key, newPayloadStr);
+              try {
+                localStorage.setItem(key, newPayloadStr);
+              } catch (e) {
+                console.warn(`LocalStorage quota exceeded for ${key}, falling back to memory store.`);
+                _memoryStore[key] = JSON.parse(newPayloadStr);
+              }
             }
           } else {
             if (JSON.stringify(_memoryStore[key]) === newPayloadStr) {

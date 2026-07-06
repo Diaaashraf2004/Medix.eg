@@ -85,7 +85,7 @@ const translations = {
     'admin.typography': 'الخطوط',
     'admin.colors': 'الألوان',
     'admin.contactInfo': 'معلومات التواصل',
-    'admin.shipping': 'الشحن',
+    'admin.shippingSettings': 'إعدادات الشحن',
     'admin.subtitleAr': 'العنوان الفرعي (عربي)',
     'admin.subtitleEn': 'العنوان الفرعي (إنجليزي)',
     'admin.aboutAr': 'عن المتجر (عربي)',
@@ -231,7 +231,7 @@ const translations = {
     'admin.typography': 'Typography',
     'admin.colors': 'Colors',
     'admin.contactInfo': 'Contact Information',
-    'admin.shipping': 'Shipping',
+    'admin.shippingSettings': 'Shipping Settings',
     'admin.subtitleAr': 'Subtitle (Arabic)',
     'admin.subtitleEn': 'Subtitle (English)',
     'admin.aboutAr': 'About Store (Arabic)',
@@ -1907,7 +1907,7 @@ function renderSettingsPart2() {
     <div class="settings-section">
       <div class="settings-section-header">
         <span class="section-icon"><i class="ph ph-truck"></i></span>
-        <span>${t('admin.shipping')}</span>
+        <span>${t('admin.shippingSettings')}</span>
       </div>
       <div class="settings-section-body">
         <div class="admin-form">
