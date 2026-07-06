@@ -1228,38 +1228,40 @@ function renderProductDetailPage(productId) {
 
             ${outOfStock ? `<p style="color:var(--danger);font-weight:600;">${t('product.outOfStock')}</p>` : ''}
           </div>
-        </div>
 
         <!-- Linked/Upsell Products -->
         ${linkedProducts.length > 0 ? `
-          <div class="linked-products-section">
-            <h3 class="linked-products-title">${t('linked.title')}</h3>
-            <div class="linked-products-grid">
+          <div class="linked-products-section" style="margin-top: 25px; border-top: 1px dashed var(--border); padding-top: 20px;">
+            <h3 class="linked-products-title" style="font-size: 1.1rem; margin-bottom: 15px;">${t('linked.title')}</h3>
+            <div class="linked-products-grid" style="display:flex; flex-direction:column; gap:10px;">
               ${linkedProducts.map(p => `
-                <div class="linked-product-item" id="linked-item-${p.id}">
-                  <div class="linked-product-info">
-                    <input type="checkbox" class="linked-product-check" data-action="toggle-linked-price" data-price="${Store.getProductPrice(p)}" value="${p.id}" checked style="margin: 0 10px;">
-                    <img class="linked-product-img" src="${p.images?.[0] || 'https://via.placeholder.com/50'}" alt="" loading="lazy">
-                    <div class="linked-product-details">
-                      <span class="linked-product-name">${escapeHtml(getProductName(p))}</span>
-                      <span class="linked-product-price">${formatPrice(Store.getProductPrice(p))}</span>
+                <div class="linked-product-item" id="linked-item-${p.id}" style="display:flex; justify-content:space-between; align-items:center; background:var(--bg-card); border:1px solid var(--border); padding:10px; border-radius:8px;">
+                  <div class="linked-product-info" style="display:flex; align-items:center; gap:10px; flex:1;">
+                    <input type="checkbox" class="linked-product-check" data-action="toggle-linked-price" data-price="${Store.getProductPrice(p)}" value="${p.id}" checked style="cursor:pointer; width:18px; height:18px;">
+                    <img class="linked-product-img" src="${p.images?.[0] || 'https://via.placeholder.com/50'}" alt="" loading="lazy" style="width:40px; height:40px; object-fit:cover; border-radius:6px;">
+                    <div class="linked-product-details" style="display:flex; flex-direction:column;">
+                      <span class="linked-product-name" style="font-weight:600; font-size:0.9rem;">${escapeHtml(getProductName(p))}</span>
+                      <span class="linked-product-price" style="color:var(--primary); font-weight:bold; font-size:0.85rem;">${formatPrice(Store.getProductPrice(p))}</span>
                     </div>
                   </div>
-                  <button class="btn btn-secondary btn-sm" data-action="add-to-cart" data-product-id="${p.id}">${t('product.addToCart')}</button>
                 </div>
               `).join('')}
             </div>
-            <div class="linked-products-action-bar">
-              <div class="linked-products-total-desc">
+            <div class="linked-products-action-bar" style="margin-top:15px; padding:15px; background:var(--bg-card); border-radius:8px; border:1px solid var(--border); display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center;">
+              <div class="linked-products-total-desc" style="font-size:0.9rem;">
                 <span>${t('linked.totalSelected')} </span>
-                <strong id="linked-total-price-display">${formatPrice(discountedPrice + linkedProducts.reduce((sum, p) => sum + Store.getProductPrice(p), 0))}</strong>
+                <strong id="linked-total-price-display" style="font-size:1.1rem; color:var(--primary);">${formatPrice(discountedPrice + linkedProducts.reduce((sum, p) => sum + Store.getProductPrice(p), 0))}</strong>
               </div>
-              <button class="btn btn-primary" data-action="add-linked-bundle" data-main-id="${product.id}">
+              <button class="btn btn-primary btn-sm" data-action="add-linked-bundle" data-main-id="${product.id}">
                 <i class="ph ph-shopping-bag-open"></i> ${t('linked.buyTogether')}
               </button>
             </div>
           </div>
         ` : ''}
+
+        </div>
+
+
 
         <!-- Reviews Section -->
         <section class="page-section" id="reviews-section">
