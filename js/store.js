@@ -981,15 +981,20 @@ function initFirebaseSync() {
           let localData = null;
           try { localData = localDataStr ? JSON.parse(localDataStr) : null; } catch(e){}
 
+          // Removed the override logic. Cloud is the absolute source of truth.
           const isCloudEmpty = Array.isArray(payload) ? payload.length === 0 : (payload && Object.keys(payload).length === 0);
-          const hasLocalData = localData && (Array.isArray(localData) ? localData.length > 0 : Object.keys(localData).length > 0);
-
-          if (isCloudEmpty && hasLocalData) {
-            const { setDoc } = window.FirebaseDB;
-            setDoc(doc(db, "store_data", key), { data: localData })
-              .then(() => console.log("Override empty cloud with local data for " + key))
-              .catch(e => console.error("Override push failed for " + key, e));
-            // Still count as synced
+          
+          if (isCloudEmpty) {
+            // If cloud is empty, we must wipe local data to match cloud.
+            if (_useLocalStorage) {
+              try { localStorage.removeItem(key); } catch(e){}
+            }
+            delete _memoryStore[key];
+            
+            // Trigger sync event to clear UI
+            try { window.dispatchEvent(new StorageEvent('storage', { key: key })); } catch(e){}
+            window.dispatchEvent(new CustomEvent('firebase-data-synced', { detail: { key: key } }));
+            
             if (!initialSyncDone) { syncedCount++; if (syncedCount >= totalKeys) { initialSyncDone = true; window.dispatchEvent(new CustomEvent('firebase-initial-sync-done')); } }
             return;
           }

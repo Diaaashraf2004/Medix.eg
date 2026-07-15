@@ -2907,20 +2907,12 @@ function revealOnce() {
   revealApp();
 }
 
-const hasLocalData =
-  localStorage.getItem('lr_products_v2') &&
-  JSON.parse(localStorage.getItem('lr_products_v2')).length > 0;
-
 if (window.FirebaseDB && window.FirebaseDB.db) {
   init();
-  if (hasLocalData) {
-    // Returning visitor: valid local data exists, show immediately and update in background
-    revealApp();
-  } else {
-    // New visitor: wait for initial real data (max 2 seconds)
-    window.addEventListener('firebase-initial-sync-done', revealOnce);
-    setTimeout(revealOnce, 2000);
-  }
+  // Always wait for Firebase to ensure cloud data is priority
+  window.addEventListener('firebase-initial-sync-done', revealOnce);
+  // Safety timeout: max 5 seconds, after which it reveals whatever is there
+  setTimeout(revealOnce, 5000);
 } else {
   // No Firebase at all
   init();
