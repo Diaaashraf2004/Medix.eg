@@ -2873,5 +2873,56 @@ window.addEventListener('firebase-data-synced', (e) => {
   }
 });
 
-// Start
-init();
+// ===== SMART LOADING: Wait for Firebase before showing content =====
+function revealApp() {
+  const loader = document.getElementById('app-loader');
+  const app = document.getElementById('app');
+  const navbar = document.getElementById('navbar-container');
+  const footer = document.getElementById('footer-container');
+  const announcement = document.getElementById('announcement-bar-container');
+  
+  if (app) app.style.opacity = '1';
+  if (navbar) navbar.style.opacity = '1';
+  if (footer) footer.style.opacity = '1';
+  if (announcement) announcement.style.opacity = '1';
+  
+  if (loader) {
+    loader.style.opacity = '0';
+    setTimeout(() => loader.remove(), 400);
+  }
+}
+
+let appRevealed = false;
+
+function revealOnce() {
+  if (appRevealed) return;
+  appRevealed = true;
+  // Re-render with fresh data then reveal
+  const settings = Store.getSettings();
+  applyFonts(settings);
+  renderNavbar();
+  renderFooter();
+  renderCartSidebar();
+  handleRoute();
+  revealApp();
+}
+
+const hasLocalData =
+  localStorage.getItem('lr_products_v2') &&
+  JSON.parse(localStorage.getItem('lr_products_v2')).length > 0;
+
+if (window.FirebaseDB && window.FirebaseDB.db) {
+  init();
+  if (hasLocalData) {
+    // Returning visitor: valid local data exists, show immediately and update in background
+    revealApp();
+  } else {
+    // New visitor: wait for initial real data (max 2 seconds)
+    window.addEventListener('firebase-initial-sync-done', revealOnce);
+    setTimeout(revealOnce, 2000);
+  }
+} else {
+  // No Firebase at all
+  init();
+  revealApp();
+}

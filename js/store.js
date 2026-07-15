@@ -229,28 +229,7 @@ const DEFAULT_SETTINGS = {
   emailjs_template_id: '',
   emailjs_public_key: '',
   sliderInterval: 4, // in seconds
-  heroSlider: [
-    {
-      image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2070&auto=format&fit=crop',
-      title_ar: 'إطارات فنية مذهلة',
-      title_en: 'Stunning Art Frames',
-      subtitle_ar: 'اكتشف تشكيلتنا الجديدة من لوحات الحائط',
-      subtitle_en: 'Discover our new wall art collection',
-      buttonText_ar: 'تسوق الآن',
-      buttonText_en: 'Shop Now',
-      buttonLink: '#/products'
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=2030&auto=format&fit=crop',
-      title_ar: 'خصومات مميزة',
-      title_en: 'Special Discounts',
-      subtitle_ar: 'تصفح أفضل الإطارات بأسعار تنافسية',
-      subtitle_en: 'Browse the best frames at competitive prices',
-      buttonText_ar: 'شاهد العروض',
-      buttonText_en: 'View Offers',
-      buttonLink: '#/products'
-    }
-  ],
+  heroSlider: [],
   navBgColor: '#ffffff',
   navTextColor: '#000000',
   btnBgColor: '#000000',
@@ -987,6 +966,11 @@ function initFirebaseSync() {
     STORAGE_KEYS.customers
   ];
 
+  // Track initial sync completion
+  let syncedCount = 0;
+  const totalKeys = keysToSync.length;
+  let initialSyncDone = false;
+
   keysToSync.forEach(key => {
     onSnapshot(doc(db, "store_data", key), (docSnap) => {
       const exists = typeof docSnap.exists === 'function' ? docSnap.exists() : docSnap.exists;
@@ -1001,11 +985,12 @@ function initFirebaseSync() {
           const hasLocalData = localData && (Array.isArray(localData) ? localData.length > 0 : Object.keys(localData).length > 0);
 
           if (isCloudEmpty && hasLocalData) {
-            // Cloud has an empty document, but we have local data. Push local data instead of wiping!
             const { setDoc } = window.FirebaseDB;
             setDoc(doc(db, "store_data", key), { data: localData })
               .then(() => console.log("Override empty cloud with local data for " + key))
               .catch(e => console.error("Override push failed for " + key, e));
+            // Still count as synced
+            if (!initialSyncDone) { syncedCount++; if (syncedCount >= totalKeys) { initialSyncDone = true; window.dispatchEvent(new CustomEvent('firebase-initial-sync-done')); } }
             return;
           }
 
@@ -1033,9 +1018,8 @@ function initFirebaseSync() {
 
           if (isDifferent) {
             isFirebaseSyncing = true;
-            isFirebaseSyncing = false; // Reset immediately
+            isFirebaseSyncing = false;
             
-            // Trigger a global event to refresh the UI immediately
             try {
               window.dispatchEvent(new StorageEvent('storage', { key: key }));
             } catch(e) {}
@@ -1056,6 +1040,14 @@ function initFirebaseSync() {
                 .catch(e => console.error("Initial push failed for " + key, e));
             }
           } catch(e) {}
+        }
+      }
+      // Count initial sync
+      if (!initialSyncDone) {
+        syncedCount++;
+        if (syncedCount >= totalKeys) {
+          initialSyncDone = true;
+          window.dispatchEvent(new CustomEvent('firebase-initial-sync-done'));
         }
       }
     });
