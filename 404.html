@@ -10,10 +10,16 @@
     
     // Determine base path. If on github.io, it's typically /repoName/
     var basePath = '/';
+    var exactRepoName = 'Medix.eg';
     if (l.hostname.indexOf('github.io') !== -1) {
       var parts = path.split('/');
       if (parts.length > 1 && parts[1] !== '') {
-        basePath = '/' + parts[1] + '/';
+        // Force the correct case if it matches case-insensitively
+        if (parts[1].toLowerCase() === exactRepoName.toLowerCase()) {
+          basePath = '/' + exactRepoName + '/';
+        } else {
+          basePath = '/' + parts[1] + '/';
+        }
       }
     }
     
