@@ -294,7 +294,11 @@ function navigateTo(hash) {
 }
 
 function parseRoute(hash) {
-  const clean = hash.replace('#', '');
+  // Strip query parameters from the hash (e.g. Facebook's ?fbclid appended to the hash)
+  let clean = hash.replace('#', '');
+  if (clean.includes('?')) {
+    clean = clean.split('?')[0];
+  }
   const parts = clean.split('/').filter(Boolean);
   if (parts.length === 0) return { page: 'home', params: {} };
   if (parts[0] === 'products') return { page: 'products', params: {} };
