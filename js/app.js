@@ -1426,9 +1426,9 @@ function renderCheckoutPage() {
 
               <h3 class="mb-3 mt-4">${t('checkout.shippingInfo')}</h3>
               <div class="form-group">
-                <label class="form-label" for="checkout-city">${t('checkout.city')} *</label>
-                <select class="form-select" id="checkout-city" required>
-                  <option value="">${t('checkout.selectCity')}</option>
+                <label class="form-label" for="checkout-city">${t('checkout.city')} (اختياري - للاستلام من الفرع اتركه فارغاً)</label>
+                <select class="form-select" id="checkout-city">
+                  <option value="">بدون شحن (استلام من الفرع)</option>
                   ${(Array.isArray(cities) ? cities : []).map(city => `<option value="${escapeHtml(city)}">${escapeHtml(city)}</option>`).join('')}
                 </select>
               </div>
@@ -2622,11 +2622,6 @@ function handlePlaceOrder() {
   if (!phoneRegex.test(cleanPhone)) {
     showToast(t('checkout.invalidPhone'), 'error');
     document.getElementById('checkout-phone')?.focus();
-    return;
-  }
-  if (!city) {
-    showToast(`${t('checkout.city')}: ${t('checkout.required')}`, 'error');
-    document.getElementById('checkout-city')?.focus();
     return;
   }
   if (!address) {
