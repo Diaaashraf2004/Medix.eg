@@ -2617,7 +2617,9 @@ function handlePlaceOrder() {
     document.getElementById('checkout-name')?.focus();
     return;
   }
-  if (!phone || phone.length < 8) {
+  const cleanPhone = phone ? phone.replace(/[\s\-\(\)]/g, '') : '';
+  const phoneRegex = /^(?:\+20|0020)?01[0125]\d{8}$/;
+  if (!phoneRegex.test(cleanPhone)) {
     showToast(t('checkout.invalidPhone'), 'error');
     document.getElementById('checkout-phone')?.focus();
     return;
