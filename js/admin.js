@@ -2770,11 +2770,11 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Modal overlay close
+// Modal overlay close - Disabled to prevent accidental data loss
 document.addEventListener('click', (e) => {
-  if (e.target.id === 'modal-overlay') {
-    closeModal();
-  }
+  // if (e.target.id === 'modal-overlay') {
+  //   closeModal();
+  // }
 });
 
 // Login form
