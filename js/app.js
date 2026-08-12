@@ -845,7 +845,7 @@ function renderHomePage() {
     featured = Store.getActiveProducts().slice(0, 8);
   }
   const categories = Store.getActiveCategories();
-  const offers = Store.getDiscountedProducts().slice(0, 4);
+  const offers = Store.getDiscountedProducts().slice(0, 8);
   const subtitle = lang === 'ar' ? settings.subtitle_ar : settings.subtitle_en;
   const storeName = settings.storeName || 'Medix';
   const nameParts = storeName.split(' ');
