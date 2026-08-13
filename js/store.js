@@ -321,7 +321,7 @@ function searchProducts(query, lang = 'ar') {
 }
 
 function getDiscountedProducts() {
-  return getActiveProducts().filter(p => p.discountPercentage > 0);
+  return getActiveProducts().filter(p => p.discountPercentage > 0 || (p.salePrice !== undefined && p.salePrice > 0 && p.salePrice < p.price));
 }
 
 function getProductPrice(product) {
