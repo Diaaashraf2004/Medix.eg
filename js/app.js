@@ -1477,10 +1477,6 @@ function renderCheckoutPage() {
                 <label class="form-label" for="checkout-phone">${t('checkout.phone')} *</label>
                 <input type="tel" class="form-input" id="checkout-phone" value="${escapeHtml(defPhone)}" required>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="checkout-email">${t('checkout.email')}</label>
-                <input type="email" class="form-input" id="checkout-email" value="${escapeHtml(defEmail)}">
-              </div>
 
               <h3 class="mb-3 mt-4">${t('checkout.shippingInfo')}</h3>
               <div class="form-group">
@@ -2748,7 +2744,7 @@ document.addEventListener('keydown', (e) => {
 function handlePlaceOrder() {
   const name = document.getElementById('checkout-name')?.value?.trim();
   const phone = document.getElementById('checkout-phone')?.value?.trim();
-  const email = document.getElementById('checkout-email')?.value?.trim();
+  const email = ''; // Email field was removed
   const city = document.getElementById('checkout-city')?.value?.trim();
   const address = document.getElementById('checkout-address')?.value?.trim();
   const notes = document.getElementById('checkout-notes')?.value?.trim();

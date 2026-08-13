@@ -2003,6 +2003,42 @@ function renderSettingsPart2() {
 
 function attachSettingsListeners() {
   const saveBtn = document.getElementById('save-settings-btn');
+  const csvInput = document.getElementById('shipping-csv-upload');
+  const uploadBtn = document.getElementById('btn-upload-shipping-csv');
+
+  if (uploadBtn && csvInput) {
+    uploadBtn.addEventListener('click', () => csvInput.click());
+    csvInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const currentLang = getLang();
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const text = event.target.result;
+        const rows = text.split('\n');
+        let updatedCount = 0;
+        const grid = document.getElementById('shipping-rates-grid');
+        
+        rows.forEach(row => {
+          if (row.trim()) {
+            const cols = row.split(',');
+            if (cols.length >= 2) {
+              const city = cols[0].trim();
+              const rate = parseFloat(cols[1].trim());
+              
+              if (city && !isNaN(rate)) {
+                let input = grid.querySelector(`input[data-city="${city}"]`);
+                if (input) {
+                  input.value = rate;
+                  updatedCount++;
+                } else if (grid) {
+                  const div = document.createElement('div');
+                  div.className = 'form-group';
+                  div.innerHTML = `
+                    <label>${city}</label>
+                    <input type="number" class="city-shipping-rate" data-city="${city}" value="${rate}" min="0">
+                  `;
                   grid.appendChild(div);
                   updatedCount++;
                 }
