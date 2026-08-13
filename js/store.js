@@ -518,7 +518,9 @@ function createOrder(orderData) {
       price: item.product.price,
       discountedPrice: getProductPrice(item.product),
       quantity: item.quantity,
-      image: item.product.images?.[0] || ''
+      image: item.product.images?.[0] || '',
+      color: item.color || null,
+      size: item.size || null
     })),
     subtotal: cartTotal.subtotal,
     shipping: cartTotal.shipping,
@@ -934,7 +936,18 @@ function seedData() {
   saveToStorage(STORAGE_KEYS.coupons, []);
 
   saveToStorage(STORAGE_KEYS.seeded, true);
-  console.log('✨ Medix: Store initialized with empty data!');
+  console.log('✅ Medix: Store initialized with empty data!');
+}
+
+// ===== IMPORT BACKUP =====
+function importBackup(data) {
+  if (data.products) saveToStorage(STORAGE_KEYS.products, data.products);
+  if (data.categories) saveToStorage(STORAGE_KEYS.categories, data.categories);
+  if (data.settings) saveToStorage(STORAGE_KEYS.settings, data.settings);
+  if (data.orders) saveToStorage(STORAGE_KEYS.orders, data.orders);
+  if (data.coupons) saveToStorage(STORAGE_KEYS.coupons, data.coupons);
+  if (data.reviews) saveToStorage(STORAGE_KEYS.reviews, data.reviews);
+  return true;
 }
 
 // ===== RESET DATA (for testing) =====
@@ -1113,6 +1126,5 @@ function getStatusIcon(status) {
 }
 
 window.Store = {
-  on, off, emit, getSettings, saveSettings, getProducts, getActiveProducts, getProduct, saveProduct, deleteProduct, getFeaturedProducts, getProductsByCategory, searchProducts, getDiscountedProducts, getProductPrice, getCategories, getActiveCategories, getCategory, saveCategory, deleteCategory, getCategoryProductCount, getCart, addToCart, removeFromCart, updateCartQuantity, clearCart, getCartTotal, getCartWithProducts, getOrders, getOrder, getOrderByNumber, createOrder, updateOrderStatus, deleteOrder, getOrderStats, getReviews, getApprovedReviews, getAllReviews, addReview, approveReview, deleteReview, adminLogin, isAdminLoggedIn, adminLogout, changeAdminPassword, getCoupons, getCoupon, saveCoupon, deleteCoupon, validateCoupon, seedData, resetAllData, formatPrice, formatDate, formatDateTime, getStatusColor, getStatusIcon, getCustomers, getCurrentCustomer, registerCustomer, loginCustomer, loginWithGoogle, logoutCustomer, getCustomerOrders, storeUndo, storeRedo, getWishlist, toggleWishlist, isInWishlist, getRecentlyViewed, addRecentlyViewed, getShippingCost
+  on, off, emit, getSettings, saveSettings, getProducts, getActiveProducts, getProduct, saveProduct, deleteProduct, getFeaturedProducts, getProductsByCategory, searchProducts, getDiscountedProducts, getProductPrice, getCategories, getActiveCategories, getCategory, saveCategory, deleteCategory, getCategoryProductCount, getCart, addToCart, removeFromCart, updateCartQuantity, clearCart, getCartTotal, getCartWithProducts, getOrders, getOrder, getOrderByNumber, createOrder, updateOrderStatus, deleteOrder, getOrderStats, getReviews, getApprovedReviews, getAllReviews, addReview, approveReview, deleteReview, adminLogin, isAdminLoggedIn, adminLogout, changeAdminPassword, getCoupons, getCoupon, saveCoupon, deleteCoupon, validateCoupon, seedData, resetAllData, formatPrice, formatDate, formatDateTime, getStatusColor, getStatusIcon, getCustomers, getCurrentCustomer, registerCustomer, loginCustomer, loginWithGoogle, logoutCustomer, getCustomerOrders, storeUndo, storeRedo, getWishlist, toggleWishlist, isInWishlist, getRecentlyViewed, addRecentlyViewed, getShippingCost, importBackup
 };
-
