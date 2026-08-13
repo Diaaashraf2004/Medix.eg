@@ -264,7 +264,7 @@ function getActiveProducts() {
 }
 
 function getProduct(id) {
-  return getProducts().find(p => p.id === id) || null;
+  return getProducts().find(p => String(p.id) === String(id)) || null;
 }
 
 function saveProduct(product) {
