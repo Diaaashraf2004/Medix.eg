@@ -551,9 +551,9 @@ function renderFooter() {
             </div>
             <p class="footer-text">${escapeHtml(aboutText)}</p>
             <div class="footer-social">
-              <a href="#" title="Facebook"><i class="ph ph-facebook-logo"></i></a>
-              <a href="#" title="Instagram"><i class="ph ph-instagram-logo"></i></a>
-              <a href="#" title="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+              ${settings.socialFacebook ? `<a href="${settings.socialFacebook}" target="_blank" title="Facebook"><i class="ph ph-facebook-logo"></i></a>` : ''}
+              ${settings.socialInstagram ? `<a href="${settings.socialInstagram}" target="_blank" title="Instagram"><i class="ph ph-instagram-logo"></i></a>` : ''}
+              ${settings.contactWhatsapp ? `<a href="https://wa.me/${settings.contactWhatsapp.replace(/\+/g, '')}" target="_blank" title="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>` : ''}
             </div>
           </div>
           <div class="footer-col">
