@@ -63,10 +63,11 @@ function getFromStorage(key) {
       const data = localStorage.getItem(key);
       return data ? JSON.parse(data) : null;
     }
-    return _memoryStore[key] !== undefined ? JSON.parse(JSON.stringify(_memoryStore[key])) : null;
-  } catch {
-    return null;
+  } catch (e) {
+    _useLocalStorage = false; // Disable for future calls
+    console.warn("localStorage read failed, disabling and falling back to memory.");
   }
+  return _memoryStore[key] !== undefined ? JSON.parse(JSON.stringify(_memoryStore[key])) : null;
 }
 
 let isFirebaseSyncing = false;
@@ -1167,13 +1168,18 @@ function initFirebaseSync() {
     let isDifferent = true;
     
     if (_useLocalStorage) {
-      if (localStorage.getItem(key) === newPayloadStr) {
-        isDifferent = false;
-      } else {
-        try {
+      try {
+        if (localStorage.getItem(key) === newPayloadStr) {
+          isDifferent = false;
+        } else {
           localStorage.setItem(key, newPayloadStr);
-        } catch (e) {
-          console.warn(`LocalStorage quota exceeded for ${key}, falling back to memory store.`);
+        }
+      } catch (e) {
+        console.warn(`LocalStorage error for ${key}, falling back to memory store:`, e);
+        _useLocalStorage = false; // Disable globally for future calls
+        if (JSON.stringify(_memoryStore[key]) === newPayloadStr) {
+          isDifferent = false;
+        } else {
           _memoryStore[key] = JSON.parse(newPayloadStr);
         }
       }
