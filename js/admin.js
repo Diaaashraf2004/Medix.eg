@@ -2363,7 +2363,8 @@ function attachDesignListeners() {
       settingsHistory.push(JSON.parse(JSON.stringify({...Store.getSettings(), ...newSettings})));
       settingsHistoryIndex = settingsHistory.length - 1;
 
-      const currentSettings = Store.getSettings();
+      // We already have currentSettings declared above
+      const oldSettings = currentSettings;
       const changedSettings = {};
       for (const key in newSettings) {
         if (JSON.stringify(newSettings[key]) !== JSON.stringify(currentSettings[key])) {

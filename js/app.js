@@ -2741,7 +2741,7 @@ document.addEventListener('keydown', (e) => {
 // ============================================
 // Order Placement
 // ============================================
-function handlePlaceOrder() {
+async function handlePlaceOrder() {
   const name = document.getElementById('checkout-name')?.value?.trim();
   const phone = document.getElementById('checkout-phone')?.value?.trim();
   const email = ''; // Email field was removed
@@ -2768,18 +2768,27 @@ function handlePlaceOrder() {
     return;
   }
 
-  const order = Store.createOrder({
-    customerName: name,
-    customerPhone: phone,
-    customerEmail: email,
-    city: city,
-    customerAddress: address,
-    notes: notes,
-    couponCode: currentCouponCode,
-    discountAmount: currentDiscountAmount
-  });
+  // Show loading state
+  const btn = document.getElementById('btn-place-order');
+  const originalBtnText = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = `<i class="ph ph-spinner ph-spin"></i> ${getLang() === 'ar' ? 'جاري إرسال الطلب...' : 'Sending Order...'}`;
+  }
 
-  if (order) {
+  try {
+    const order = await Store.createOrder({
+      customerName: name,
+      customerPhone: phone,
+      customerEmail: email,
+      city: city,
+      customerAddress: address,
+      notes: notes,
+      couponCode: currentCouponCode,
+      discountAmount: currentDiscountAmount
+    });
+
+    if (order) {
     // Send email via emailjs if configured
     const settings = Store.getSettings();
     if (window.emailjs && settings.emailjs_service_id && settings.emailjs_template_id && settings.emailjs_public_key) {
@@ -2827,6 +2836,17 @@ function handlePlaceOrder() {
     navigateTo(`#/order-success/${order.orderNumber}`);
   } else {
     showToast(t('checkout.emptyCart'), 'error');
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalBtnText;
+    }
+  }
+  } catch (error) {
+    console.error("Order error:", error);
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalBtnText;
+    }
   }
 }
 
