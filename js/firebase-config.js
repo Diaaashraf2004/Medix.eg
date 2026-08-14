@@ -22,6 +22,7 @@ try {
     provider: provider, 
     signInWithPopup: (authInstance, prov) => authInstance.signInWithPopup(prov), 
     signInWithEmailAndPassword: (authInstance, email, pass) => authInstance.signInWithEmailAndPassword(email, pass),
+    createUserWithEmailAndPassword: (authInstance, email, pass) => authInstance.createUserWithEmailAndPassword(email, pass),
     onAuthStateChanged: (authInstance, callback) => authInstance.onAuthStateChanged(callback), 
     signOut: (authInstance) => authInstance.signOut()
   };
@@ -39,7 +40,10 @@ try {
     setDoc: (docRef, data, options) => docRef.set(data, options), 
     updateDoc: (docRef, data) => docRef.update(data), 
     deleteDoc: (docRef) => docRef.delete(), 
-    onSnapshot: (ref, callback) => ref.onSnapshot(callback)
+    onSnapshot: (ref, callback) => ref.onSnapshot(callback),
+    writeBatch: (dbInstance) => dbInstance.batch(),
+    runTransaction: (dbInstance, updateFunction) => dbInstance.runTransaction(updateFunction),
+    increment: (value) => firebase.firestore.FieldValue.increment(value)
   };
 
   // Notify the app that Firebase is ready

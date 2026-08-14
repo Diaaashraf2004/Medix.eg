@@ -2631,13 +2631,13 @@ document.addEventListener('click', (e) => {
 });
 
 // Form Submissions
-document.addEventListener('submit', (e) => {
+document.addEventListener('submit', async (e) => {
   if (e.target.id === 'login-form') {
     e.preventDefault();
     const email = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
     
-    const res = Store.loginCustomer(email, password);
+    const res = await Store.loginCustomer(email, password);
     if (res.success) {
       showToast(t('auth.loginSuccess'), 'success');
       navigateTo('#/profile');
@@ -2653,7 +2653,7 @@ document.addEventListener('submit', (e) => {
     const email = document.getElementById('reg-email').value.trim();
     const password = document.getElementById('reg-password').value;
     
-    const res = Store.registerCustomer({ name, phone, email, password });
+    const res = await Store.registerCustomer({ name, phone, email, password });
     if (res.success) {
       showToast(t('auth.registerSuccess'), 'success');
       navigateTo('#/profile');

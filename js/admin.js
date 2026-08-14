@@ -2103,7 +2103,14 @@ function attachSettingsListeners() {
       settingsHistory.push(JSON.parse(JSON.stringify({...Store.getSettings(), ...newSettings})));
       settingsHistoryIndex = settingsHistory.length - 1;
 
-      Store.saveSettings(newSettings);
+      const currentSettings = Store.getSettings();
+      const changedSettings = {};
+      for (const key in newSettings) {
+        if (JSON.stringify(newSettings[key]) !== JSON.stringify(currentSettings[key])) {
+          changedSettings[key] = newSettings[key];
+        }
+      }
+      Store.saveSettings(changedSettings);
       showToast(t('admin.settingsSaved'), 'success');
       renderContentArea('settings');
     });
@@ -2356,7 +2363,14 @@ function attachDesignListeners() {
       settingsHistory.push(JSON.parse(JSON.stringify({...Store.getSettings(), ...newSettings})));
       settingsHistoryIndex = settingsHistory.length - 1;
 
-      Store.saveSettings(newSettings);
+      const currentSettings = Store.getSettings();
+      const changedSettings = {};
+      for (const key in newSettings) {
+        if (JSON.stringify(newSettings[key]) !== JSON.stringify(currentSettings[key])) {
+          changedSettings[key] = newSettings[key];
+        }
+      }
+      Store.saveSettings(changedSettings);
       showToast(currentLang === 'ar' ? 'تم حفظ التصميم' : 'Design saved', 'success');
       renderContentArea('design');
     });

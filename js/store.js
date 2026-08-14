@@ -83,23 +83,6 @@ function saveToStorage(key, data) {
     _memoryStore[key] = JSON.parse(JSON.stringify(data));
   }
 
-  // Background Firebase Sync
-  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
-    if (key !== STORAGE_KEYS.currentCustomer && key !== STORAGE_KEYS.cart) {
-      try {
-        const { doc, setDoc } = window.FirebaseDB;
-        setDoc(doc(window.FirebaseDB.db, "store_data", key), { data: data })
-          .then(() => {
-             console.log("☁️ Saved to Cloud: " + key);
-          })
-          .catch(e => {
-             console.error("Firebase write error for " + key + ":", e);
-             alert("⚠️ فشل الحفظ على السحابة! راجع اتصال الإنترنت. خطأ: " + e.message);
-          });
-      } catch (e) {}
-    }
-  }
-
   saveHistoryState();
 }
 
@@ -111,11 +94,9 @@ let isUndoRedoAction = false;
 function saveHistoryState() {
   if (isUndoRedoAction || !_useLocalStorage) return;
   const state = {};
-  for(let i=0; i<localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if(key.startsWith('lr_')) {
-      state[key] = localStorage.getItem(key);
-    }
+  const settingsStr = localStorage.getItem(STORAGE_KEYS.settings);
+  if (settingsStr) {
+    state[STORAGE_KEYS.settings] = settingsStr;
   }
   
   // Don't save if state is identical to last state
@@ -251,6 +232,15 @@ function saveSettings(settings) {
   const updated = { ...current, ...settings };
   saveToStorage(STORAGE_KEYS.settings, updated);
   emit('settings-updated', updated);
+  
+  if (window.FirebaseDB && window.FirebaseDB.db && Object.keys(settings).length > 0 && !isFirebaseSyncing) {
+    try {
+      const { doc, setDoc } = window.FirebaseDB;
+      setDoc(doc(window.FirebaseDB.db, "store_data", STORAGE_KEYS.settings), settings, { merge: true })
+        .catch(e => console.error("Settings cloud update failed:", e));
+    } catch(e) {}
+  }
+  
   return updated;
 }
 
@@ -288,8 +278,21 @@ function saveProduct(product) {
     product.linkedProducts = product.linkedProducts || [];
     products.push(product);
   }
+  
   saveToStorage(STORAGE_KEYS.products, products);
   emit('products-updated', products);
+  
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, setDoc } = window.FirebaseDB;
+      const savedProduct = products.find(p => p.id === product.id);
+      if (savedProduct) {
+        setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.products, savedProduct.id), savedProduct)
+          .catch(e => console.error("Product cloud save failed:", e));
+      }
+    } catch(e) {}
+  }
+  
   return product.id;
 }
 
@@ -297,6 +300,14 @@ function deleteProduct(id) {
   const products = getProducts().filter(p => p.id !== id);
   saveToStorage(STORAGE_KEYS.products, products);
   emit('products-updated', products);
+  
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, deleteDoc } = window.FirebaseDB;
+      deleteDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.products, String(id)))
+        .catch(e => console.error("Product cloud delete failed:", e));
+    } catch(e) {}
+  }
 }
 
 function getFeaturedProducts() {
@@ -362,8 +373,21 @@ function saveCategory(category) {
     category.status = category.status || 'active';
     categories.push(category);
   }
+  
   saveToStorage(STORAGE_KEYS.categories, categories);
   emit('categories-updated', categories);
+  
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, setDoc } = window.FirebaseDB;
+      const savedCategory = categories.find(c => c.id === category.id);
+      if (savedCategory) {
+        setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.categories, savedCategory.id), savedCategory)
+          .catch(e => console.error("Category cloud save failed:", e));
+      }
+    } catch(e) {}
+  }
+  
   return category.id;
 }
 
@@ -371,6 +395,14 @@ function deleteCategory(id) {
   const categories = (getFromStorage(STORAGE_KEYS.categories) || []).filter(c => c.id !== id);
   saveToStorage(STORAGE_KEYS.categories, categories);
   emit('categories-updated', categories);
+  
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, deleteDoc } = window.FirebaseDB;
+      deleteDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.categories, String(id)))
+        .catch(e => console.error("Category cloud delete failed:", e));
+    } catch(e) {}
+  }
 }
 
 function getCategoryProductCount(categoryId) {
@@ -490,8 +522,7 @@ function getOrderByNumber(orderNumber) {
   return getOrders().find(o => o.orderNumber.toUpperCase() === orderNumber.toUpperCase()) || null;
 }
 
-function createOrder(orderData) {
-  const orders = getFromStorage(STORAGE_KEYS.orders) || [];
+async function createOrder(orderData) {
   const cart = getCartWithProducts();
   const cartTotal = getCartTotal(orderData.city);
 
@@ -533,14 +564,48 @@ function createOrder(orderData) {
     updatedAt: new Date().toISOString()
   };
 
-  // Update stock
-  cart.forEach(item => {
-    const product = getProduct(item.productId);
-    if (product) {
-      saveProduct({ ...product, stock: Math.max(0, product.stock - item.quantity) });
+  if (window.FirebaseDB && window.FirebaseDB.db) {
+    try {
+      const { db, runTransaction, doc } = window.FirebaseDB;
+      await runTransaction(db, async (transaction) => {
+        const productRefs = cart.map(item => doc(db, STORAGE_KEYS.products, String(item.productId)));
+        const productDocs = await Promise.all(productRefs.map(ref => transaction.get(ref)));
+        
+        const updates = [];
+        for (let i = 0; i < cart.length; i++) {
+          const pDoc = productDocs[i];
+          if (!pDoc.exists) throw new Error("عذراً، أحد المنتجات لم يعد متاحاً.");
+          
+          const pData = pDoc.data();
+          const newStock = pData.stock - cart[i].quantity;
+          
+          if (newStock < 0) {
+            throw new Error(`نفدت الكمية للمنتج: ${pData.name_ar}`);
+          }
+          updates.push({ ref: productRefs[i], stock: newStock });
+        }
+        
+        updates.forEach(u => transaction.update(u.ref, { stock: u.stock }));
+        
+        const orderRef = doc(db, STORAGE_KEYS.orders, String(order.id));
+        transaction.set(orderRef, order);
+      });
+    } catch (e) {
+      console.error("Order transaction failed:", e);
+      alert("فشل إتمام الطلب: " + e.message);
+      return null;
     }
-  });
+  } else {
+    // Local fallback
+    cart.forEach(item => {
+      const product = getProduct(item.productId);
+      if (product) {
+        saveProduct({ ...product, stock: Math.max(0, product.stock - item.quantity) });
+      }
+    });
+  }
 
+  const orders = getFromStorage(STORAGE_KEYS.orders) || [];
   orders.push(order);
   saveToStorage(STORAGE_KEYS.orders, orders);
   clearCart();
@@ -556,6 +621,13 @@ function updateOrderStatus(id, status) {
     order.updatedAt = new Date().toISOString();
     saveToStorage(STORAGE_KEYS.orders, orders);
     emit('orders-updated', orders);
+    if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+      try {
+        const { doc, setDoc } = window.FirebaseDB;
+        setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.orders, order.id), order)
+          .catch(e => console.error("Order cloud save failed:", e));
+      } catch(e) {}
+    }
   }
   return order;
 }
@@ -564,6 +636,13 @@ function deleteOrder(id) {
   const orders = (getFromStorage(STORAGE_KEYS.orders) || []).filter(o => o.id !== id);
   saveToStorage(STORAGE_KEYS.orders, orders);
   emit('orders-updated', orders);
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, deleteDoc } = window.FirebaseDB;
+      deleteDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.orders, String(id)))
+        .catch(e => console.error("Order cloud delete failed:", e));
+    } catch(e) {}
+  }
 }
 
 function getOrderStats() {
@@ -609,6 +688,13 @@ function addReview(review) {
   reviews.push(review);
   saveToStorage(STORAGE_KEYS.reviews, reviews);
   emit('reviews-updated', reviews);
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, setDoc } = window.FirebaseDB;
+      setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.reviews, review.id), review)
+        .catch(e => console.error("Review cloud save failed:", e));
+    } catch(e) {}
+  }
   return review.id;
 }
 
@@ -620,6 +706,13 @@ function approveReview(id) {
     saveToStorage(STORAGE_KEYS.reviews, reviews);
     updateProductRating(review.productId);
     emit('reviews-updated', reviews);
+    if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+      try {
+        const { doc, setDoc } = window.FirebaseDB;
+        setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.reviews, review.id), review)
+          .catch(e => console.error("Review cloud save failed:", e));
+      } catch(e) {}
+    }
   }
 }
 
@@ -630,6 +723,13 @@ function deleteReview(id) {
   saveToStorage(STORAGE_KEYS.reviews, filtered);
   if (review) updateProductRating(review.productId);
   emit('reviews-updated', filtered);
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, deleteDoc } = window.FirebaseDB;
+      deleteDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.reviews, String(id)))
+        .catch(e => console.error("Review cloud delete failed:", e));
+    } catch(e) {}
+  }
 }
 
 function updateProductRating(productId) {
@@ -770,6 +870,13 @@ async function loginWithGoogle() {
       };
       customers.push(customer);
       saveToStorage(STORAGE_KEYS.customers, customers);
+      if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+        try {
+          const { doc, setDoc } = window.FirebaseDB;
+          setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.customers, customer.id), customer)
+            .catch(e => console.error("Customer cloud save failed:", e));
+        } catch(e) {}
+      }
     }
     
     const sessionData = { id: customer.id, name: customer.name, email: customer.email, phone: customer.phone };
@@ -803,48 +910,90 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // ------------------------------------
 
-function registerCustomer(customerData) {
-  const customers = getCustomers();
+async function registerCustomer(customerData) {
+  if (!window.FirebaseAuth) return { success: false, message: 'firebase_not_loaded' };
+  
+  try {
+    const userCredential = await window.FirebaseAuth.createUserWithEmailAndPassword(
+      window.FirebaseAuth.auth, 
+      customerData.email, 
+      customerData.password
+    );
+    const user = userCredential.user;
+    
+    const newCustomer = {
+      id: user.uid,
+      name: customerData.name,
+      email: customerData.email,
+      phone: customerData.phone,
+      createdAt: new Date().toISOString()
+    };
 
-  // Check if email already exists
-  if (customers.find(c => c.email === customerData.email)) {
-    return { success: false, message: 'email_exists' };
+    const customers = getCustomers();
+    customers.push(newCustomer);
+    saveToStorage(STORAGE_KEYS.customers, customers);
+    
+    if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+      try {
+        const { doc, setDoc } = window.FirebaseDB;
+        setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.customers, newCustomer.id), newCustomer)
+          .catch(e => console.error("Customer cloud save failed:", e));
+      } catch(e) {}
+    }
+
+    const sessionData = { id: newCustomer.id, name: newCustomer.name, email: newCustomer.email, phone: newCustomer.phone };
+    saveToStorage(STORAGE_KEYS.currentCustomer, sessionData);
+    emit('auth-changed', sessionData);
+
+    return { success: true, customer: newCustomer };
+  } catch (error) {
+    console.error("Registration failed:", error);
+    if (error.code === 'auth/email-already-in-use') return { success: false, message: 'email_exists' };
+    return { success: false, message: error.message };
   }
-
-  const newCustomer = {
-    id: generateId(),
-    name: customerData.name,
-    email: customerData.email,
-    phone: customerData.phone,
-    password: customerData.password,
-    createdAt: new Date().toISOString()
-  };
-
-  customers.push(newCustomer);
-  saveToStorage(STORAGE_KEYS.customers, customers);
-
-  // Auto login
-  const sessionData = { id: newCustomer.id, name: newCustomer.name, email: newCustomer.email, phone: newCustomer.phone };
-  saveToStorage(STORAGE_KEYS.currentCustomer, sessionData);
-  emit('auth-changed', sessionData);
-
-  return { success: true, customer: newCustomer };
 }
 
-function loginCustomer(email, password) {
-  const customers = getCustomers();
-  const customer = customers.find(c => c.email === email && c.password === password);
-
-  if (customer) {
+async function loginCustomer(email, password) {
+  if (!window.FirebaseAuth) return { success: false, message: 'firebase_not_loaded' };
+  
+  try {
+    const userCredential = await window.FirebaseAuth.signInWithEmailAndPassword(
+      window.FirebaseAuth.auth, 
+      email, 
+      password
+    );
+    const user = userCredential.user;
+    
+    let customers = getCustomers();
+    let customer = customers.find(c => c.id === user.uid || c.email === email);
+    
+    if (!customer) {
+      // Reconstruct profile if missing locally
+      customer = {
+        id: user.uid,
+        name: user.displayName || 'Customer',
+        email: user.email,
+        phone: user.phoneNumber || '',
+        createdAt: new Date().toISOString()
+      };
+      customers.push(customer);
+      saveToStorage(STORAGE_KEYS.customers, customers);
+    }
+    
     const sessionData = { id: customer.id, name: customer.name, email: customer.email, phone: customer.phone };
     saveToStorage(STORAGE_KEYS.currentCustomer, sessionData);
     emit('auth-changed', sessionData);
     return { success: true, customer };
+  } catch (error) {
+    console.error("Login failed:", error);
+    return { success: false, message: 'invalid_credentials' };
   }
-  return { success: false, message: 'invalid_credentials' };
 }
 
 function logoutCustomer() {
+  if (window.FirebaseAuth) {
+    window.FirebaseAuth.signOut(window.FirebaseAuth.auth).catch(e => console.error("SignOut error", e));
+  }
   if (_useLocalStorage) {
     try { localStorage.removeItem(STORAGE_KEYS.currentCustomer); } catch(e) {}
   }
@@ -884,6 +1033,16 @@ function saveCoupon(coupon) {
   }
   saveToStorage(STORAGE_KEYS.coupons, coupons);
   emit('coupons-updated', coupons);
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, setDoc } = window.FirebaseDB;
+      const savedCoupon = coupons.find(c => c.id === coupon.id);
+      if (savedCoupon) {
+        setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.coupons, savedCoupon.id), savedCoupon)
+          .catch(e => console.error("Coupon cloud save failed:", e));
+      }
+    } catch(e) {}
+  }
   return coupon.id;
 }
 
@@ -891,6 +1050,13 @@ function deleteCoupon(id) {
   const coupons = getCoupons().filter(c => c.id !== id);
   saveToStorage(STORAGE_KEYS.coupons, coupons);
   emit('coupons-updated', coupons);
+  if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+    try {
+      const { doc, deleteDoc } = window.FirebaseDB;
+      deleteDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.coupons, String(id)))
+        .catch(e => console.error("Coupon cloud delete failed:", e));
+    } catch(e) {}
+  }
 }
 
 function validateCoupon(code, cartSubtotal) {
@@ -967,107 +1133,98 @@ function resetAllData() {
 // ===== FIREBASE REAL-TIME SYNC =====
 function initFirebaseSync() {
   if (!window.FirebaseDB || !window.FirebaseDB.db) return;
-  const { db, doc, onSnapshot } = window.FirebaseDB;
+  const { db, doc, collection, onSnapshot } = window.FirebaseDB;
 
-  const keysToSync = [
+  const collectionsToSync = [
     STORAGE_KEYS.products, 
     STORAGE_KEYS.categories, 
-    STORAGE_KEYS.settings, 
     STORAGE_KEYS.orders,
     STORAGE_KEYS.coupons,
     STORAGE_KEYS.reviews,
     STORAGE_KEYS.customers
   ];
 
-  // Track initial sync completion
+  const docsToSync = [
+    STORAGE_KEYS.settings
+  ];
+
   let syncedCount = 0;
-  const totalKeys = keysToSync.length;
+  const totalSyncs = collectionsToSync.length + docsToSync.length;
   let initialSyncDone = false;
 
-  keysToSync.forEach(key => {
+  const checkInitialSync = () => {
+    if (!initialSyncDone) {
+      syncedCount++;
+      if (syncedCount >= totalSyncs) {
+        initialSyncDone = true;
+        window.dispatchEvent(new CustomEvent('firebase-initial-sync-done'));
+      }
+    }
+  };
+
+  const applyLocalData = (key, payload) => {
+    const newPayloadStr = JSON.stringify(payload);
+    let isDifferent = true;
+    
+    if (_useLocalStorage) {
+      if (localStorage.getItem(key) === newPayloadStr) {
+        isDifferent = false;
+      } else {
+        try {
+          localStorage.setItem(key, newPayloadStr);
+        } catch (e) {
+          console.warn(`LocalStorage quota exceeded for ${key}, falling back to memory store.`);
+          _memoryStore[key] = JSON.parse(newPayloadStr);
+        }
+      }
+    } else {
+      if (JSON.stringify(_memoryStore[key]) === newPayloadStr) {
+        isDifferent = false;
+      } else {
+        _memoryStore[key] = JSON.parse(newPayloadStr);
+      }
+    }
+
+    if (isDifferent) {
+      isFirebaseSyncing = true;
+      isFirebaseSyncing = false;
+      
+      try {
+        window.dispatchEvent(new StorageEvent('storage', { key: key }));
+      } catch(e) {}
+      window.dispatchEvent(new CustomEvent('firebase-data-synced', { detail: { key: key } }));
+    }
+  };
+
+  // Sync Collections
+  collectionsToSync.forEach(key => {
+    onSnapshot(collection(db, key), (snapshot) => {
+      const payload = [];
+      snapshot.forEach(docSnap => {
+        payload.push(docSnap.data());
+      });
+      applyLocalData(key, payload);
+      checkInitialSync();
+    }, (error) => {
+      console.error(`Error syncing collection ${key}:`, error);
+      checkInitialSync();
+    });
+  });
+
+  // Sync Single Documents
+  docsToSync.forEach(key => {
     onSnapshot(doc(db, "store_data", key), (docSnap) => {
       const exists = typeof docSnap.exists === 'function' ? docSnap.exists() : docSnap.exists;
-      if (exists) {
-        const payload = docSnap.data().data;
-        if (payload) {
-          const localDataStr = _useLocalStorage ? localStorage.getItem(key) : JSON.stringify(_memoryStore[key]);
-          let localData = null;
-          try { localData = localDataStr ? JSON.parse(localDataStr) : null; } catch(e){}
-
-          // Removed the override logic. Cloud is the absolute source of truth.
-          const isCloudEmpty = Array.isArray(payload) ? payload.length === 0 : (payload && Object.keys(payload).length === 0);
-          
-          if (isCloudEmpty) {
-            // If cloud is empty, we must wipe local data to match cloud.
-            if (_useLocalStorage) {
-              try { localStorage.removeItem(key); } catch(e){}
-            }
-            delete _memoryStore[key];
-            
-            // Trigger sync event to clear UI
-            try { window.dispatchEvent(new StorageEvent('storage', { key: key })); } catch(e){}
-            window.dispatchEvent(new CustomEvent('firebase-data-synced', { detail: { key: key } }));
-            
-            if (!initialSyncDone) { syncedCount++; if (syncedCount >= totalKeys) { initialSyncDone = true; window.dispatchEvent(new CustomEvent('firebase-initial-sync-done')); } }
-            return;
-          }
-
-          const newPayloadStr = JSON.stringify(payload);
-          let isDifferent = true;
-          
-          if (_useLocalStorage) {
-            if (localStorage.getItem(key) === newPayloadStr) {
-              isDifferent = false;
-            } else {
-              try {
-                localStorage.setItem(key, newPayloadStr);
-              } catch (e) {
-                console.warn(`LocalStorage quota exceeded for ${key}, falling back to memory store.`);
-                _memoryStore[key] = JSON.parse(newPayloadStr);
-              }
-            }
-          } else {
-            if (JSON.stringify(_memoryStore[key]) === newPayloadStr) {
-              isDifferent = false;
-            } else {
-              _memoryStore[key] = JSON.parse(newPayloadStr);
-            }
-          }
-
-          if (isDifferent) {
-            isFirebaseSyncing = true;
-            isFirebaseSyncing = false;
-            
-            try {
-              window.dispatchEvent(new StorageEvent('storage', { key: key }));
-            } catch(e) {}
-            window.dispatchEvent(new CustomEvent('firebase-data-synced', { detail: { key: key } }));
-          }
-        }
-      } else {
-        // Cloud document does not exist. If we have local data, push it to cloud.
-        const localDataStr = _useLocalStorage ? localStorage.getItem(key) : JSON.stringify(_memoryStore[key]);
-        if (localDataStr) {
-          try {
-            const localData = JSON.parse(localDataStr);
-            const hasData = Array.isArray(localData) ? localData.length > 0 : (localData && Object.keys(localData).length > 0);
-            if (hasData) {
-              const { setDoc } = window.FirebaseDB;
-              setDoc(doc(db, "store_data", key), { data: localData })
-                .then(() => console.log("Initial push to cloud for " + key))
-                .catch(e => console.error("Initial push failed for " + key, e));
-            }
-          } catch(e) {}
-        }
+      if (exists && docSnap.data().data) {
+        applyLocalData(key, docSnap.data().data);
+      } else if (key === STORAGE_KEYS.settings) {
+         // Default settings fallback if doc doesn't exist
+         applyLocalData(key, _memoryStore[key] || {});
       }
-      // Count initial sync
-      if (!initialSyncDone) {
-        syncedCount++;
-        if (syncedCount >= totalKeys) {
-          initialSyncDone = true;
-          window.dispatchEvent(new CustomEvent('firebase-initial-sync-done'));
-        }
-      }
+      checkInitialSync();
+    }, (error) => {
+      console.error(`Error syncing document ${key}:`, error);
+      checkInitialSync();
     });
   });
 }
