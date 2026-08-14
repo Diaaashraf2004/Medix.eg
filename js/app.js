@@ -3070,8 +3070,8 @@ if (window.FirebaseDB && window.FirebaseDB.db) {
   init();
   // Always wait for Firebase to ensure cloud data is priority
   window.addEventListener('firebase-initial-sync-done', revealOnce);
-  // Safety timeout: max 5 seconds, after which it reveals whatever is there
-  setTimeout(revealOnce, 5000);
+  // Safety timeout: max 8 seconds, after which it reveals whatever is there
+  setTimeout(revealOnce, 8000);
 } else {
   // No Firebase at all
   init();

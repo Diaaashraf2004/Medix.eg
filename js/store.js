@@ -1148,14 +1148,14 @@ function initFirebaseSync() {
     STORAGE_KEYS.settings
   ];
 
-  let syncedCount = 0;
-  const totalSyncs = collectionsToSync.length + docsToSync.length;
+  const criticalKeys = [STORAGE_KEYS.products, STORAGE_KEYS.categories, STORAGE_KEYS.settings];
+  let criticalSyncedCount = 0;
   let initialSyncDone = false;
 
-  const checkInitialSync = () => {
-    if (!initialSyncDone) {
-      syncedCount++;
-      if (syncedCount >= totalSyncs) {
+  const checkInitialSync = (key) => {
+    if (!initialSyncDone && criticalKeys.includes(key)) {
+      criticalSyncedCount++;
+      if (criticalSyncedCount >= criticalKeys.length) {
         initialSyncDone = true;
         window.dispatchEvent(new CustomEvent('firebase-initial-sync-done'));
       }
@@ -1204,10 +1204,10 @@ function initFirebaseSync() {
         payload.push(docSnap.data());
       });
       applyLocalData(key, payload);
-      checkInitialSync();
+      checkInitialSync(key);
     }, (error) => {
       console.error(`Error syncing collection ${key}:`, error);
-      checkInitialSync();
+      checkInitialSync(key);
     });
   });
 
@@ -1221,10 +1221,10 @@ function initFirebaseSync() {
          // Default settings fallback if doc doesn't exist
          applyLocalData(key, _memoryStore[key] || {});
       }
-      checkInitialSync();
+      checkInitialSync(key);
     }, (error) => {
       console.error(`Error syncing document ${key}:`, error);
-      checkInitialSync();
+      checkInitialSync(key);
     });
   });
 }
