@@ -813,13 +813,18 @@ function renderProductCard(product) {
           </div>
         ` : ''}
         <div class="product-card-footer" style="flex-direction: column; align-items: stretch; gap: 8px;">
-          <div class="price-group ${hasDiscount ? 'has-discount' : ''}">
+          <div class="price-group ${hasDiscount ? 'has-discount' : ''}" style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;">
             <span class="price-current">${formatPrice(discountedPrice)}</span>
-            ${hasDiscount ? `<span class="price-original">${formatPrice(product.price)}</span>` : ''}
+            ${hasDiscount ? `
+              <span class="price-original">${formatPrice(product.price)}</span>
+              <span class="price-saved" style="color: var(--success); font-weight: 700; font-size: 16px;">
+                ${lang === 'ar' ? 'وفرت' : 'You saved'} ${formatPrice(product.price - discountedPrice)}
+              </span>
+            ` : ''}
           </div>
           <div style="display: flex; gap: 6px;">
-            <button class="btn btn-primary btn-sm" style="flex: 1; padding: 8px 6px; font-weight: bold; font-size: 0.95rem;" data-action="go-product" data-product-id="${product.id}" ${outOfStock ? 'disabled' : ''}>
-               ${outOfStock ? t('product.outOfStock') : (lang === 'ar' ? 'الشراء' : 'Purchase')}
+            <button class="btn btn-primary btn-buy-now btn-sm" style="flex: 1; padding: 9px 8px; font-size: 0.95rem;" data-action="go-product" data-product-id="${product.id}" ${outOfStock ? 'disabled' : ''}>
+               <i class="ph ph-bag-simple"></i> ${outOfStock ? t('product.outOfStock') : (lang === 'ar' ? 'اشتري الآن' : 'Buy Now')}
             </button>
             <button class="btn btn-secondary btn-sm" style="padding: 8px 12px; font-size: 1.1rem;" data-action="${cartAction}" data-product-id="${product.id}" ${outOfStock ? 'disabled' : ''} title="${t('product.addToCart')}">
               <i class="ph ph-shopping-cart"></i>
@@ -951,14 +956,31 @@ function renderHomePage() {
       <div class="section-header">
         <h2 class="section-title">${t('home.categories')}</h2>
       </div>
-      <!-- 2. Categories Circles -->
-      <div class="categories-scroll">
-        ${categories.map(cat => `
-          <a href="#/category/${cat.id}" class="cat-circle-wrap">
-            ${cat.image ? `<div class="cat-circle" style="background-image: url('${cat.image}');"></div>` : `<div class="cat-circle" style="font-size:30px;">${cat.icon || '📦'}</div>`}
-            <span>${escapeHtml(getCategoryName(cat))}</span>
+      <!-- 2. Categories Grid (2 Frames per row: 6 columns each in 12-col grid) -->
+      <div class="categories-grid-container">
+        ${categories.map(cat => {
+          const name = (getCategoryName(cat) || '').toLowerCase();
+          const isScrub = name.includes('اسكراب') || name.includes('سكراب') || name.includes('scrub');
+          const isCoat = name.includes('بالطو') || name.includes('كوت') || name.includes('coat');
+          let categoryImg = cat.image;
+          if (!categoryImg) {
+            if (isScrub) categoryImg = 'images/scrub_category.jpg';
+            else if (isCoat) categoryImg = 'images/lab_coat_category.jpg';
+            else categoryImg = 'https://picsum.photos/seed/' + cat.id + '/600/400';
+          }
+          return `
+          <a href="#/category/${cat.id}" class="category-frame-card">
+            <div class="category-frame-image" style="background-image: url('${categoryImg}');">
+              <div class="category-frame-overlay"></div>
+            </div>
+            <div class="category-frame-content">
+              ${cat.icon ? `<span class="category-frame-icon">${cat.icon}</span>` : ''}
+              <h3 class="category-frame-title">${escapeHtml(getCategoryName(cat))}</h3>
+              <span class="category-frame-action">${lang === 'ar' ? 'تسوق الآن ←' : 'Shop Now →'}</span>
+            </div>
           </a>
-        `).join('')}
+        `;
+        }).join('')}
       </div>
 
       <!-- 3. Why Choose Us -->
@@ -1223,9 +1245,14 @@ function renderProductDetailPage(productId) {
               <span class="rating-count">(${product.ratingCount} ${t('product.reviews')})</span>
             </div>
 
-            <div class="product-detail-price ${hasDiscount ? 'has-discount' : ''}">
+            <div class="product-detail-price ${hasDiscount ? 'has-discount' : ''}" style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
               <span class="price-current">${formatPrice(discountedPrice)}</span>
-              ${hasDiscount ? `<span class="price-original">${formatPrice(product.price)}</span>` : ''}
+              ${hasDiscount ? `
+                <span class="price-original">${formatPrice(product.price)}</span>
+                <span class="price-saved" style="color: var(--success); font-weight: 700; font-size: 16px;">
+                  ${lang === 'ar' ? 'وفرت' : 'You saved'} ${formatPrice(product.price - discountedPrice)}
+                </span>
+              ` : ''}
             </div>
 
             ${(product.showScarcityBadge !== false && product.stock > 0 && product.stock <= (product.scarcityThreshold ?? 5)) ? `
@@ -1277,8 +1304,8 @@ function renderProductDetailPage(productId) {
                 <button class="qty-btn" data-action="detail-qty-increase" id="detail-qty-plus"><i class="ph ph-plus"></i></button>
               </div>
               <div style="display: flex; gap: 12px; flex: 1;">
-                <button class="btn btn-primary btn-lg" style="flex: 1;" data-action="detail-buy-now" data-product-id="${product.id}" ${outOfStock ? 'disabled' : ''}>
-                  ${outOfStock ? t('product.outOfStock') : (lang === 'ar' ? 'شراء سريع' : 'Buy Now')}
+                <button class="btn btn-primary btn-buy-now btn-lg" style="flex: 1;" data-action="detail-buy-now" data-product-id="${product.id}" ${outOfStock ? 'disabled' : ''}>
+                  <i class="ph ph-lightning" style="font-size: 1.2rem;"></i> ${outOfStock ? t('product.outOfStock') : (lang === 'ar' ? 'اشتري الآن' : 'Buy Now')}
                 </button>
                 <button class="btn btn-secondary btn-lg" data-action="detail-add-to-cart" data-product-id="${product.id}" id="btn-add-to-cart" ${outOfStock ? 'disabled' : ''} title="${t('product.addToCart')}">
                   <i class="ph ph-shopping-cart"></i>

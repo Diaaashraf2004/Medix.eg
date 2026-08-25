@@ -1066,6 +1066,7 @@ function renderCategories() {
 function openCategoryModal(category = null) {
   const isEdit = !!category;
   const title = isEdit ? t('admin.editCategory') : t('admin.addCategory');
+  const currentImg = category?.image || category?.icon || '';
 
   const body = `
     <form class="admin-form" id="category-form">
@@ -1078,23 +1079,49 @@ function openCategoryModal(category = null) {
         <input type="text" id="cat-name-en" value="${category?.name_en || ''}" required>
       </div>
       <div class="form-group full-width">
-        <label>${t('admin.icon')} (${currentLang === 'ar' ? 'صورة التصنيف' : 'Category Image'})</label>
+        <label>${currentLang === 'ar' ? 'صورة فريم التصنيف' : 'Category Frame Image'}</label>
+        
+        <!-- File Upload Option -->
+        <div style="margin-bottom: 12px;">
+          <label class="btn btn-secondary" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+            <i class="ph ph-upload-simple"></i> ${currentLang === 'ar' ? 'اختر صورة من جهازك' : 'Upload from device'}
+            <input type="file" id="cat-file-upload" accept="image/*" style="display:none;">
+          </label>
+        </div>
+
+        <!-- URL Paste Option -->
         <div style="display:flex; gap:8px; margin-bottom:8px;">
-          <input type="text" id="cat-icon-url-input" placeholder="${currentLang === 'ar' ? 'الصق رابط الصورة هنا (https://...)' : 'Paste image URL here (https://...)'}" style="flex:1;">
+          <input type="text" id="cat-icon-url-input" value="${currentImg}" placeholder="${currentLang === 'ar' ? 'أو الصق رابط الصورة هنا (https://...)' : 'Or paste image URL (https://...)'}" style="flex:1;">
           <button type="button" class="btn btn-secondary" id="btn-set-cat-image" style="white-space:nowrap;">
             <i class="ph ph-check"></i> ${currentLang === 'ar' ? 'تطبيق' : 'Apply'}
           </button>
         </div>
-        <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px; margin-top:-4px;">
-          ${currentLang === 'ar' ? '💡 ارفع الصورة على <a href="https://imgbb.com" target="_blank" style="color:var(--accent);">imgbb.com</a> ثم الصق الرابط' : '💡 Upload to <a href="https://imgbb.com" target="_blank" style="color:var(--accent);">imgbb.com</a> then paste the URL'}
-        </p>
-        <input type="hidden" id="cat-icon" value="${category?.image || category?.icon || ''}">
-        <div class="image-preview-grid" id="cat-img-preview">
-          ${(category?.image || category?.icon) ? `
-            <div class="image-preview-item" style="width:80px;height:80px;">
-              <img src="${category.image || category.icon}" alt="Preview" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
-            </div>
-          ` : ''}
+
+        <!-- Quick Presets -->
+        <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+          <span style="font-size:12px; color:var(--text-muted); align-self:center;">${currentLang === 'ar' ? 'صور جاهزة:' : 'Presets:'}</span>
+          <button type="button" class="btn btn-sm btn-ghost cat-preset-btn" data-url="images/scrub_category.jpg">
+            🩺 ${currentLang === 'ar' ? 'صورة الأسكراب' : 'Scrub Image'}
+          </button>
+          <button type="button" class="btn btn-sm btn-ghost cat-preset-btn" data-url="images/lab_coat_category.jpg">
+            🥼 ${currentLang === 'ar' ? 'صورة البالطو' : 'Lab Coat Image'}
+          </button>
+        </div>
+
+        <input type="hidden" id="cat-icon" value="${currentImg}">
+
+        <!-- Frame Preview -->
+        <div style="margin-top:10px;">
+          <label style="font-size:12px; color:var(--text-muted); margin-bottom:4px; display:block;">
+            ${currentLang === 'ar' ? 'معاينة فريم التصنيف:' : 'Category Frame Preview:'}
+          </label>
+          <div id="cat-img-preview" style="width:100%; max-width:320px; height:140px; border-radius:12px; overflow:hidden; border:1px dashed var(--border); position:relative; background:var(--bg-card); display:flex; align-items:center; justify-content:center;">
+            ${currentImg ? `
+              <img src="${currentImg}" alt="Preview" style="width:100%; height:100%; object-fit:cover;">
+            ` : `
+              <span style="font-size:13px; color:var(--text-muted);">${currentLang === 'ar' ? 'لا توجد صورة محددة' : 'No image selected'}</span>
+            `}
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -1118,27 +1145,49 @@ function openCategoryModal(category = null) {
 
   openModal(title, body, footer);
 
-  // Handle URL input for category image
   const catIconUrlInput = document.getElementById('cat-icon-url-input');
   const setCatImgBtn = document.getElementById('btn-set-cat-image');
   const catIconHidden = document.getElementById('cat-icon');
   const catImgPreview = document.getElementById('cat-img-preview');
-  
-  const applyCatImage = () => {
-    const url = catIconUrlInput?.value?.trim() || catIconHidden?.value?.trim() || '';
-    const finalUrl = catIconUrlInput?.value?.trim() || '';
-    if (!finalUrl) return;
-    catIconHidden.value = finalUrl;
+  const fileInput = document.getElementById('cat-file-upload');
+
+  const updatePreview = (url) => {
+    catIconHidden.value = url;
+    if (catIconUrlInput) catIconUrlInput.value = url;
     catImgPreview.innerHTML = `
-      <div class="image-preview-item" style="width:80px;height:80px;">
-        <img src="${finalUrl}" alt="Preview" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" onerror="this.src='https://via.placeholder.com/80'">
-      </div>
+      <img src="${url}" alt="Preview" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/320x140?text=Error'">
     `;
   };
-  if (setCatImgBtn) setCatImgBtn.addEventListener('click', applyCatImage);
-  if (catIconUrlInput) catIconUrlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); applyCatImage(); } });
-  // Pre-fill URL input if editing existing category
-  if (catIconUrlInput && catIconHidden?.value) catIconUrlInput.value = catIconHidden.value;
+
+  // URL apply button
+  if (setCatImgBtn) {
+    setCatImgBtn.addEventListener('click', () => {
+      const url = catIconUrlInput?.value?.trim();
+      if (url) updatePreview(url);
+    });
+  }
+
+  // File upload reader
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          updatePreview(event.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Presets click
+  document.querySelectorAll('.cat-preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const presetUrl = btn.dataset.url;
+      if (presetUrl) updatePreview(presetUrl);
+    });
+  });
 
   document.getElementById('save-category-btn').addEventListener('click', () => {
     const nameAr = document.getElementById('cat-name-ar').value.trim();
@@ -1153,7 +1202,7 @@ function openCategoryModal(category = null) {
       name_ar: nameAr,
       name_en: nameEn,
       image: document.getElementById('cat-icon').value.trim(),
-      icon: document.getElementById('cat-icon').value.trim(), // fallback
+      icon: document.getElementById('cat-icon').value.trim(),
       order: parseInt(document.getElementById('cat-order').value) || 0,
       status: document.getElementById('cat-status').value,
     };

@@ -650,7 +650,7 @@ function getOrderStats() {
   const orders = getOrders();
   const today = new Date().toISOString().split('T')[0];
   const todayOrders = orders.filter(o => o.createdAt.startsWith(today));
-  const totalRevenue = orders.filter(o => o.status === 'delivered').reduce((sum, o) => sum + o.total, 0);
+  const totalRevenue = orders.filter(o => o?.status === 'delivered').reduce((sum, o) => sum + (Number(o.total) || 0), 0);
   const pendingOrders = orders.filter(o => ['new', 'confirmed', 'preparing', 'shipping'].includes(o.status));
 
   return {
@@ -1131,6 +1131,39 @@ function resetAllData() {
   seedData();
 }
 
+function autoRecoverLocalOrders() {
+  if (typeof localStorage === 'undefined') return;
+  try {
+    const v1Orders = JSON.parse(localStorage.getItem('lr_orders') || '[]');
+    const v2OrdersLocal = JSON.parse(localStorage.getItem('lr_orders_v2') || '[]');
+    const currentOrders = getFromStorage(STORAGE_KEYS.orders) || [];
+    let recovered = false;
+    
+    [...v1Orders, ...v2OrdersLocal].forEach(o => {
+      if (o && o.id && !currentOrders.find(co => co.id === o.id)) {
+        currentOrders.push(o);
+        recovered = true;
+        
+        // Sync back to Firebase if possible
+        if (window.FirebaseDB && window.FirebaseDB.db && !isFirebaseSyncing) {
+           try {
+             const { doc, setDoc } = window.FirebaseDB;
+             setDoc(doc(window.FirebaseDB.db, STORAGE_KEYS.orders, String(o.id)), o).catch(()=>{});
+           } catch(e){}
+        }
+      }
+    });
+    
+    if (recovered) {
+      saveToStorage(STORAGE_KEYS.orders, currentOrders);
+      emit('orders-updated', currentOrders);
+      console.log('✅ Recovered missing local orders!');
+    }
+  } catch (e) {
+    console.error('Failed to recover orders:', e);
+  }
+}
+
 // ===== FIREBASE REAL-TIME SYNC =====
 function initFirebaseSync() {
   if (!window.FirebaseDB || !window.FirebaseDB.db) return;
@@ -1240,6 +1273,7 @@ if (window.FirebaseDB) initFirebaseSync();
 
 // Initialize
 seedData();
+autoRecoverLocalOrders();
 
 // ===== FORMAT HELPERS =====
 function formatPrice(price, lang = 'ar') {
