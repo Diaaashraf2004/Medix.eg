@@ -956,31 +956,14 @@ function renderHomePage() {
       <div class="section-header">
         <h2 class="section-title">${t('home.categories')}</h2>
       </div>
-      <!-- 2. Categories Grid (2 Frames per row: 6 columns each in 12-col grid) -->
-      <div class="categories-grid-container">
-        ${categories.map(cat => {
-          const name = (getCategoryName(cat) || '').toLowerCase();
-          const isScrub = name.includes('اسكراب') || name.includes('سكراب') || name.includes('scrub');
-          const isCoat = name.includes('بالطو') || name.includes('كوت') || name.includes('coat');
-          let categoryImg = cat.image;
-          if (!categoryImg) {
-            if (isScrub) categoryImg = 'images/scrub_category.jpg';
-            else if (isCoat) categoryImg = 'images/lab_coat_category.jpg';
-            else categoryImg = 'https://picsum.photos/seed/' + cat.id + '/600/400';
-          }
-          return `
-          <a href="#/category/${cat.id}" class="category-frame-card">
-            <div class="category-frame-image" style="background-image: url('${categoryImg}');">
-              <div class="category-frame-overlay"></div>
-            </div>
-            <div class="category-frame-content">
-              ${cat.icon ? `<span class="category-frame-icon">${cat.icon}</span>` : ''}
-              <h3 class="category-frame-title">${escapeHtml(getCategoryName(cat))}</h3>
-              <span class="category-frame-action">${lang === 'ar' ? 'تسوق الآن ←' : 'Shop Now →'}</span>
-            </div>
+      <div class="categories-grid">
+        ${categories.map(cat => `
+          <a href="#/category/${cat.id}" class="category-card">
+            <span class="category-icon">${cat.icon || '📦'}</span>
+            <span class="category-name">${escapeHtml(getCategoryName(cat))}</span>
+            <span class="category-count">${Store.getProductsByCategory(cat.id).length} ${t('common.products')}</span>
           </a>
-        `;
-        }).join('')}
+        `).join('')}
       </div>
 
       <!-- 3. Why Choose Us -->

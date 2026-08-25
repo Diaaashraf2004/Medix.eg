@@ -1041,7 +1041,7 @@ function renderCategories() {
               categories.map(c => `
                 <tr>
                   <td>
-                    ${c.image ? `<img src="${c.image}" alt="Category" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">` : `<div style="width:40px;height:40px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:20px;">${c.icon || '<i class="ph ph-folder"></i>'}</div>`}
+                    <div style="width:40px;height:40px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:20px;">${c.icon || '<i class="ph ph-folder"></i>'}</div>
                   </td>
                   <td>${c.name_ar}</td>
                   <td>${c.name_en}</td>
@@ -1078,51 +1078,9 @@ function openCategoryModal(category = null) {
         <label for="cat-name-en">${t('admin.categoryName_en')} *</label>
         <input type="text" id="cat-name-en" value="${category?.name_en || ''}" required>
       </div>
-      <div class="form-group full-width">
-        <label>${currentLang === 'ar' ? 'صورة فريم التصنيف' : 'Category Frame Image'}</label>
-        
-        <!-- File Upload Option -->
-        <div style="margin-bottom: 12px;">
-          <label class="btn btn-secondary" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
-            <i class="ph ph-upload-simple"></i> ${currentLang === 'ar' ? 'اختر صورة من جهازك' : 'Upload from device'}
-            <input type="file" id="cat-file-upload" accept="image/*" style="display:none;">
-          </label>
-        </div>
-
-        <!-- URL Paste Option -->
-        <div style="display:flex; gap:8px; margin-bottom:8px;">
-          <input type="text" id="cat-icon-url-input" value="${currentImg}" placeholder="${currentLang === 'ar' ? 'أو الصق رابط الصورة هنا (https://...)' : 'Or paste image URL (https://...)'}" style="flex:1;">
-          <button type="button" class="btn btn-secondary" id="btn-set-cat-image" style="white-space:nowrap;">
-            <i class="ph ph-check"></i> ${currentLang === 'ar' ? 'تطبيق' : 'Apply'}
-          </button>
-        </div>
-
-        <!-- Quick Presets -->
-        <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-          <span style="font-size:12px; color:var(--text-muted); align-self:center;">${currentLang === 'ar' ? 'صور جاهزة:' : 'Presets:'}</span>
-          <button type="button" class="btn btn-sm btn-ghost cat-preset-btn" data-url="images/scrub_category.jpg">
-            🩺 ${currentLang === 'ar' ? 'صورة الأسكراب' : 'Scrub Image'}
-          </button>
-          <button type="button" class="btn btn-sm btn-ghost cat-preset-btn" data-url="images/lab_coat_category.jpg">
-            🥼 ${currentLang === 'ar' ? 'صورة البالطو' : 'Lab Coat Image'}
-          </button>
-        </div>
-
-        <input type="hidden" id="cat-icon" value="${currentImg}">
-
-        <!-- Frame Preview -->
-        <div style="margin-top:10px;">
-          <label style="font-size:12px; color:var(--text-muted); margin-bottom:4px; display:block;">
-            ${currentLang === 'ar' ? 'معاينة فريم التصنيف:' : 'Category Frame Preview:'}
-          </label>
-          <div id="cat-img-preview" style="width:100%; max-width:320px; height:140px; border-radius:12px; overflow:hidden; border:1px dashed var(--border); position:relative; background:var(--bg-card); display:flex; align-items:center; justify-content:center;">
-            ${currentImg ? `
-              <img src="${currentImg}" alt="Preview" style="width:100%; height:100%; object-fit:cover;">
-            ` : `
-              <span style="font-size:13px; color:var(--text-muted);">${currentLang === 'ar' ? 'لا توجد صورة محددة' : 'No image selected'}</span>
-            `}
-          </div>
-        </div>
+      <div class="form-group">
+        <label for="cat-icon">${t('admin.icon')}</label>
+        <input type="text" id="cat-icon" value="${currentImg}" placeholder="👕">
       </div>
       <div class="form-group">
         <label for="cat-order">${t('admin.order')}</label>
@@ -1145,50 +1103,6 @@ function openCategoryModal(category = null) {
 
   openModal(title, body, footer);
 
-  const catIconUrlInput = document.getElementById('cat-icon-url-input');
-  const setCatImgBtn = document.getElementById('btn-set-cat-image');
-  const catIconHidden = document.getElementById('cat-icon');
-  const catImgPreview = document.getElementById('cat-img-preview');
-  const fileInput = document.getElementById('cat-file-upload');
-
-  const updatePreview = (url) => {
-    catIconHidden.value = url;
-    if (catIconUrlInput) catIconUrlInput.value = url;
-    catImgPreview.innerHTML = `
-      <img src="${url}" alt="Preview" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/320x140?text=Error'">
-    `;
-  };
-
-  // URL apply button
-  if (setCatImgBtn) {
-    setCatImgBtn.addEventListener('click', () => {
-      const url = catIconUrlInput?.value?.trim();
-      if (url) updatePreview(url);
-    });
-  }
-
-  // File upload reader
-  if (fileInput) {
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          updatePreview(event.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-
-  // Presets click
-  document.querySelectorAll('.cat-preset-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const presetUrl = btn.dataset.url;
-      if (presetUrl) updatePreview(presetUrl);
-    });
-  });
-
   document.getElementById('save-category-btn').addEventListener('click', () => {
     const nameAr = document.getElementById('cat-name-ar').value.trim();
     const nameEn = document.getElementById('cat-name-en').value.trim();
@@ -1201,8 +1115,8 @@ function openCategoryModal(category = null) {
     const data = {
       name_ar: nameAr,
       name_en: nameEn,
-      image: document.getElementById('cat-icon').value.trim(),
       icon: document.getElementById('cat-icon').value.trim(),
+      image: '',
       order: parseInt(document.getElementById('cat-order').value) || 0,
       status: document.getElementById('cat-status').value,
     };
